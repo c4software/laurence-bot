@@ -24,5 +24,5 @@ def preview(**kwargs):
     return chat(kwargs)
 
 if __name__ == '__main__':
-    print ("Serving BOT on {0} port {1} ...".format(IP, PORT))
+    print("Serving BOT on {0} port {1} ...".format(IP, PORT))
     serve(ip=IP, port=PORT)
