@@ -24,7 +24,8 @@ def get_reddit(subreddit):
     try:
         data = callrest(domain="www.reddit.com", port=443, ssl=True, path="/r/{0}/new/.json".format(subreddit), params={})[2]
         return random.choice(json.loads(data).get("data").get("children")).get("data")
-    except:
+    except Exception as e:
+        print (e)
         return ("Oups", "Rien... "+subreddit)
 
 def return_md(message, preview=False):
@@ -60,7 +61,7 @@ def cmd_top10(msg):
     try:
         data = callrest(domain="www.reddit.com", port=443, ssl=True, path="/top/.json", params={"limit":10, "sort":"top", "t":"hour"})[2]
         data = json.loads(data).get("data").get("children")
-        
+
         for element in data:
             try:
                 return_values.append("{title} : {url}".format(**element["data"]))

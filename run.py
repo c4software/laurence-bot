@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 from extended_BaseHTTPServer import serve,route, redirect, override
 from commands import commands
@@ -22,6 +22,10 @@ def form(**kwargs):
 def preview(**kwargs):
     kwargs['preview'] = True
     return chat(kwargs)
+
+@route("/", ["GET"])
+def test(**kwargs):
+    return commands["boobs"](kwargs)
 
 if __name__ == '__main__':
     print("Serving BOT on {0} port {1} ...".format(IP, PORT))

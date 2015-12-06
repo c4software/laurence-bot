@@ -1,10 +1,10 @@
-import BaseHTTPServer
+import http.server
 import logging
 import os
-from urlparse import urlparse,parse_qs
+from urllib.parse import urlparse,parse_qs
 from mimetypes import types_map
 
-from SocketServer import ThreadingMixIn
+from socketserver import ThreadingMixIn
 import threading
 
 
@@ -26,10 +26,10 @@ def override(method=None):
 		return f
 	return decorator
 
-class extended_BaseHTTPServer(BaseHTTPServer.BaseHTTPRequestHandler):
+class extended_BaseHTTPServer(http.server.BaseHTTPRequestHandler):
 	def log_message(self, format, *args):
 		return ""
-		
+
 	def do_HEAD(s):
 		s.send_response(200)
 		s.send_header("Content-type", "text/html")
@@ -45,7 +45,7 @@ class extended_BaseHTTPServer(BaseHTTPServer.BaseHTTPRequestHandler):
 		o = urlparse(s.path)
 		arguments = parse_qs(o.query)
 		s.do_routing(o, arguments, "GET")
-	
+
 	def do_routing(s, o, arguments, action):
 		try:
 			if o.path in register_route[action]:
@@ -87,18 +87,18 @@ def build_response(output, retour, code=200):
 			if header not in ["code","content"]:
 				output.send_header(header, retour[header])
 		output.end_headers()
-		output.wfile.write(retour['content'])
+		output.wfile.write(bytes(retour['content'], "utf-8"))
 	else:
 		output.send_response(code)
 		output.send_header("Content-type", "text/html")
 		output.end_headers()
-		output.wfile.write(retour)
+		output.wfile.write(bytes(retour, "utf-8"))
 
 
 def redirect(location=""):
 	return {"content":"","code":301,"Location":location}
 
-class ThreadedHTTPServer(ThreadingMixIn, BaseHTTPServer.HTTPServer):
+class ThreadedHTTPServer(ThreadingMixIn, http.server.HTTPServer):
     """Handle requests in a separate thread."""
 
 def serve(ip="0.0.0.0", port=5000):

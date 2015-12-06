@@ -1,8 +1,9 @@
-import httplib, urllib
+import http.client, urllib.request, urllib.parse, urllib.error
 import json
 import socket
-import thread
-from urlparse import urlparse
+import _thread
+from urllib.parse import urlparse
+import codecs
 
 USER_AGENT = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.10 Safari/537.36"
 
@@ -13,14 +14,14 @@ def callrest(domain="", port="",path="/",type="GET",params={},timeout=60,encode_
         if port != "":
             port = int(port)
             if ssl:
-                connection = httplib.HTTPSConnection(domain, port, timeout=timeout)
+                connection = http.client.HTTPSConnection(domain, port, timeout=timeout)
             else:
-                connection = httplib.HTTPConnection(domain, port, timeout=timeout)
+                connection = http.client.HTTPConnection(domain, port, timeout=timeout)
         else:
             if ssl:
-                connection = httplib.HTTPSConnection(domain, timeout=timeout)
+                connection = http.client.HTTPSConnection(domain, timeout=timeout)
             else:
-                connection = httplib.HTTPConnection(domain, timeout=timeout)
+                connection = http.client.HTTPConnection(domain, timeout=timeout)
 
         if type == "POST":
             if encode_post_param_as_json:
@@ -28,33 +29,34 @@ def callrest(domain="", port="",path="/",type="GET",params={},timeout=60,encode_
                 params = params.encode('utf-8')
                 headers = override_headers({"User-Agent": USER_AGENT, "Content-type": "application/json","Accept": "application/json"}, user_headers)
             else:
-                params = urllib.urlencode(params)
+                params = urllib.parse.urlencode(params)
                 headers = override_headers({"User-Agent": USER_AGENT, "Content-type": "application/x-www-form-urlencoded","Accept": "*/*"}, user_headers)
 
             connection.request('POST', path, params, headers=headers)
 
         if type == "GET":
             headers = override_headers({"User-Agent": USER_AGENT}, user_headers)
-            params = urllib.urlencode(params)
+            params = urllib.parse.urlencode(params)
             connection.request('GET', path+'?%s' % params, headers=headers)
 
         if type == "PUT":
             headers = override_headers({"User-Agent": USER_AGENT, "Content-type": "application/x-www-form-urlencoded","Accept": "*/*"}, user_headers)
-            params = urllib.urlencode(params)
+            params = urllib.parse.urlencode(params)
             connection.request('PUT', path+'?%s' % params, headers=headers)
 
         result = connection.getresponse()
         if result.status == 302:
             headers = dict(result.getheaders())
-            if headers.has_key('location') and headers['location']:
+            if 'location' in headers and headers['location']:
                 o = urlparse(headers['location'])
                 return callrest(domain=o.netloc, path=o.path)
 
-        return (result.status,result.reason,result.read())
-    except socket.timeout, e:
+        reader = codecs.getreader("utf-8")
+        return (result.status, result.reason, reader(result).read())
+    except socket.timeout as e:
         return (408,"Timeout",None)
     except Exception as e:
-        print "Erreur lors de lexecution de la requete : {0}".format(e)
+        print("Erreur lors de lexecution de la requete : {0}".format(e))
         return (500,"Internal Error",None)
     finally:
         if connection:
@@ -63,8 +65,8 @@ def callrest(domain="", port="",path="/",type="GET",params={},timeout=60,encode_
     return (500,"Internal Error",None)
 
 def override_headers(headers, user_headers):
-    return dict(headers.items()+user_headers.items())
+    return dict(list(headers.items())+list(user_headers.items()))
 
 def call_async(domain="", port="",path="/",type="GET",params={},timeout=10,encode_post_param_as_json=False):
     # Appel de la fonction sans attendre de retour.
-    thread.start_new_thread(callrest, (domain, port,path,type,params,timeout,encode_post_param_as_json))
+    _thread.start_new_thread(callrest, (domain, port,path,type,params,timeout,encode_post_param_as_json))
