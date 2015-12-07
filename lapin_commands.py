@@ -24,5 +24,5 @@ def cmd_stop(msg):
 
 
 def cmd_play(msg):
-    params = {"file": msg.split(' ')[1]}
+    params = {"file": msg["text"][0].split(' ')[2]}
     return launch_play(params)
