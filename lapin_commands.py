@@ -4,7 +4,7 @@ from rest import callrest
 def launch_stop():
     try:
         data = callrest(domain="vbr.dev", port=8000, ssl=False, path="/stop", params={})[2]
-        return "ok"
+        return ""
     except Exception as e:
         print (e)
         return "Erreur"
@@ -13,7 +13,7 @@ def launch_stop():
 def launch_play(params):
     try:
         data = callrest(domain="vbr.dev", port=8000, ssl=False, path="/play", params=params)[2]
-        return "ok"
+        return ""
     except Exception as e:
         print (e)
         return "Erreur"
