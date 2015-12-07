@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from reddit_commands import *
+from lapin_commands import *
 from general import *
 
 commands = {
@@ -18,5 +19,7 @@ commands = {
     "cute": cmd_cute,
     "boobs": cmd_boobs,
     "top10": cmd_top10,
-    "aide": cmd_aide
+    "aide": cmd_aide,
+    "play": cmd_play,
+    "stop": cmd_stop
 }
