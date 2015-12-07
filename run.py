@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+import json
+
 from extended_BaseHTTPServer import serve,route, redirect, override
 from rest import callrest
 from commands import commands
@@ -15,10 +17,8 @@ def chat(kwargs):
         pass
 
 def welcome():
-    params = {
-        'payload': '{"text": "Bonjour, c\'est à vous !"}'
-    }
-    data = callrest(domain=MATTERMOST_DOMAIN, type="POST", path=MATTERMOST_PATH, params=params)
+    params = {"text": "Bonjour! Je suis {0}, et je suis à votre écoute !".format(PSEUDO), "username": PSEUDO}
+    data = callrest(domain=MATTERMOST_DOMAIN, type="POST", path=MATTERMOST_PATH, params={"payload": json.dumps(params)})
 
 @route("/",["POST"])
 def form(**kwargs):
@@ -29,10 +29,6 @@ def form(**kwargs):
 def preview(**kwargs):
     kwargs['preview'] = True
     return chat(kwargs)
-
-@route("/", ["GET"])
-def test(**kwargs):
-    return commands["boobs"](kwargs)
 
 if __name__ == '__main__':
     print("Serving BOT on {0} port {1} ...".format(IP, PORT))

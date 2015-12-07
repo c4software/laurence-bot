@@ -9,10 +9,9 @@ foods = ["FoodPorn"]
 images = ["Cinemagraphs","MSPaintBattles", "Photobomb", "photoshopfail", "ITookAPicture", "photoshopbattles", "pic", "pics", "EarthPorn", "SpaceGifs"]
 lols = ["ProgrammerHumor", "funny", "lolcats", "cats", "pets", "CatGifs", "lolcats", "aww"]
 gifs = ["gifs", "CatGifs", "perfectLoops", "SurrealGifs", "SpaceGifs","aww"]
-musics = ["coversongs"]
 others = ["Futurology", "Nostalgia","ads","france", "CollegeCooking", "EarthPorn", "history", "videos","worldnews", "random", "random", "random"]
 
-subreddits = [sexys, porns, boobs, foods, images, lols, gifs, musics, others]
+subreddits = [sexys, porns, boobs, foods, images, lols, gifs, others]
 
 def get_reddit_random():
         # On melange les categorie principale.
