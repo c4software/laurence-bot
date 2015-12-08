@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from rest import callrest
-from settings import SMALLNABS_DOMAIN, SMALLNABS_PORT
+from settings import SMALLNABZ_DOMAIN, SMALLNABZ_PORT
 
 def launch_stop():
     try:
