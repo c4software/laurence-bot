@@ -6,7 +6,7 @@ from .decorators import register_as_command
 
 def launch_stop():
     try:
-        data = callrest(domain=SMALLNABS_DOMAIN, port=SMALLNABS_PORT, path="/stop", params={})[2]
+        data = callrest(domain=SMALLNABZ_DOMAIN, port=SMALLNABZ_PORT, path="/stop", params={})[2]
         return ""
     except Exception as e:
         print (e)
@@ -15,7 +15,7 @@ def launch_stop():
 
 def launch_play(params):
     try:
-        data = callrest(domain=SMALLNABS_DOMAIN, port=SMALLNABS_PORT, path="/play", params=params)[2]
+        data = callrest(domain=SMALLNABZ_DOMAIN, port=SMALLNABZ_PORT, path="/play", params=params)[2]
         return ""
     except Exception as e:
         print (e)
