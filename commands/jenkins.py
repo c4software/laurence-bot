@@ -14,10 +14,11 @@ def cmd_building(data):
             if "_anime" in job['color']:
                 currently_building.append("{0} ({1})".format(job['name'], job['url']))
 
+    message = "Aucun build en cours"
     if currently_building:
-        return "Job en cours : \r\n- {0}".format("\r\n- ".join(currently_building))
-    else:
-        return "Aucun build en cours"
+        message = "- {0}".format("\r\n- ".join(currently_building))
+
+    return make_message("Jenkins", "http://jenkins.dev:8070/static/b68f063e/favicon.ico", message,"", "Liste des builds", "http://jenkins.dev:8070/", message, "#7A9EC5")
 
 @register_as_command("jbuild")
 def cmd_build(data):
