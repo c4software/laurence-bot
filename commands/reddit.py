@@ -6,8 +6,8 @@ from rest import callrest
 
 nsfw = ["SexyFrex","Upskirt","CelebsPrivate", "boobbounce","hugeboobs", "TheUnderboob", "homegrowntits", "TittyDrop","latinas" ,"curvy", "chubby", "nsfwoutfits", "Bondage","girlsinyogapants","OnOff", "ass", "collegesluts", "tinytits","milf", "christiangirls","collegensfw","thighhighs","palegirls","latinas" ,"redheads", "Playboy", "rearpussy", "datgap", "DirtySmall","tinytits","pussy", "nsfw_bw", "sweatermeat", "sexyfrex", "bustypetite", "asshole","Bondage","GWCouples","asstastic","penis","OnOff", "ass","PreggoPorn","AmateurArchives","chubby","BubbleButts","collegensfw","thighhighs","rule34","nsfw","latinas","nsfw_gifs","nsfwoutfits","nsfw_gif", "60fpsporn", "WTF", "NSFW_WTF","Fisting", "gonewild","Unashamed","NotSafeForNature", "milf","blowjobs", "shewantstofuck","curvy","TwinGirls","Orgasms","CollegeAmateurs", "DirtySmall","tinytits","pussy"]
 foods = ["FoodPorn"]
-images = ["Cinemagraphs","MSPaintBattles", "Photobomb", "photoshopfail", "ITookAPicture", "photoshopbattles", "pic", "pics", "EarthPorn", "SpaceGifs"]
-lols = ["ProgrammerHumor", "funny", "lolcats", "cats", "pets", "CatGifs", "lolcats", "aww"]
+images = ["Cinemagraphs","bridgeporn","spaceporn","AuroraPorn","SkyPorn","ExposurePorn", "Photobomb", "photoshopfail", "ITookAPicture", "photoshopbattles", "pic", "pics", "EarthPorn"]
+lols = ["funny", "lolcats", "cats", "pets", "CatGifs", "lolcats", "aww"]
 gifs = ["gifs", "CatGifs", "perfectLoops", "SurrealGifs", "SpaceGifs","aww"]
 others = ["Futurology", "Nostalgia","ads","france", "CollegeCooking", "EarthPorn", "history", "videos","worldnews", "random", "random", "random"]
 
