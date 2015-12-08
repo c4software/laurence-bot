@@ -16,7 +16,7 @@ def cmd_building(data):
 
 def cmd_build(data):
     job = data["text"][0].split(' ')[2]
-    get_jenkins_data("/job/{0}/build?delay=0sec".format(job))
+    get_jenkins_data("/job/{0}/build".format(job))
     return "Lancement du build"
 
 def get_jenkins_data(path):

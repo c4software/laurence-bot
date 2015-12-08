@@ -16,5 +16,6 @@ commands = {
     "aide": cmd_aide,
     "play": cmd_play,
     "stop": cmd_stop,
-    "jstatus": cmd_building
+    "jstatus": cmd_building,
+    "jbuild": cmd_build
 }
