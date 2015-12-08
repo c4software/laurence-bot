@@ -14,6 +14,11 @@ def cmd_building(data):
     if currently_building is not None:
         return "Job en cours : \r\n- {0}".format("\r\n- ".join(currently_building))
 
+def cmd_build(data):
+    job = data["text"][0].split(' ')[2]
+    get_jenkins_data("/job/{0}/build?delay=0sec".format(job))
+    return "Lancement du build"
+
 def get_jenkins_data(path):
     try:
         return callrest(domain=JENKINS_DOMAIN,port=JENKIN_PORT, path=path, params={})[2]
