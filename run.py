@@ -11,8 +11,10 @@ def chat(kwargs):
     try:
         commande = kwargs['text'][0].split(' ')[1]
         if commande in commands:
-            ret = {"text": commands[commande](kwargs), "username": PSEUDO}
-            return json.dumps(ret)
+            retour = commands[commande](kwargs)
+            if retour != "" and retour is not None:
+                ret = {"text": commands[commande](kwargs), "username": PSEUDO}
+                return json.dumps(ret)
     except Exception as e:
         pass
 

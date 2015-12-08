@@ -3,6 +3,7 @@
 from .reddit import *
 from .lapin import *
 from .general import *
+from .jenkins import *
 
 commands = {
     "bonjour": cmd_bonjour,
@@ -14,5 +15,6 @@ commands = {
     "top10": cmd_top10,
     "aide": cmd_aide,
     "play": cmd_play,
-    "stop": cmd_stop
+    "stop": cmd_stop,
+    "jstatus": cmd_building
 }
