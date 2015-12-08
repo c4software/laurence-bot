@@ -17,7 +17,7 @@ def chat(kwargs):
         pass
 
 def welcome():
-    params = {"text": "Bonjour! Je suis {0}, et j'aime les gros boobs !".format(PSEUDO), "username": PSEUDO}
+    params = {"text": "Bonjour! Ready !".format(PSEUDO), "username": PSEUDO}
     data = callrest(domain=MATTERMOST_DOMAIN, type="POST", path=MATTERMOST_PATH, params={"payload": json.dumps(params)})
 
 @route("/",["POST"])
