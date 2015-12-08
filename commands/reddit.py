@@ -3,6 +3,7 @@
 import random
 import json
 from rest import callrest
+from .decorators import register_as_command
 
 nsfw = ["SexyFrex","Upskirt","CelebsPrivate", "boobbounce","hugeboobs", "TheUnderboob", "homegrowntits", "TittyDrop","latinas" ,"curvy", "chubby", "nsfwoutfits", "Bondage","girlsinyogapants","OnOff", "ass", "collegesluts", "tinytits","milf", "christiangirls","collegensfw","thighhighs","palegirls","latinas" ,"redheads", "Playboy", "rearpussy", "datgap", "DirtySmall","tinytits","pussy", "nsfw_bw", "sweatermeat", "sexyfrex", "bustypetite", "asshole","Bondage","GWCouples","asstastic","penis","OnOff", "ass","PreggoPorn","AmateurArchives","chubby","BubbleButts","collegensfw","thighhighs","rule34","nsfw","latinas","nsfw_gifs","nsfwoutfits","nsfw_gif", "60fpsporn", "WTF", "NSFW_WTF","Fisting", "gonewild","Unashamed","NotSafeForNature", "milf","blowjobs", "shewantstofuck","curvy","TwinGirls","Orgasms","CollegeAmateurs", "DirtySmall","tinytits","pussy"]
 foods = ["FoodPorn"]
@@ -34,21 +35,27 @@ def return_md(message, preview=False):
     else:
         return "{0} : {1}".format(message.get("title"), url)
 
+@register_as_command("random")
 def cmd_random(msg):
     return return_md(get_reddit_random(), False)
 
+@register_as_command("nsfw")
 def cmd_nsfw(msg):
     return return_md(get_reddit(random.choice(nsfw)), False)
 
+@register_as_command("image")
 def cmd_image(msg):
 	return return_md(get_reddit(random.choice(images)), msg.get("preview", False))
 
+@register_as_command("gif")
 def cmd_gif(msg):
 	return return_md(get_reddit(random.choice(gifs)), msg.get("preview", False))
 
+@register_as_command("cute")
 def cmd_cute(msg):
 	return return_md(get_reddit(random.choice(lols)), msg.get("preview", False))
 
+@register_as_command("top10")
 def cmd_top10(msg):
     return_values = []
     try:

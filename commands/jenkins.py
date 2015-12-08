@@ -1,7 +1,10 @@
 import json
 from rest import callrest
 from settings import JENKINS_DOMAIN, JENKIN_PORT
+from libs import make_message
+from .decorators import register_as_command
 
+@register_as_command("jstatus")
 def cmd_building(data):
     data = get_jenkins_data("/api/json")
     currently_building = []
@@ -16,10 +19,11 @@ def cmd_building(data):
     else:
         return "Aucun build en cours"
 
+@register_as_command("jbuild")
 def cmd_build(data):
     job = data["text"][0].split(' ')[2]
     get_jenkins_data("/job/{0}/build".format(job))
-    return "Lancement du build"
+    return make_message("Jenkins", "http://jenkins.dev:8070/static/b68f063e/favicon.ico","Lancement du build ok.","", "Lancement du build", "http://jenkins.dev:8070/job/{0}".format(job), "Lancement du build OK.", "#7A9EC5")
 
 def get_jenkins_data(path):
     try:

@@ -2,6 +2,7 @@
 
 from rest import callrest
 from settings import SMALLNABZ_DOMAIN, SMALLNABZ_PORT
+from .decorators import register_as_command
 
 def launch_stop():
     try:
@@ -20,11 +21,11 @@ def launch_play(params):
         print (e)
         return "Erreur"
 
-
+@register_as_command("stop")
 def cmd_stop(msg):
     return launch_stop()
 
-
+@register_as_command("play")
 def cmd_play(msg):
     params = {"file": msg["text"][0].split(' ')[2]}
     return launch_play(params)
