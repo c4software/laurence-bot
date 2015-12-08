@@ -11,8 +11,10 @@ def cmd_building(data):
             if "_anime" in job['color']:
                 currently_building.append("{0} ({1})".format(job['name'], job['url']))
 
-    if currently_building is not None:
+    if currently_building:
         return "Job en cours : \r\n- {0}".format("\r\n- ".join(currently_building))
+    else:
+        return "Aucun build en cours"
 
 def cmd_build(data):
     job = data["text"][0].split(' ')[2]
