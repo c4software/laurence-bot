@@ -11,3 +11,6 @@ SMALLNABZ_PORT = 8000
 
 JENKINS_DOMAIN = "jenkins.dev"
 JENKIN_PORT = 8070
+
+CHUCK_DOMAIN = "chucknorrisfacts.fr"
+CHUCK_PATH = "/api/get?data=tri:alea;type:txt&nb:1;page:1"
