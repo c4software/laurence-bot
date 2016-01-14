@@ -5,6 +5,10 @@ import json
 from rest import callrest
 from .decorators import register_as_command
 
+from bs4 import BeautifulSoup
+from expiringdict import ExpiringDict
+cache = ExpiringDict(max_len=1, max_age_seconds=3600)
+
 nsfw = ["SexyFrex","Upskirt","CelebsPrivate", "boobbounce","hugeboobs", "TheUnderboob", "homegrowntits", "TittyDrop","latinas" ,"curvy", "chubby", "nsfwoutfits", "Bondage","girlsinyogapants","OnOff", "ass", "collegesluts", "tinytits","milf", "christiangirls","collegensfw","thighhighs","palegirls","latinas" ,"redheads", "Playboy", "rearpussy", "datgap", "DirtySmall","tinytits","pussy", "nsfw_bw", "sweatermeat", "sexyfrex", "bustypetite", "asshole","Bondage","GWCouples","asstastic","penis","OnOff", "ass","PreggoPorn","AmateurArchives","chubby","BubbleButts","collegensfw","thighhighs","rule34","nsfw","latinas","nsfw_gifs","nsfwoutfits","nsfw_gif", "60fpsporn", "WTF", "NSFW_WTF","Fisting", "gonewild","Unashamed","NotSafeForNature", "milf","blowjobs", "shewantstofuck","curvy","TwinGirls","Orgasms","CollegeAmateurs", "DirtySmall","tinytits","pussy"]
 foods = ["FoodPorn"]
 images = ["Cinemagraphs","bridgeporn","spaceporn","AuroraPorn","SkyPorn","ExposurePorn", "Photobomb", "photoshopfail", "ITookAPicture", "photoshopbattles", "pic", "pics", "EarthPorn"]
@@ -35,9 +39,21 @@ def return_md(message, preview=False):
     else:
         return "{0} : {1}".format(message.get("title"), url)
 
+def get_redditlist():
+    if "redditlist" not in cache:
+        cache["redditlist"] = callrest(domain="redditlist.com", type="GET", path="/nsfw", params={})[2]
+
+    soup = BeautifulSoup(cache["redditlist"], "html.parser")
+    links = soup.find_all("div", class_="listing-item")
+    subReddit = random.choice(links).get("data-target-subreddit", "android")
+
+    return get_reddit(subReddit, False)
+
+
 @register_as_command("random")
 def cmd_random(msg):
-    return return_md(get_reddit_random(), False)
+    # return return_md(get_reddit_random(), False)
+    return return_md(get_redditlist())
 
 @register_as_command("nsfw")
 def cmd_nsfw(msg):
