@@ -39,7 +39,7 @@ def return_md(message, preview=False):
         return "{0} : {1}".format(message.get("title"), url)
 
 def get_redditlist(type_reddit="all"):
-    cache_key = "redditlist_{0}"
+    cache_key = "redditlist_{0}".format(type_reddit)
     if cache_key not in cache:
         cache[cache_key] = callrest(domain="redditlist.com", type="GET", path="/{0}".format(type_reddit), params={})[2]
 
