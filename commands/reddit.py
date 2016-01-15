@@ -47,13 +47,13 @@ def get_redditlist():
     links = soup.find_all("div", class_="listing-item")
     subReddit = random.choice(links).get("data-target-subreddit", "android")
 
-    return get_reddit(subReddit, False)
+    return get_reddit(subReddit)
 
 
 @register_as_command("random")
 def cmd_random(msg):
     # return return_md(get_reddit_random(), False)
-    return return_md(get_redditlist())
+    return return_md(get_redditlist(), False)
 
 @register_as_command("nsfw")
 def cmd_nsfw(msg):
