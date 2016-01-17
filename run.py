@@ -38,16 +38,6 @@ def preview(**kwargs):
     kwargs['preview'] = True
     return chat(kwargs)
 
-@route("/test",["GET"])
-def test(**kwargs):
-    from bs4 import BeautifulSoup
-    import random
-    result = callrest(domain="redditlist.com", type="GET", path="/nsfw", params={})
-    soup = BeautifulSoup(result[2], "html.parser")
-    link = soup.find_all("div", class_="listing-item")
-    print (random.choice(link).get("data-target-subreddit", "android"))
-    return ""
-
 if __name__ == '__main__':
     print("Serving BOT on {0} port {1} ...".format(IP, PORT))
     #welcome()
