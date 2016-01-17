@@ -1,6 +1,6 @@
 commands = {}
 
-def register_as_command(command_name):
+def register_as_command(command_name, description):
     def wrap(f):
         commands[command_name] = f
         def wrapped_f(*args):
