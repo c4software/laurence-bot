@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 import json
 
@@ -31,11 +30,6 @@ def welcome():
 @route("/",["POST"])
 def form(**kwargs):
     kwargs['preview'] = False
-    return chat(kwargs)
-
-@route("/preview",["POST"])
-def preview(**kwargs):
-    kwargs['preview'] = True
     return chat(kwargs)
 
 if __name__ == '__main__':
