@@ -9,19 +9,13 @@ from bs4 import BeautifulSoup
 from expiringdict import ExpiringDict
 cache = ExpiringDict(max_len=1, max_age_seconds=3600)
 
-foods = ["FoodPorn"]
-images = ["Cinemagraphs","bridgeporn","spaceporn","AuroraPorn","SkyPorn","ExposurePorn", "Photobomb", "photoshopfail", "ITookAPicture", "photoshopbattles", "pic", "pics", "EarthPorn"]
-lols = ["funny", "lolcats", "cats", "pets", "CatGifs", "lolcats", "aww"]
-gifs = ["gifs", "CatGifs", "perfectLoops", "SurrealGifs", "SpaceGifs","aww"]
-others = ["Futurology", "Nostalgia","ads","france", "CollegeCooking", "EarthPorn", "history", "videos","worldnews", "random", "random", "random"]
-
-subreddits = [foods, images, lols, gifs, others]
+from settings import REDDIT_ALL, REDDIT_IMAGE, REDDIT_LOL, REDDIT_GIF, REDDIT_OTHER
 
 def get_reddit_random():
         # On melange les categorie principale.
-        random.shuffle(subreddits)
+        random.shuffle(REDDIT_ALL)
         # Recuperation d'un subbreddit dans les categories.
-        return get_reddit(random.choice(random.choice(subreddits)))
+        return get_reddit(random.choice(random.choice(REDDIT_ALL)))
 
 def get_reddit(subreddit):
     try:
@@ -41,13 +35,19 @@ def return_md(message, preview=False):
 def get_redditlist(type_reddit="all"):
     cache_key = "redditlist_{0}".format(type_reddit)
     if cache_key not in cache:
-        cache[cache_key] = callrest(domain="redditlist.com", type="GET", path="/{0}".format(type_reddit), params={})[2]
+        result = callrest(domain="redditlist.com", type="GET", path="/{0}".format(type_reddit), params={})
+        if result[0] == 200:
+            cache[cache_key] = result[2]
+        else:
+            return get_reddit_random()
 
     soup = BeautifulSoup(cache[cache_key], "html.parser")
     links = soup.find_all("div", class_="listing-item")
-    subReddit = random.choice(links).get("data-target-subreddit", "android")
-
-    return get_reddit(subReddit)
+    if len(links)>0:
+        subReddit = random.choice(links).get("data-target-subreddit", "")
+        return get_reddit(subReddit)
+    else:
+        return get_reddit_random()
 
 
 @register_as_command("random")
@@ -62,15 +62,15 @@ def cmd_nsfw(msg):
 
 @register_as_command("image")
 def cmd_image(msg):
-	return return_md(get_reddit(random.choice(images)), msg.get("preview", False))
+	return return_md(get_reddit(random.choice(REDDIT_IMAGE)), msg.get("preview", False))
 
 @register_as_command("gif")
 def cmd_gif(msg):
-	return return_md(get_reddit(random.choice(gifs)), msg.get("preview", False))
+	return return_md(get_reddit(random.choice(REDDIT_GIF)), msg.get("preview", False))
 
 @register_as_command("cute")
 def cmd_cute(msg):
-	return return_md(get_reddit(random.choice(lols)), msg.get("preview", False))
+	return return_md(get_reddit(random.choice(REDDIT_LOL)), msg.get("preview", False))
 
 @register_as_command("top10")
 def cmd_top10(msg):
