@@ -14,10 +14,10 @@ $ python run.py
 Serving BOT on 0.0.0.0 port 5001 ...
 ```
 
-## Modules
+## Commandes disponnible 
 Les commandes sont modulaires, voilà la liste des commandes déjà présentes : 
 
 - Chuck Norris Fact
 - Jenkins
-- Reddit
+- Reddit (Via Redditlist)
 - SmallNabz (cf. https://github.com/c4software/basehttpserver-wrapper/blob/master/SAMPLE/nabz.py)
