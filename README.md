@@ -1,11 +1,15 @@
 # Mattermost-bot
 Un bot simple et sans prétention, pour animer notre salon mattermost interne… 
 
-## Fonctionnement 
-Python3, aucune dépendance externe
+## Requiert   
+- Python3
+- beautifulsoup4
 
 ## Paramétrage
 Todo
 
 ## Utilisation
-Todo
+```bash
+$ python run.py
+Serving BOT on 0.0.0.0 port 5001 ...
+```
