@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import http.client, urllib.request, urllib.parse, urllib.error
 import json
 import socket
@@ -48,14 +50,9 @@ def callrest(domain="", port="",path="/",type="GET",params={},timeout=60,encode_
 
         reader = codecs.getreader("utf-8")
         if result.status == 302:
-            headers = dict(result.getheaders())
-            if 'location' in headers and headers['location']:
-                o = urlparse(headers['location'])
-                return callrest(domain=o.netloc, path=o.path)
-
-            if 'Location' in headers and headers['Location']:
-                o = urlparse(headers['Location'])
-                return callrest(domain=o.netloc, path=o.path, user_headers=user_headers)
+            if result.getheader("location", False) or result.getheader("Location", False):
+                o = urlparse(result.getheader("location", False) or result.getheader("Location", False))
+                return callrest(domain=o.netloc, path=urllib.parse.quote(o.path.encode("utf-8")), user_headers=user_headers)
 
 
         return (result.status, result.reason, reader(result).read())

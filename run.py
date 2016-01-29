@@ -7,11 +7,6 @@ from commands.decorators import commands
 from settings import *
 import random
 
-import markovify
-with open("data/history.txt") as f:
-    text = f.read()
-text_model = markovify.Text(text)
-
 def chat(kwargs):
     try:
         commande = kwargs['text'][0].split(' ')[1]
@@ -38,12 +33,18 @@ def form(**kwargs):
     kwargs['preview'] = False
     return chat(kwargs)
 
-@route("/markovify", ['POST'])
-def markovify(**kwargs):
-    global text_model
-    ret = {"text": text_model.make_short_sentence(140), "username": PSEUDO}
-    return json.dumps(ret)
-
+try:
+    import markovify
+    with open("data/history.txt") as f:
+        text = f.read()
+    text_model = markovify.Text(text)
+    @route("/markovify", ['POST'])
+    def markovify(**kwargs):
+        global text_model
+        ret = {"text": text_model.make_short_sentence(140), "username": PSEUDO}
+        return json.dumps(ret)
+except:
+    pass
 
 if __name__ == '__main__':
     print("Serving BOT on {0} port {1} ...".format(IP, PORT))
