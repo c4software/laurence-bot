@@ -45,13 +45,19 @@ def callrest(domain="", port="",path="/",type="GET",params={},timeout=60,encode_
             connection.request('PUT', path+'?%s' % params, headers=headers)
 
         result = connection.getresponse()
+
+        reader = codecs.getreader("utf-8")
         if result.status == 302:
             headers = dict(result.getheaders())
             if 'location' in headers and headers['location']:
                 o = urlparse(headers['location'])
                 return callrest(domain=o.netloc, path=o.path)
 
-        reader = codecs.getreader("utf-8")
+            if 'Location' in headers and headers['Location']:
+                o = urlparse(headers['Location'])
+                return callrest(domain=o.netloc, path=o.path, user_headers=user_headers)
+
+
         return (result.status, result.reason, reader(result).read())
     except socket.timeout as e:
         return (408,"Timeout",None)

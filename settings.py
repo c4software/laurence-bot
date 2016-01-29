@@ -20,3 +20,6 @@ REDDIT_LOL = ["funny", "lolcats", "cats", "pets", "CatGifs", "lolcats", "aww"]
 REDDIT_GIF = ["gifs", "CatGifs", "perfectLoops", "SurrealGifs", "SpaceGifs","aww"]
 REDDIT_OTHER = ["Futurology", "Nostalgia","ads","france", "CollegeCooking", "EarthPorn", "history", "videos","worldnews", "random", "random", "random"]
 REDDIT_ALL = [REDDIT_IMAGE, REDDIT_LOL, REDDIT_GIF, REDDIT_OTHER]
+
+JOIESDUCODE_URL = "lesjoiesducode.fr"
+JOIESDUCODE_PATH = "/random"
