@@ -52,13 +52,19 @@ def get_redditlist(type_reddit="all"):
 
 @register_as_command("random", "Retourne un résultat aléatoire depuis redditlist")
 def cmd_random(msg):
-    # return return_md(get_reddit_random(), False)
-    return return_md(get_redditlist("all"), False)
+    if msg.get("channel_name", [''])[0] == "nsfw":
+        data = get_redditlist("nsfw")
+    else:
+        data = get_redditlist("sfw")
+    return return_md(data, False)
 
 @register_as_command("nsfw", "Retourne un résultat aléatoire, enfin aléatoire…")
 def cmd_nsfw(msg):
-    #return return_md(get_reddit(random.choice(nsfw)), False)
-    return return_md(get_redditlist("nsfw"), False)
+    if msg.get("channel_name", [''])[0] == "nsfw":
+        #return return_md(get_reddit(random.choice(nsfw)), False)
+        return return_md(get_redditlist("nsfw"), False)
+    else:
+        return "## Mauvais channel"
 
 @register_as_command("image", "Retourne une image de reddit (sfw)")
 def cmd_image(msg):
