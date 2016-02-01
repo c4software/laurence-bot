@@ -12,7 +12,6 @@ def get_viedemerde():
     try:
         data = callrest(domain=VDM_URL, port="80", path=VDM_PATH, user_headers={"Accept-Charset": "utf-8"})[2]
         soup = BeautifulSoup(data, "html.parser")
-        print("-----> " + soup.select("div.post.article")[0].p.text)
         texte = soup.select("div.post.article")[0].p.text
 
         return return_md(texte)
