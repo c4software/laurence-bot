@@ -23,3 +23,6 @@ REDDIT_ALL = [REDDIT_IMAGE, REDDIT_LOL, REDDIT_GIF, REDDIT_OTHER]
 
 JOIESDUCODE_URL = "lesjoiesducode.fr"
 JOIESDUCODE_PATH = "/random"
+
+VDM_URL = "www.viedemerde.fr"
+VDM_PATH = "/aleatoire?"
