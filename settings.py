@@ -26,3 +26,6 @@ JOIESDUCODE_PATH = "/random"
 
 VDM_URL = "www.viedemerde.fr"
 VDM_PATH = "/aleatoire?"
+
+FML_URL = "www.fmylife.com"
+FML_PATH = "/random?"
