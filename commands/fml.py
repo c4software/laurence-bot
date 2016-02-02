@@ -5,7 +5,7 @@ from .decorators import register_as_command
 
 from bs4 import BeautifulSoup
 
-from settings import VDM_URL, VDM_PATH
+from settings import FML_URL, FML_PATH
 
 
 def get_fuckmylife():
