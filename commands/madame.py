@@ -1,0 +1,30 @@
+# -*- coding: utf-8 -*-
+
+from rest import callrest
+from .decorators import register_as_command
+
+from bs4 import BeautifulSoup
+
+from settings import MADAME_URL, MADAME_PATH
+
+
+def get_madame():
+    try:
+        data = callrest(domain=MADAME_URL, port="80", path=MADAME_PATH, user_headers={"Accept-Charset": "utf-8"})[2]
+        print(data)
+        soup = BeautifulSoup(data, "html.parser")
+        image = soup.find_all("div", class_="photo")[0].find("img")['src']
+        print("---> {0}".format(image))
+        return return_md(image)
+    except Exception as e:
+        print(e)
+        return ("Oups", "Rien... ")
+
+
+def return_md(image):
+    return "![image]({0})".format(image)
+
+
+@register_as_command("madame", "Affiche un bonjour madame aléatoire")
+def cmd_madame(msg):
+    return get_madame()
