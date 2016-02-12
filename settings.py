@@ -1,4 +1,4 @@
-PORT = 5010
+PORT = 5001
 IP = "0.0.0.0"
 
 PSEUDO = "Laurence"
