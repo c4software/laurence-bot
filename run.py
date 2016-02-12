@@ -5,6 +5,7 @@ from extended_BaseHTTPServer import serve,route, redirect, override
 from rest import callrest
 from commands.decorators import commands
 from settings import *
+from commands import giphy
 import random
 
 def chat(kwargs):
@@ -19,6 +20,8 @@ def chat(kwargs):
                 else:
                     # Impossible de retourner un message enrichie alors, on passe par l'API
                     callrest(domain=MATTERMOST_DOMAIN, type="POST", path=MATTERMOST_PATH, params={"payload": json.dumps(retour)})
+        else:
+            return giphy.cmd_default_gyphy(kwargs)
 
     except Exception as e:
         print (e)
