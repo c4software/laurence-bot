@@ -36,6 +36,9 @@ FML_PATH = "/random?"
 MADAME_URL = "ditesbonjouralamadame.tumblr.com"
 MADAME_PATH = "/random"
 
+MADEMOISELLE_URL = "bonjourmademoiselle.fr"
+MADEMOISELLE_PATH = "/random"
+
 GIPHY_URL = "giphy.p.mashape.com"
 GIPHY_PATH = "/v1/gifs/random"
 GIPHY_API_KEY = "dc6zaTOxFJmzC"
