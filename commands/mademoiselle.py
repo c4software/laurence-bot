@@ -15,6 +15,7 @@ def get_mademoiselle():
         image = soup.find_all("div", class_="photo")[0].find("img")['src']
         return return_md(image)
     except Exception as e:
+        print (e)
         return ("Oups", "Rien... ")
 
 
@@ -22,6 +23,6 @@ def return_md(image):
     return "![image]({0})".format(image)
 
 
-@register_as_command("mademoiselle", "Affiche un bonjour mademoiselle aléatoire")
+@register_as_command("mlle", "Affiche un bonjour mademoiselle aléatoire")
 def cmd_mademoiselle(msg):
     return get_mademoiselle()
