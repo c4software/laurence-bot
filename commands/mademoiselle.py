@@ -5,7 +5,7 @@ from .decorators import register_as_command
 
 from bs4 import BeautifulSoup
 
-from settings import MADAME_URL, MADAME_PATH
+from settings import MADEMOISELLE_URL, MADEMOISELLE_PATH
 
 
 def get_mademoiselle():
@@ -22,7 +22,6 @@ def return_md(image):
     return "![image]({0})".format(image)
 
 
-@register_as_command("mlle", "Affiche un bonjour mademoiselle aléatoire")
 @register_as_command("mademoiselle", "Affiche un bonjour mademoiselle aléatoire")
 def cmd_mademoiselle(msg):
     return get_mademoiselle()
