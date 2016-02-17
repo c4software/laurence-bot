@@ -48,6 +48,6 @@ def signal_handler(signal, frame):
 
 if __name__ == '__main__':
     print("Serving BOT on {0} port {1} ...".format(IP, PORT))
-    #welcome()
+    welcome()
     signal.signal(signal.SIGINT, signal_handler)
     serve(ip=IP, port=PORT)
