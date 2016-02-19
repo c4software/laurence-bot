@@ -17,7 +17,7 @@ def chat(kwargs):
             retour = commands[commande](kwargs)
             if retour != "" and retour is not None:
                 if type(retour) is str:
-                    build_repsonse(kwargs, retour)
+                    return build_repsonse(kwargs, retour)
                 else:
                     # Impossible de retourner un message enrichie alors, on passe par l'API
                     callrest(domain=MATTERMOST_DOMAIN, type="POST", path=MATTERMOST_PATH, params={"payload": json.dumps(retour)})
