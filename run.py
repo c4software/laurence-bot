@@ -17,17 +17,22 @@ def chat(kwargs):
             retour = commands[commande](kwargs)
             if retour != "" and retour is not None:
                 if type(retour) is str:
-                    ret = {"text": retour, "username": PSEUDO}
-                    return json.dumps(ret)
+                    build_repsonse(kwargs, retour)
                 else:
                     # Impossible de retourner un message enrichie alors, on passe par l'API
                     callrest(domain=MATTERMOST_DOMAIN, type="POST", path=MATTERMOST_PATH, params={"payload": json.dumps(retour)})
         else:
-            return giphy.cmd_default_gyphy(kwargs)
+            return build_repsonse(kwargs, giphy.get_gyphy("".join(kwargs["text"][0].split(' ')[1:])))
 
     except Exception as e:
         print (e)
         pass
+
+def build_repsonse(kwargs, retour):
+    ret = {"text": retour, "username": PSEUDO}
+    if kwargs['slash_command']:
+        ret["response_type"] = "in_channel"
+    return json.dumps(ret)
 
 def welcome():
     params = {"username": PSEUDO, "attachments": [{"color": "#3c901a", "title": PSEUDO, "text":"System Ready !".format(PSEUDO)}]}
@@ -40,6 +45,14 @@ def aurevoir():
 @route("/",["POST"])
 def form(**kwargs):
     kwargs['preview'] = False
+
+    # Ajout de la gestion des slash commands (pour l'instant transformation en commande normal)
+    if "command" in kwargs:
+        kwargs['text'][0] = "{0} {1}".format(kwargs['command'][0].replace("/", ""), kwargs['text'][0])
+        kwargs['slash_command'] = True
+    else:
+        kwargs['slash_command'] = False
+
     return chat(kwargs)
 
 def signal_handler(signal, frame):
@@ -48,6 +61,6 @@ def signal_handler(signal, frame):
 
 if __name__ == '__main__':
     print("Serving BOT on {0} port {1} ...".format(IP, PORT))
-    welcome()
-    signal.signal(signal.SIGINT, signal_handler)
+    #welcome()
+    #signal.signal(signal.SIGINT, signal_handler)
     serve(ip=IP, port=PORT)
