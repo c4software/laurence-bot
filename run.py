@@ -17,18 +17,18 @@ def chat(kwargs):
             retour = commands[commande](kwargs)
             if retour != "" and retour is not None:
                 if type(retour) is str:
-                    return build_repsonse(kwargs, retour)
+                    return build_response(kwargs, retour)
                 else:
                     # Impossible de retourner un message enrichie alors, on passe par l'API
                     callrest(domain=MATTERMOST_DOMAIN, type="POST", path=MATTERMOST_PATH, params={"payload": json.dumps(retour)})
         else:
-            return build_repsonse(kwargs, giphy.get_gyphy("".join(kwargs["text"][0].split(' ')[1:])))
+            return build_response(kwargs, giphy.get_gyphy("".join(kwargs["text"][0].split(' ')[1:])))
 
     except Exception as e:
         print (e)
         pass
 
-def build_repsonse(kwargs, retour):
+def build_response(kwargs, retour):
     ret = {"text": retour, "username": PSEUDO}
     if kwargs['slash_command']:
         ret["response_type"] = "in_channel"
@@ -52,6 +52,10 @@ def form(**kwargs):
         kwargs['slash_command'] = True
     else:
         kwargs['slash_command'] = False
+
+    # Test si le bot est non actif sur le channel en cours.
+    if kwargs['channel_name'][0] in settings.DISABLE_CHANNEL:
+        return build_response(kwargs, "Impossible...")
 
     return chat(kwargs)
 

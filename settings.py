@@ -3,6 +3,8 @@ IP = "0.0.0.0"
 
 PSEUDO = "Laurence"
 
+DISABLE_CHANNEL = ["si"]
+
 MATTERMOST_DOMAIN = "mattermost.dev"
 MATTERMOST_PATH = "/hooks/4ipxwg7m3bf5xb9jxudxogkwww"
 
