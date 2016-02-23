@@ -71,7 +71,7 @@ class extended_BaseHTTPServer(http.server.BaseHTTPRequestHandler):
 					else:
 						retour = handler_method['404'](o, arguments, action)
 						build_response(s, retour, 404)
-		except:
+		except Exception as e:
 			# Gestion des erreurs
 			if "500" not in handler_method:
 				build_response(s, "Internal Server Error", 500)

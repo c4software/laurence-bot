@@ -54,7 +54,7 @@ def form(**kwargs):
         kwargs['slash_command'] = False
 
     # Test si le bot est non actif sur le channel en cours.
-    if kwargs['channel_name'][0] in settings.DISABLE_CHANNEL:
+    if kwargs['channel_name'][0] in DISABLE_CHANNEL:
         return build_response(kwargs, "Impossible...")
 
     return chat(kwargs)
