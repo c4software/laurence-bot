@@ -25,4 +25,7 @@ def return_md(image):
 
 @register_as_command("mlle", "Affiche un bonjour mademoiselle aléatoire")
 def cmd_mademoiselle(msg):
-    return get_mademoiselle()
+    if msg.get("channel_name", [''])[0] == "nsfw":
+        return get_mademoiselle()
+    else:
+        return "## Mauvais channel"
