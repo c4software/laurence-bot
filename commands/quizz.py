@@ -32,7 +32,7 @@ def sayindice():
 						else:
 							indice = indice+" _"
 
-				return "Un petit indice: {0}".format(indice)
+				return "Un petit indice: ``` {0} ```".format(indice)
 			except:
 				return "Pas d'indice..."
 		else:
