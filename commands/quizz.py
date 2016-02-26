@@ -28,9 +28,9 @@ def sayindice():
 						indice = indice+str(x)
 					else:
 						if x == " ":
-							indice = indice+"  "
+							indice = indice+" "
 						else:
-							indice = indice+" _"
+							indice = indice+"_"
 
 				return "Un petit indice: ``` {0} ```".format(indice)
 			except:
