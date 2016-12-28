@@ -12,7 +12,12 @@ from settings import *
 
 def chat(kwargs):
     try:
-        commande = kwargs['text'][0].split(' ')[1]
+        commande = kwargs['text'][0].split(' ')
+        if len (commande) > 1:
+            commande = commande[1]
+        else:
+            commande = commande[0]
+            
         if commande in commands:
             retour = commands[commande](kwargs)
             if retour != "" and retour is not None:
