@@ -50,7 +50,7 @@ def get_redditlist(type_reddit="all"):
         return get_reddit_random()
 
 
-@register_as_command("random", "Retourne un résultat aléatoire depuis redditlist")
+@register_as_command("random", "Retourne un résultat aléatoire depuis redditlist", "Reddit")
 def cmd_random(msg):
     if msg.get("channel_name", [''])[0] == "nsfw":
         data = get_redditlist("nsfw")
@@ -58,7 +58,7 @@ def cmd_random(msg):
         data = get_redditlist("sfw")
     return return_md(data, False)
 
-@register_as_command("nsfw", "Retourne un résultat aléatoire, enfin aléatoire…")
+@register_as_command("nsfw", "Retourne un résultat aléatoire, enfin aléatoire…", "Reddit")
 def cmd_nsfw(msg):
     if msg.get("channel_name", [''])[0] == "nsfw":
         #return return_md(get_reddit(random.choice(nsfw)), False)
@@ -66,19 +66,19 @@ def cmd_nsfw(msg):
     else:
         return "## Mauvais channel"
 
-@register_as_command("image", "Retourne une image de reddit (sfw)")
+@register_as_command("image", "Retourne une image de reddit (sfw)", "Reddit")
 def cmd_image(msg):
 	return return_md(get_reddit(random.choice(REDDIT_IMAGE)), msg.get("preview", False))
 
-@register_as_command("gif", "Rien de mieux qu'un peu de mouvement…")
+@register_as_command("gif", "Rien de mieux qu'un peu de mouvement…", "Reddit")
 def cmd_gif(msg):
 	return return_md(get_reddit(random.choice(REDDIT_GIF)), msg.get("preview", False))
 
-@register_as_command("cute", "Un chat ?! Où un chat ?")
+@register_as_command("cute", "Un chat ?! Où un chat ?", "Reddit")
 def cmd_cute(msg):
 	return return_md(get_reddit(random.choice(REDDIT_LOL)), msg.get("preview", False))
 
-@register_as_command("top10", "Top10 des liens publiés sur Reddit sur la dernière heure")
+@register_as_command("top10", "Top10 des liens publiés sur Reddit sur la dernière heure", "Reddit")
 def cmd_top10(msg):
     return_values = []
     try:

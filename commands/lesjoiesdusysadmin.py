@@ -25,6 +25,6 @@ def return_md(titre, image):
     return "{0} : ![image]({1})".format(titre, image)
 
 
-@register_as_command("sysadmin", "Affiche un joiedusysadmin aléatoire")
+@register_as_command("sysadmin", "Affiche un joiedusysadmin aléatoire", "Web")
 def cmd_lesjoiesdusysadmin(msg):
     return get_lesjoiesdusysadmin()

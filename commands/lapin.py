@@ -25,7 +25,7 @@ def launch_play(params):
 def cmd_stop(msg):
     return launch_stop()
 
-@register_as_command("play", "Lance la diffusion d'un son (Ex: play http://www.youtube.com/?v=SIREST)")
+@register_as_command("play", "Lance la diffusion d'un son (Ex: play http://www.youtube.com/?v=SIREST)", "SmallNabz")
 def cmd_play(msg):
     params = {"file": msg["text"][0].split(' ')[2]}
     return launch_play(params)

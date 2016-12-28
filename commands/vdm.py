@@ -24,7 +24,6 @@ def return_md(titre):
     return "{0}".format(titre)
 
 
-@register_as_command("vdm", "Affiche un vie de merde")
+@register_as_command("vdm", "Affiche une « quote » de vie de merde", "Web")
 def cmd_viedemerde(msg):
     return get_viedemerde()
-

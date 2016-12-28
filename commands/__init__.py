@@ -1,3 +1,6 @@
 # -*- coding: utf-8 -*-
+from os.path import dirname, basename, isfile
+import glob
+modules = glob.glob(dirname(__file__)+"/*.py")
 
-from . import general, jenkins, lapin, reddit, chuck, joiesducode, vdm, fml, lesjoiesdusysadmin, madame, mademoiselle, quizz, giphy
+__all__ = [ basename(f)[:-3] for f in modules if isfile(f)]

@@ -22,6 +22,6 @@ def return_md(image):
     return "![image]({0})".format(image)
 
 
-@register_as_command("madame", "Affiche un bonjour madame aléatoire")
+@register_as_command("madame", "Affiche un bonjour madame aléatoire", "Images")
 def cmd_madame(msg):
     return get_madame()

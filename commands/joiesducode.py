@@ -25,7 +25,6 @@ def return_md(titre, image):
     return "{0} : ![image]({1})".format(titre, image)
 
 
-@register_as_command("code", "Affiche un joieducode aléatoire")
+@register_as_command("code", "Affiche un joieducode aléatoire", "Web")
 def cmd_joieducode(msg):
     return get_joieducode()
-

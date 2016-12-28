@@ -4,7 +4,7 @@ from settings import JENKINS_DOMAIN, JENKIN_PORT
 from libs import make_message
 from .decorators import register_as_command
 
-@register_as_command("jstatus", "Affiche la liste des builds en cours")
+@register_as_command("jstatus", "Affiche la liste des builds en cours", "Jenkins")
 def cmd_building(data):
     data = get_jenkins_data("/api/json")
     currently_building = []
@@ -20,7 +20,7 @@ def cmd_building(data):
 
     return make_message("Jenkins", "http://jenkins.dev:8070/static/b68f063e/favicon.ico", message,"", "Liste des builds", "http://jenkins.dev:8070/", message, "#7A9EC5")
 
-@register_as_command("jbuild", "Lancer un build (Ex: jbuild wifilib)")
+@register_as_command("jbuild", "Lancer un build (Ex: jbuild wifilib)", "Jenkins")
 def cmd_build(data):
     job = data["text"][0].split(' ')[2]
     get_jenkins_data("/job/{0}/build".format(job))

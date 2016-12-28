@@ -16,6 +16,6 @@ def launch_chuck(params):
         return "Erreur"
 
 
-@register_as_command("chuck", "Chuck Norris a déjà compté jusqu'à l'infini. Deux fois.")
+@register_as_command("chuck", "Chuck Norris a déjà compté jusqu'à l'infini. Deux fois.", "Web")
 def cmd_chuck(msg):
     return launch_chuck(msg)

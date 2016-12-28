@@ -38,15 +38,15 @@ def sayindice():
 		else:
 			return "Aucun quizz en cours"
 
-@register_as_command("question", "C'est parti ! (Pour répondre ! r ma réponse")
+@register_as_command("question", "C'est parti ! (Pour répondre ! r ma réponse", "Quizz")
 def cmd_quizzstart(msg):
 	return get_question()
 
-@register_as_command("indice", "Quizz un indice")
+@register_as_command("indice", "Quizz un indice", "Quizz")
 def cmd_indice(msg):
-	return sayindice()	
+	return sayindice()
 
-@register_as_command("r", "! r votre réponse")
+@register_as_command("r", "! r votre réponse", "Quizz")
 def cmd_quizzreponse(msg):
 	username = msg['user_name'][0]
 
@@ -74,7 +74,7 @@ def cmd_quizzreponse(msg):
 				else:
 					return quizz.quizz_question
 
-@register_as_command("score", "Affiche le score")
+@register_as_command("score", "Affiche les scores", "Quizz")
 def cmd_quizzscore(msg):
 	string_score = "Score : "
 	for user in quizz.quizz_tabscore:

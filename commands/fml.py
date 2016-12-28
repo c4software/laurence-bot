@@ -24,7 +24,6 @@ def return_md(titre):
     return "{0}".format(titre)
 
 
-@register_as_command("fml", "Affiche un fuck my life")
+@register_as_command("fml", "Affiche un fuck my life", "Web")
 def cmd_viedemerde(msg):
     return get_fuckmylife()
-
