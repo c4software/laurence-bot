@@ -26,11 +26,6 @@ def get_gyphy(keyword):
 def return_md(image):
     return "![image]({0})".format(image)
 
-
-def cmd_default_gyphy(msg):
-    return json.dumps({"text": get_gyphy("".join(msg["text"][0].split(' ')[1:])), "username": "404"})
-
-
 @register_as_command("giphy", "Recherche une image sur giphy (prend un thème en paramètre)", "Gif")
 def cmd_gyphy(msg):
     return get_gyphy("".join(msg["text"][0].split(' ')[2:]))
