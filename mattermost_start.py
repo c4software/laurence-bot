@@ -17,7 +17,7 @@ def chat(kwargs):
             commande = commande[1]
         else:
             commande = commande[0]
-            
+
         if commande in commands:
             retour = commands[commande](kwargs)
             if retour != "" and retour is not None:
@@ -58,5 +58,5 @@ def form(**kwargs):
     return chat(kwargs)
 
 if __name__ == '__main__':
-    print("Serving BOT on {0} port {1} ...".format(IP, PORT))
+    print("Serving Laurenc on {0} port {1} ...".format(IP, PORT))
     serve(ip=IP, port=PORT)

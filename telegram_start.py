@@ -78,5 +78,7 @@ register_slash_commands()
 # log all errors
 dispatcher.add_error_handler(error)
 
+print ("Laurence is ready.")
+
 updater.start_polling()
 # updater.idle()
