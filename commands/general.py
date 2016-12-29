@@ -14,12 +14,12 @@ def cmd_bonjour(msg):
 
 def get_command_list():
     from .decorators import commands, descriptions
-    command_list = "\r\n"
+    command_list = "\n"
     for group in descriptions:
-        command_list = command_list+"\r\n"
+        command_list = command_list+"\n"
         command_list = command_list+"{0} :".format(group)
         for command in descriptions[group]:
-            command_list = command_list+"\r\n- {0} ({1})".format(command, descriptions[group][command])
-        command_list = command_list+"\r\n"
+            command_list = command_list+"\n- {0} ({1})".format(command, descriptions[group][command])
+        command_list = command_list+"\n"
 
     return command_list
