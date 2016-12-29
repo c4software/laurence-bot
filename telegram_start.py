@@ -37,7 +37,10 @@ def commands_handler(bot, update, args):
         if commande.startswith("/"):
             commande = commande[1:]
 
-        attrs = {"user_name": [update.message.from_user.username], "text": [update.message.text]}
+        if bot.name in commande:
+            commande = commande.replace(bot.name, "")
+
+        attrs = {"user_name": [update.message.from_user.username], "text": [update.message.text], "telegram": {"bot": bot, "update": update}}
 
         if commande in commands:
             bot.sendChatAction(chat_id=update.message.chat_id, action="typing")
@@ -58,26 +61,15 @@ def register_slash_commands():
     for command in commands:
         dispatcher.add_handler(CommandHandler(command, commands_handler, pass_args=True))
 
-def help_slash_handler(bot, update):
-    command_list = "\n"
-    for group in descriptions:
-        for command in descriptions[group]:
-            command_list = command_list+"/{0} - {1} \n".format(command, descriptions[group][command])
-
-    update.message.reply_text(command_list)
-
 def error(bot, update, error):
     logger.warn('Update "%s" caused error "%s"' % (update, error))
 
-
 dispatcher.add_handler(CommandHandler('start', start, pass_args=True))
-dispatcher.add_handler(CommandHandler('help', help_slash_handler))
-
 register_slash_commands()
 
 # Gestion des /command inconnue
-unknown_handler = MessageHandler(Filters.command, commands_handler)
-dispatcher.add_handler(unknown_handler)
+# unknown_handler = MessageHandler(Filters.command, commands_handler)
+# dispatcher.add_handler(unknown_handler)
 
 # Gestion du text comme commande
 # echo_handler = MessageHandler(Filters.text, commands_handler)
@@ -87,4 +79,4 @@ dispatcher.add_handler(unknown_handler)
 dispatcher.add_error_handler(error)
 
 updater.start_polling()
-updater.idle()
+# updater.idle()
