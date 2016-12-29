@@ -51,10 +51,7 @@ def get_redditlist(type_reddit="all"):
 
 @register_as_command("random", "Retourne un résultat aléatoire depuis redditlist", "Reddit")
 def cmd_random(msg):
-    if msg.get("channel_name", [''])[0] == "nsfw":
-        data = get_redditlist("nsfw")
-    else:
-        data = get_redditlist("sfw")
+    data = get_redditlist("sfw")
     return return_md(data, False)
 
 @register_as_command("nsfw", "Retourne un résultat depuis une séléction NSFW", "Reddit")

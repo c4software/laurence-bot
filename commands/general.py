@@ -16,6 +16,7 @@ def get_command_list():
     from .decorators import commands, descriptions
     command_list = "\r\n"
     for group in descriptions:
+        command_list = command_list+"\r\n"
         command_list = command_list+"{0} :".format(group)
         for command in descriptions[group]:
             command_list = command_list+"\r\n- {0} ({1})".format(command, descriptions[group][command])
