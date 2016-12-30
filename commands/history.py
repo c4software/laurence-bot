@@ -24,6 +24,7 @@ def load_history():
             history = json.load(fp)
     except:
         history = {}
+    print (history)
 
 @register_as_command("historique", "Affiche votre historique de message", "Interne")
 def cmd_show_history(msg):
