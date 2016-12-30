@@ -8,12 +8,6 @@ DISABLE_CHANNEL = ["si"]
 MATTERMOST_DOMAIN = "mattermost.dev"
 MATTERMOST_PATH = "/hooks/4ipxwg7m3bf5xb9jxudxogkwww"
 
-SMALLNABZ_DOMAIN = "vbr.dev"
-SMALLNABZ_PORT = 8000
-
-JENKINS_DOMAIN = "jenkins.dev"
-JENKIN_PORT = 8070
-
 CHUCK_DOMAIN = "chucknorrisfacts.fr"
 CHUCK_PATH = "/api/get?data=tri:alea;type:txt&nb:1;page:1"
 
@@ -45,3 +39,5 @@ GIPHY_URL = "giphy.p.mashape.com"
 GIPHY_PATH = "/v1/gifs/random"
 GIPHY_API_KEY = "dc6zaTOxFJmzC"
 MASHAPE_KEY = "5HvqPQV9oimshSBiM0DVEMXL4158p1hUTxCjsn1ehRbrBuYNaQ"
+
+HISTORY_PATH = "/tmp/history.json"

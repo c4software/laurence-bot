@@ -7,9 +7,10 @@ from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove
 
 from commands import *
 from commands.decorators import commands, descriptions
+from commands.history import add_history, write_history, load_history
 from settings import *
 
-import random, logging, os, sys
+import random, logging, os, sys, atexit
 
 # Set up basic logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
@@ -21,6 +22,11 @@ if not token:
 
 updater = Updater(token=token)
 dispatcher = updater.dispatcher
+
+load_history()
+@atexit.register
+def final_handler():
+    write_history()
 
 @run_async
 def start(bot, update, args):
@@ -43,6 +49,9 @@ def commands_handler(bot, update, args, no_fail_reply=False):
 
         attrs = {"user_name": [update.message.from_user.username], "text": [update.message.text], "query": " ".join(args), "telegram": {"bot": bot, "update": update, "args": args}}
 
+        # Sauvegarde de l’historique
+        add_history(pseudo=attrs["user_name"][0], command="{0} {1}".format(commande, attrs["query"]))
+
         if commande in commands:
             if no_fail_reply == False:
                 # Si pas de réponse en cas d’erreur, on indique jamais que laurence écrit
@@ -59,6 +68,7 @@ def commands_handler(bot, update, args, no_fail_reply=False):
             # Cas d’erreur uniquement si on est dans le cas ou l’on doit pas répondre en cas d’erreur
             update.message.reply_text("Désolé, je ne comprend pas encore votre demande… La liste des commandes est disponible via /aide", reply_markup=ReplyKeyboardRemove())
     except Exception as e:
+        print (e)
         pass
 
 @run_async
