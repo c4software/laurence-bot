@@ -22,8 +22,7 @@ def get_reddit(subreddit):
         data = callrest(domain="www.reddit.com", port=443, ssl=True, path="/r/{0}/new/.json".format(subreddit), params={})[2]
         return random.choice(json.loads(data).get("data").get("children")).get("data")
     except Exception as e:
-        print (e)
-        return ("Oups", "Rien... "+subreddit)
+        return "Désolé, aucun résultat"
 
 def return_md(message, preview=False):
     url = message.get("url")
