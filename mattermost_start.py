@@ -18,6 +18,8 @@ def chat(kwargs):
         else:
             commande = commande[0]
 
+        kwargs["query"] = "".join(msg["text"][0].split(' ')[2:])
+
         if commande in commands:
             retour = commands[commande](kwargs)
             if retour != "" and retour is not None:

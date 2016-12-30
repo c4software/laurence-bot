@@ -40,7 +40,7 @@ def commands_handler(bot, update, args):
         if bot.name in commande:
             commande = commande.replace(bot.name, "")
 
-        attrs = {"user_name": [update.message.from_user.username], "text": [update.message.text], "telegram": {"bot": bot, "update": update}}
+        attrs = {"user_name": [update.message.from_user.username], "text": [update.message.text], "query": " ".join(msg["telegram"]["args"]), "telegram": {"bot": bot, "update": update, "args": args}}
 
         if commande in commands:
             bot.sendChatAction(chat_id=update.message.chat_id, action="typing")
