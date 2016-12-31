@@ -68,6 +68,8 @@ def commands_handler(bot, update, args, no_fail_reply=False):
             # Cas d’erreur uniquement si on est dans le cas ou l’on doit pas répondre en cas d’erreur
             update.message.reply_text("Désolé, je ne comprend pas encore votre demande… La liste des commandes est disponible via /aide", reply_markup=ReplyKeyboardRemove())
     except Exception as e:
+        import traceback
+        traceback.print_exc()
         print (e)
         pass
 
@@ -75,6 +77,12 @@ def commands_handler(bot, update, args, no_fail_reply=False):
 def text_handler(bot, update):
     # Temporaire fait fonctionner le bot en mode « texte » également.
     args = update.message.text.split(' ')
+    commands_handler(bot, update, args[1:], no_fail_reply=True)
+
+@run_async
+def location_handler(bot, update):
+    args = update.message.text.split(' ')
+    update.message.text = "/proche"
     commands_handler(bot, update, args[1:], no_fail_reply=True)
 
 def unknown_handler(bot, update):
@@ -96,6 +104,9 @@ register_slash_commands()
 
 # Gestion du text comme commande (Temporaire)
 dispatcher.add_handler(MessageHandler(Filters.text, text_handler))
+
+# Gestion des envois type « position »
+dispatcher.add_handler(MessageHandler(Filters.location, location_handler))
 
 # log all errors
 dispatcher.add_error_handler(error)
