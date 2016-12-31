@@ -7,7 +7,7 @@ from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove
 
 from commands import *
 from commands.decorators import commands, descriptions
-from commands.history import add_history, write_history, load_history
+from commands.history import add_history, write_history, load_history, history
 from settings import *
 
 import random, logging, os, sys, atexit
@@ -23,7 +23,7 @@ if not token:
 updater = Updater(token=token)
 dispatcher = updater.dispatcher
 
-load_history()
+test = load_history()
 @atexit.register
 def final_handler():
     write_history()

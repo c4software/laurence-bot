@@ -8,6 +8,7 @@ from settings import HISTORY_PATH
 history = {}
 
 def add_history(pseudo, command):
+    command = command.rstrip()
     if pseudo not in history:
         history[pseudo] = []
 
@@ -15,16 +16,18 @@ def add_history(pseudo, command):
         history[pseudo].append(command)
 
 def write_history():
-    with open(HISTORY_PATH, 'w') as fp:
-        json.dump(history, fp)
+    fp = open(HISTORY_PATH, 'w')
+    json.dump(history, fp)
+    fp.close()
 
 def load_history():
+    global history
     try:
-        with open(HISTORY_PATH, 'r') as fp:
-            history = json.load(fp)
+        fp = open(HISTORY_PATH, 'r')
+        history = json.load(fp)
+        fp.close()
     except:
         history = {}
-    print (history)
 
 @register_as_command("historique", "Affiche votre historique de message", "Interne")
 def cmd_show_history(msg):
