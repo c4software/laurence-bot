@@ -29,7 +29,7 @@ def load_history():
     except:
         history = {}
 
-@register_as_command("historique", "Affiche votre historique de message", "Interne")
+@register_as_command("historique", "Affiche votre historique de message", "Global")
 def cmd_show_history(msg):
     username = msg["user_name"][0]
     if username in history:

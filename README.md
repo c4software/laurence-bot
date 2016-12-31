@@ -5,6 +5,7 @@ Un bot simple et sans prétention, pour animer notre salon mattermost / Telegram
 - Python3
 - beautifulsoup4
 - python-telegram-bot
+- https://github.com/MarioVilas/google/archive/master.zip
 
 ## Paramétrage
 L'ensemble des paramétrage est dans settings.py
