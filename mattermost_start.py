@@ -2,6 +2,7 @@
 import json
 import signal
 import sys
+import atexit
 
 from extended_BaseHTTPServer import serve,route, redirect, override
 from rest import callrest
@@ -9,6 +10,13 @@ from rest import callrest
 from commands import *
 from commands.decorators import commands
 from settings import *
+
+from commands.history import add_history, write_history, load_history, history
+test = load_history()
+@atexit.register
+def final_handler():
+    write_history()
+
 
 def chat(kwargs):
     try:
@@ -19,6 +27,9 @@ def chat(kwargs):
             commande = commande[0]
 
         kwargs["query"] = "".join(msg["text"][0].split(' ')[2:])
+
+        # Sauvegarde de l’historique
+        add_history(pseudo=kwargs["user_name"][0], command="{0} {1}".format(commande, kwargs["query"]))
 
         if commande in commands:
             retour = commands[commande](kwargs)
