@@ -11,6 +11,8 @@ from commands.decorators import commands, descriptions
 from commands.history import add_history, write_history, load_history, history
 from settings import *
 
+from tools.text import analyze_text
+
 import random, logging, os, sys, atexit
 
 # Set up basic logging
@@ -74,27 +76,9 @@ def commands_handler(bot, update, args, no_fail_reply=False):
 
 @run_async
 def text_handler(bot, update):
-    # Temporaire fait fonctionner le bot en mode « texte » également.
-    args = update.message.text.split(' ')
-    text = demojize(update.message.text)
-    # logging.debug(text)
-    if ":cry" in text or ":thumbs_down_sign:" in text:
-        update.message.reply_text(emojize("Oh :pensive_face: Un soucis ?"), reply_markup=ReplyKeyboardRemove())
-        update.message.text = "/giphy"
-        commands_handler(bot, update, ["cute"])
-    elif "kiss:" in text:
-        update.message.reply_text(emojize(":kiss:"), reply_markup=ReplyKeyboardRemove())
-    elif ":poop:" in text or ":shit:" in text:
-        update.message.reply_text(emojize("Jolie :poop: !"), reply_markup=ReplyKeyboardRemove())
-    elif ":zzz:" in text or ":sleep" in text:
-        update.message.text = random.choice(["/gif","/cute", "/chuck", "/random", "/top10"])
-        commands_handler(bot, update, [])
-    elif ":thumbs_up_sign:" in text:
-        update.message.reply_text(emojize("YEAH ! :thumbs_up_sign:"), reply_markup=ReplyKeyboardRemove())
-    elif "_heart" in text:
-        update.message.reply_text(emojize(":face_throwing_a_kiss:"), reply_markup=ReplyKeyboardRemove())
-    else:
-        commands_handler(bot, update, args[1:], no_fail_reply=True)
+    bot, update, args, no_fail_reply = analyze_text(bot, update)
+    if bot:
+        commands_handler(bot, update, args, no_fail_reply)
 
 @run_async
 def location_handler(bot, update):
@@ -114,7 +98,7 @@ def register_slash_commands():
         dispatcher.add_handler(CommandHandler(command, commands_handler, pass_args=True))
 
 def error(bot, update, error):
-    logger.warn('Update "%s" caused error "%s"' % (update, error))
+    logging.warn('Update "%s" caused error "%s"' % (update, error))
 
 dispatcher.add_handler(CommandHandler('start', start, pass_args=True))
 register_slash_commands()
