@@ -3,7 +3,8 @@ from telegram.ext import Updater
 from telegram.ext import CommandHandler
 from telegram.ext import MessageHandler, Filters
 from telegram.ext.dispatcher import run_async
-from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove
+from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove, KeyboardButton
+from emoji import emojize, demojize
 
 from commands import *
 from commands.decorators import commands, descriptions
@@ -70,20 +71,40 @@ def commands_handler(bot, update, args, no_fail_reply=False):
     except Exception as e:
         import traceback
         traceback.print_exc()
-        print (e)
-        pass
 
 @run_async
 def text_handler(bot, update):
     # Temporaire fait fonctionner le bot en mode « texte » également.
     args = update.message.text.split(' ')
-    commands_handler(bot, update, args[1:], no_fail_reply=True)
+    text = demojize(update.message.text)
+    print (text)
+    if ":cry" in text or ":thumbs_down_sign:" in text:
+        update.message.reply_text(emojize("Oh :pensive_face: Un soucis ?"), reply_markup=ReplyKeyboardRemove())
+        update.message.text = "/giphy"
+        commands_handler(bot, update, ["cute"])
+    elif "kiss:" in text:
+        update.message.reply_text(emojize(":kiss:"), reply_markup=ReplyKeyboardRemove())
+    elif ":poop:" in text or ":shit:" in text:
+        update.message.reply_text(emojize("Jolie :poop: !"), reply_markup=ReplyKeyboardRemove())
+    elif ":zzz:" in text or ":sleep" in text:
+        update.message.text = random.choice(["/gif","/cute", "/chuck", "/random", "/top10"])
+        commands_handler(bot, update, [])
+    elif ":thumbs_up_sign:" in text:
+        update.message.reply_text(emojize("YEAH ! :thumbs_up_sign:"), reply_markup=ReplyKeyboardRemove())
+    elif "_heart" in text:
+        update.message.reply_text(emojize(":face_throwing_a_kiss:"), reply_markup=ReplyKeyboardRemove())
+    else:
+        commands_handler(bot, update, args[1:], no_fail_reply=True)
 
 @run_async
 def location_handler(bot, update):
     args = update.message.text.split(' ')
     update.message.text = "/proche"
     commands_handler(bot, update, args[1:], no_fail_reply=True)
+
+@run_async
+def voice_handler(bot, update):
+    update.message.reply_text(emojize("Très jolie voix ! Mais je ne comprend pas encore la parole :cry:.", use_aliases=True), reply_markup=ReplyKeyboardRemove())
 
 def unknown_handler(bot, update):
     update.message.reply_text("Désolé, je ne comprend pas encore votre demande… La liste des commandes est disponible via /aide", reply_markup=ReplyKeyboardRemove())
@@ -107,6 +128,10 @@ dispatcher.add_handler(MessageHandler(Filters.text, text_handler))
 
 # Gestion des envois type « position »
 dispatcher.add_handler(MessageHandler(Filters.location, location_handler))
+
+# Gestion des envois type « Voice »
+dispatcher.add_handler(MessageHandler(Filters.voice, voice_handler))
+
 
 # log all errors
 dispatcher.add_error_handler(error)

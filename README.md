@@ -6,6 +6,7 @@ Un bot simple et sans prétention, pour animer notre salon mattermost / Telegram
 - beautifulsoup4
 - python-telegram-bot
 - https://github.com/MarioVilas/google/archive/master.zip
+- emoji
 
 ## Paramétrage
 L'ensemble des paramétrage est dans settings.py
