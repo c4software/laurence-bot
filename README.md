@@ -3,6 +3,9 @@ Un bot simple et sans prétention, pour animer notre salon mattermost / Telegram
 
 ## Requiert   
 - Python3
+
+## Dépendances
+- https://github.com/mailgun/expiringdict/archive/master.zip 
 - beautifulsoup4
 - python-telegram-bot
 - https://github.com/MarioVilas/google/archive/master.zip
