@@ -77,7 +77,7 @@ def text_handler(bot, update):
     # Temporaire fait fonctionner le bot en mode « texte » également.
     args = update.message.text.split(' ')
     text = demojize(update.message.text)
-    print (text)
+    # logging.debug(text)
     if ":cry" in text or ":thumbs_down_sign:" in text:
         update.message.reply_text(emojize("Oh :pensive_face: Un soucis ?"), reply_markup=ReplyKeyboardRemove())
         update.message.text = "/giphy"
