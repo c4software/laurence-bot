@@ -26,6 +26,8 @@ def chat(kwargs):
         else:
             commande = commande[0]
 
+        commande = commande.lower()
+
         kwargs["query"] = "".join(msg["text"][0].split(' ')[2:])
 
         # Sauvegarde de l’historique

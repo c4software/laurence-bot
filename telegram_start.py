@@ -50,6 +50,8 @@ def commands_handler(bot, update, args, no_fail_reply=False):
         if bot.name in commande:
             commande = commande.replace(bot.name, "").replace(" ", "")
 
+        commande = commande.lower()
+
         attrs = {"user_name": [update.message.from_user.username], "text": [update.message.text], "query": " ".join(args), "telegram": {"bot": bot, "update": update, "args": args}}
 
         # Sauvegarde de l’historique
