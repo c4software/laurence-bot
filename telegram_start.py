@@ -78,9 +78,10 @@ def commands_handler(bot, update, args, no_fail_reply=False):
 
 @run_async
 def text_handler(bot, update):
-    bot, update, args, no_fail_reply = analyze_text(bot, update)
-    if bot:
-        commands_handler(bot, update, args, no_fail_reply)
+    if (update.chat.type != "channel" or update.chat.type != "private") and update.message.text.startswith(bot.name):
+        bot, update, args, no_fail_reply = analyze_text(bot, update)
+        if bot:
+            commands_handler(bot, update, args, no_fail_reply)
 
 @run_async
 def location_handler(bot, update):
