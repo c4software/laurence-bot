@@ -2,10 +2,25 @@
 
 from emoji import emojize, demojize
 from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove, KeyboardButton
+from commands.decorators import commands
 
+from settings import DEBUG_USER
+
+import difflib
+from textblob import Blobber
+from textblob_fr import PatternTagger, PatternAnalyzer
+
+tb = Blobber(pos_tagger=PatternTagger(), analyzer=PatternAnalyzer())
 def analyze_text(bot, update):
     args = update.message.text.split(' ')
     text = demojize(update.message.text)
+
+    # Analyse du texte en mode POS TAGGER
+    if update.message.from_user.username in DEBUG_USER:
+        blob = tb(text)
+        update.message.reply_text (blob.tags)
+        update.message.reply_text (blob.sentiment)
+        #print (difflib.get_close_matches(args[0], commands))
 
     # logging.debug(text)
     if ":cry" in text or ":thumbs_down_sign:" in text:
