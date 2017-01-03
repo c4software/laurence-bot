@@ -10,7 +10,7 @@ def cmd_aide(msg):
 
 @register_as_command("bonjour", "Heu… Bonjour?")
 def cmd_bonjour(msg):
-    return 'Bonjour {0}'.format(msg['user_name'][0])
+    return 'Bonjour {0}, besoin d’/aide ?'.format(msg['user_name'][0])
 
 def get_command_list():
     from .decorators import commands, descriptions
