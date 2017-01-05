@@ -49,10 +49,10 @@ def callrest(domain="", port="",path="/",type="GET",params={},timeout=60,encode_
         result = connection.getresponse()
 
         reader = codecs.getreader("utf-8")
-        if result.status == 302:
+        if result.status == 302 or result.status == 301:
             if result.getheader("location", False) or result.getheader("Location", False):
                 o = urlparse(result.getheader("location", False) or result.getheader("Location", False))
-                return callrest(domain=o.netloc, path=urllib.parse.quote(o.path.encode("utf-8")), user_headers=user_headers)
+                return callrest(domain=o.netloc, path=urllib.parse.quote(o.path.encode("utf-8")), user_headers=user_headers, params=params, type=type)
 
 
         return (result.status, result.reason, reader(result).read())

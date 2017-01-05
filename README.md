@@ -11,6 +11,7 @@ Un bot simple et sans prétention, pour animer notre salon mattermost / Telegram
 - https://github.com/MarioVilas/google/archive/master.zip
 - emoji
 - textblob textblob_fr
+- wikipedia
 
 ## Paramétrage
 L'ensemble des paramétrage est dans settings.py
