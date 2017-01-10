@@ -70,7 +70,7 @@ def commands_handler(bot, update, args, no_fail_reply=False):
                 if type(retour) is not str:
                     retour = " ".join(retour)
 
-                bot.sendMessage(chat_id=update.message.chat_id, text=retour, reply_markup=ReplyKeyboardRemove())#, parse_mode="Markdown")
+                bot.sendMessage(chat_id=update.message.chat_id, text=retour, reply_markup=ReplyKeyboardRemove(), parse_mode="Markdown")
                 # update.message.reply_text(retour, reply_markup=ReplyKeyboardRemove())
         elif no_fail_reply == False:
             # Cas d’erreur uniquement si on est dans le cas ou l’on doit pas répondre en cas d’erreur
