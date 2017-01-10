@@ -8,7 +8,7 @@ import json
 from settings import GIPHY_URL, GIPHY_PATH, GIPHY_API_KEY, MASHAPE_KEY
 
 
-def get_gyphy(keyword):
+def get_gyphy(keyword, md=True):
     try:
         params = {}
         params['api_key'] = GIPHY_API_KEY
@@ -17,10 +17,12 @@ def get_gyphy(keyword):
         retour = json.loads(data)
         if len(retour['data']) == 0:
             return get_gyphy("")
-        return return_md(retour['data']['image_original_url'])
+        if md:
+            return return_md(retour['data']['image_original_url'])
+        else:
+            return retour['data']['image_original_url']
     except Exception as e:
-        print("Erreur ! {0}".format(e))
-        return ("Oups", "Rien... ")
+        return None
 
 
 def return_md(image):
@@ -28,8 +30,8 @@ def return_md(image):
 
 @register_as_command("giphy", "Recherche une image sur giphy (prend un thème en paramètre)", "Gif")
 def cmd_gyphy(msg):
-    return get_gyphy(msg["query"])
+    return get_gyphy(msg["query"], md="telegram" not in msg)
 
 @register_as_command("fail", "LA catégorie !", "Gif")
 def cmd_gyphy(msg):
-    return get_gyphy("fail")
+    return get_gyphy("fail", md="telegram" not in msg)
