@@ -67,6 +67,9 @@ def commands_handler(bot, update, args, no_fail_reply=False):
 
             # Réponse
             if retour != "" and retour is not None:
+                if type(retour) is not str:
+                    retour = " ".join(retour)
+
                 bot.sendMessage(chat_id=update.message.chat_id, text=retour, reply_markup=ReplyKeyboardRemove())#, parse_mode="Markdown")
                 # update.message.reply_text(retour, reply_markup=ReplyKeyboardRemove())
         elif no_fail_reply == False:

@@ -12,8 +12,7 @@ def launch_chuck(params):
         data = callrest(domain=CHUCK_DOMAIN, path=CHUCK_PATH)[2]
         return html.unescape(json.loads(data)[0].get("fact"))
     except Exception as e:
-        print (e)
-        return "Erreur"
+        return None
 
 
 @register_as_command("chuck", "Chuck Norris a déjà compté jusqu'à l'infini. Deux fois.", "Web")

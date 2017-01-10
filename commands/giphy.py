@@ -29,3 +29,7 @@ def return_md(image):
 @register_as_command("giphy", "Recherche une image sur giphy (prend un thème en paramètre)", "Gif")
 def cmd_gyphy(msg):
     return get_gyphy(msg["query"])
+
+@register_as_command("fail", "LA catégorie !", "Gif")
+def cmd_gyphy(msg):
+    return get_gyphy("fail")

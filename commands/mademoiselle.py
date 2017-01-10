@@ -15,8 +15,7 @@ def get_mademoiselle():
         image = soup.find_all("div", class_="photo")[0].find("img")['src']
         return return_md(image)
     except Exception as e:
-        print (e)
-        return ("Oups", "Rien... ")
+        return None
 
 
 def return_md(image):

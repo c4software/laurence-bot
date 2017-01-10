@@ -17,8 +17,7 @@ def get_lesjoiesdusysadmin():
 
         return return_md(titre.strip(), image)
     except Exception as e:
-        print(e)
-        return ("Oups", "Rien... ")
+        return get_lesjoiesdusysadmin()
 
 
 def return_md(titre, image):

@@ -9,8 +9,11 @@ import codecs
 
 USER_AGENT = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.10 Safari/537.36"
 
-def callrest(domain="", port="",path="/",type="GET",params={},timeout=60,encode_post_param_as_json=False,ssl=False, user_headers={}):
+def callrest(domain="", port="",path="/",type="GET",params={},timeout=60,encode_post_param_as_json=False,ssl=False, user_headers={}, loop=1):
     connection = False
+
+    if loop > 2:
+        return (500,"Internal Error",None)
 
     try:
         if port != "":
@@ -52,7 +55,7 @@ def callrest(domain="", port="",path="/",type="GET",params={},timeout=60,encode_
         if result.status == 302 or result.status == 301:
             if result.getheader("location", False) or result.getheader("Location", False):
                 o = urlparse(result.getheader("location", False) or result.getheader("Location", False))
-                return callrest(domain=o.netloc, path=urllib.parse.quote(o.path.encode("utf-8")), user_headers=user_headers, params=params, type=type)
+                return callrest(domain=o.netloc, path=urllib.parse.quote(o.path.encode("utf-8")), user_headers=user_headers, params=params, type=type, loop=loop+1)
 
 
         return (result.status, result.reason, reader(result).read())

@@ -17,8 +17,7 @@ def get_joieducode():
 
         return return_md(titre.strip(), image)
     except Exception as e:
-        print(e)
-        return ("Oups", "Rien... ")
+        return get_joieducode()
 
 
 def return_md(titre, image):

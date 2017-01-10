@@ -16,8 +16,7 @@ def get_fuckmylife():
 
         return return_md(texte)
     except Exception as e:
-        print(e)
-        return ("Oups", "Rien... ")
+        return None
 
 
 def return_md(titre):
