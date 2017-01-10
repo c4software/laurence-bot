@@ -40,7 +40,7 @@ def callrest(domain="", port="",path="/",type="GET",params={},timeout=60,encode_
             connection.request('POST', path, params, headers=headers)
 
         if type == "GET":
-            headers = override_headers({"User-Agent": USER_AGENT}, user_headers)
+            headers = override_headers({"User-Agent": USER_AGENT, "Accept-Language": "utf-8"}, user_headers)
             params = urllib.parse.urlencode(params)
             connection.request('GET', path+'?%s' % params, headers=headers)
 

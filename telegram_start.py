@@ -8,7 +8,7 @@ from emoji import emojize, demojize
 
 from commands import *
 from commands.decorators import commands, descriptions
-from commands.history import add_history, write_history, load_history, history
+from commands.history import add_history, write_history, load_history
 from settings import *
 
 from tools.text import analyze_text

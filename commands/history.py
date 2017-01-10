@@ -6,6 +6,7 @@ from .decorators import register_as_command
 from settings import HISTORY_PATH
 
 history = {}
+last_text = {}
 
 def add_history(pseudo, command):
     command = command.rstrip()
@@ -14,6 +15,15 @@ def add_history(pseudo, command):
 
     if len(history[pseudo]) == 0 or history[pseudo][-1] != command:
         history[pseudo].append(command)
+
+def get_history(pseudo):
+    return history.get(pseudo, [])
+
+def get_last_tags(pseudo):
+    return last_text.get(pseudo, [])
+
+def save_last_tags(pseudo, tags):
+    last_text[pseudo] = tags
 
 def write_history():
     fp = open(HISTORY_PATH, 'w')
