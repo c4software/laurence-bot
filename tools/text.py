@@ -12,7 +12,29 @@ from textblob_fr import PatternTagger, PatternAnalyzer
 
 from commands.history import save_last_tags
 
+aliases = {}
 tb = Blobber(pos_tagger=PatternTagger(), analyzer=PatternAnalyzer())
+
+
+def save_alias(command, tags):
+    tag_length = len (tags)
+    if tag_length not in aliases:
+        aliases[tag_length] = []
+
+    aliases[tag_length].append(tags, command)
+
+def find_closest(tags):
+    tag_length = len (tags)
+    matcher = SequenceMatcher(None, tags, [])
+    match = []
+    if tag_length in aliases:
+        for alias, command in aliases[tag_length]:
+            matcher.set_seq2(alias)
+            ratio = matcher.ratio()
+            if ratio >= 0.5:
+                match.append((ratio, command))
+    return sorted(a)
+
 def analyze_text(bot, update):
     args = update.message.text.split(' ')
     text = demojize(update.message.text)
