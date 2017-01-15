@@ -23,11 +23,11 @@ def save_alias(command, tags):
     if tag_length not in aliases:
         aliases[tag_length] = []
 
-    aliases[tag_length].append(tags, command)
+    aliases[tag_length].append((tags, command))
 
 def find_closest(tags):
     tag_length = len (tags)
-    matcher = SequenceMatcher(None, tags, [])
+    matcher = difflib.SequenceMatcher(None, tags, [])
     match = []
     if tag_length in aliases:
         for alias, command in aliases[tag_length]:
@@ -35,7 +35,7 @@ def find_closest(tags):
             ratio = matcher.ratio()
             if ratio >= 0.5:
                 match.append((ratio, command))
-    return sorted(a)
+    return sorted(match)
 
 def analyze_text(bot, update):
     args = update.message.text.split(' ')
