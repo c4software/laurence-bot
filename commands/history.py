@@ -4,6 +4,7 @@ import json
 
 from .decorators import register_as_command
 from settings import HISTORY_PATH
+from tools.libs import get_username
 
 history = {}
 last_text = {}
@@ -41,7 +42,7 @@ def load_history():
 
 @register_as_command("historique", "Affiche votre historique de message", "Global")
 def cmd_show_history(msg):
-    username = msg["user_name"][0]
+    username = get_username(msg)
     if username in history:
         return "- "+"\n- ".join(history[username])
     else:

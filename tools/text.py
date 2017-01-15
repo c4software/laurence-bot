@@ -12,6 +12,8 @@ from textblob_fr import PatternTagger, PatternAnalyzer
 
 from commands.history import save_last_tags
 
+from .libs import is_debug
+
 aliases = {}
 tb = Blobber(pos_tagger=PatternTagger(), analyzer=PatternAnalyzer())
 
@@ -44,6 +46,10 @@ def analyze_text(bot, update):
     text_keywords = [x[0] for x in blob.tags]
 
     save_last_tags(update.message.from_user.username, blob.tags)
+
+    closest = find_closest(blob.tags)
+    if is_debug(update.message.from_user.username):
+         update.message.reply_text(closest)
 
     # if update.message.from_user.username in DEBUG_USER:
     #     update.message.reply_text ("Keywords: {0}".format(",".join(text_keywords)))

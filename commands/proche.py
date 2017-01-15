@@ -2,6 +2,7 @@
 from .decorators import register_as_command
 from rest import callrest
 import logging, json
+from tools.libs import is_telegram
 
 def search_arround_me(query):
     type_recherche = ["park", "forest", "castle"]
@@ -44,7 +45,7 @@ def search_arround_me(query):
 
 @register_as_command("proche", "Recherche les lieux d’interêts autour de votre position", "Geo")
 def cmd_do_proche(msg):
-    if "telegram" in msg and msg["query"] == "":
+    if is_telegram(msg) and msg["query"] == "":
         user_location = msg["telegram"]["update"].message.location
         return search_arround_me("{0}, {1}".format(user_location.latitude, user_location.longitude))
     elif msg["query"] != "":
