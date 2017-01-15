@@ -52,7 +52,7 @@ def analyze_text(bot, update):
          update.message.reply_text(closest)
 
     if closest:
-        update.message.text = closest[0]
+        update.message.text = closest[0][1]
 
     # if update.message.from_user.username in DEBUG_USER:
     #     update.message.reply_text ("Keywords: {0}".format(",".join(text_keywords)))
