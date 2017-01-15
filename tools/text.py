@@ -51,6 +51,9 @@ def analyze_text(bot, update):
     if is_debug(update.message.from_user.username):
          update.message.reply_text(closest)
 
+    if closest:
+        update.message.text = closest[0]
+
     # if update.message.from_user.username in DEBUG_USER:
     #     update.message.reply_text ("Keywords: {0}".format(",".join(text_keywords)))
     #     update.message.reply_text (blob.tags)
