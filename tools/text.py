@@ -26,7 +26,7 @@ def save_alias(command, tags):
     aliases[tag_length].append((tags, command))
 
 def find_closest(tags):
-    tag_length = len (tags)
+    tag_length = len(tags)
     matcher = difflib.SequenceMatcher(None, tags, [])
     match = []
     if tag_length in aliases:
@@ -43,11 +43,11 @@ def analyze_text(bot, update):
 
     # Analyse du texte en mode POS TAGGER
     blob = tb(text)
-    text_keywords = [x[0] for x in blob.tags]
+    text_keywords = [(x[0].lower(),x[1]) for x in blob.tags]
 
-    save_last_tags(update.message.from_user.username, blob.tags)
+    save_last_tags(update.message.from_user.username, text_keywords)
 
-    closest = find_closest(blob.tags)
+    closest = find_closest(text_keywords)
     if is_debug(update.message.from_user.username):
          update.message.reply_text(closest)
 
