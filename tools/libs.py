@@ -14,4 +14,4 @@ def get_debug_user_id(msg):
 
 def send_message_debug_user(bot, message=""):
     for user in DEBUG_USER_ID:
-        bot.sendMessage(chat_id=user, text=message)
+        bot.sendMessage(chat_id=DEBUG_USER_ID[user], text=message)
