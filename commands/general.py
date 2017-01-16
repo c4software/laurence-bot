@@ -4,10 +4,14 @@ from libs import make_message
 from settings import PSEUDO
 import random
 
+@register_as_command("test", None, keywords=["debug", "ping", "pong"])
+def cmd_test(msg):
+    reponse = ["Hum! 1, 2, 1, 2.", "C’est OK !", "Pong", "Debug OK.\nTag : 120391000092.\n Hum c’est OK !", "I’m sorry Dave, I’m afraid I can't do that"]
+    return random.choice(reponse)
+
 @register_as_command("aide", "Affiche L'aide")
 def cmd_aide(msg):
     return get_command_list()
-    #return make_message(username=PSEUDO, icon_url="", fallback=command_list, pretext="", title="Liste des commandes :", title_link="", text=command_list, color="#7CD197")
 
 @register_as_command("bonjour", "Heu… Bonjour?", keywords=["salut", "hey", "coucou"])
 def cmd_bonjour(msg):
