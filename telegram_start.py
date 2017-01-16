@@ -12,7 +12,7 @@ from commands.history import add_history, write_history, load_history
 from settings import *
 
 from tools.text import analyze_text
-from tools.libs import send_message_debug_user, get_debug_user_id
+from tools.libs import send_message_debug_user, get_debug_user_id, get_probable_command
 
 import random, logging, os, sys, atexit
 
@@ -36,17 +36,12 @@ def final_handler():
 def start(bot, update, args):
     bot.sendMessage(chat_id=update.message.chat_id,
     text="Bonjour, Je suis Laurence. Pour avoir la liste des commandes tapez /aide")
-    #reply_markup=ReplyKeyboardMarkup(reply_keyboard, one_time_keyboard=True))
 
 @run_async
 def commands_handler(bot, update, args, no_fail_reply=False):
     try:
         get_debug_user_id(update.message.from_user)
-        commande = update.message.text.split(' ')
-        commande = commande[0]
-
-        if commande.startswith("/"):
-            commande = commande[1:]
+        commande = get_probable_command(update.message.text)
 
         # Suppression du nom du bot exemple /gif@laurence_le_bot
         if bot.name in commande:
@@ -86,9 +81,14 @@ def text_handler(bot, update):
     get_debug_user_id(update.message.from_user)
     if update.message.chat.type != "channel" and update.message.chat.type != "private" and (bot.name in update.message.text) or update.message.chat.type == "private":
         update.message.text = update.message.text.replace(bot.name, "").lstrip()
-        bot, update, args, no_fail_reply = analyze_text(bot, update)
-        if bot:
-            commands_handler(bot, update, args, no_fail_reply)
+        commande = get_probable_command(update.message.text)
+        if commande not in commands:
+            bot, update, args, no_fail_reply = analyze_text(bot, update)
+            if bot:
+                commands_handler(bot, update, args, no_fail_reply)
+        else:
+            args = update.message.text.split(" ")
+            commands_handler(bot, update, args[1:], False)
 
 @run_async
 def location_handler(bot, update):
@@ -125,7 +125,6 @@ dispatcher.add_handler(MessageHandler(Filters.location, location_handler))
 
 # Gestion des envois type « Voice »
 dispatcher.add_handler(MessageHandler(Filters.voice, voice_handler))
-
 
 # log all errors
 dispatcher.add_error_handler(error)
