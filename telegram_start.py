@@ -12,6 +12,7 @@ from commands.history import add_history, write_history, load_history
 from settings import *
 
 from tools.text import analyze_text
+from tools.libs import send_message_debug_user, get_debug_user_id
 
 import random, logging, os, sys, atexit
 
@@ -40,6 +41,7 @@ def start(bot, update, args):
 @run_async
 def commands_handler(bot, update, args, no_fail_reply=False):
     try:
+        get_debug_user_id(update.message.from_user)
         commande = update.message.text.split(' ')
         commande = commande[0]
 
@@ -81,6 +83,7 @@ def commands_handler(bot, update, args, no_fail_reply=False):
 
 @run_async
 def text_handler(bot, update):
+    get_debug_user_id(update.message.from_user)
     if (update.message.chat.type != "channel" and update.message.chat.type != "private" and update.message.text.startswith(bot.name)) or update.message.chat.type == "private":
         update.message.text = update.message.text.replace(bot.name, "").lstrip()
         bot, update, args, no_fail_reply = analyze_text(bot, update)

@@ -13,8 +13,8 @@ def cmd_do_learn(msg):
     save_alias(get_history(username)[-2], get_last_tags(username))
 
     if is_telegram(msg) and is_debug(username):
-        print (get_history(username)[-2])
-        print (get_last_tags(username))
+        # print (get_history(username)[-2])
+        # print (get_last_tags(username))
         return emojize("Correspondance ajoutée :thumbs_up_sign:")
     else:
         return emojize("Désolé le learn n’est pas disponible :unamused_face:")

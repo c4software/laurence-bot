@@ -43,3 +43,4 @@ MASHAPE_KEY = "5HvqPQV9oimshSBiM0DVEMXL4158p1hUTxCjsn1ehRbrBuYNaQ"
 HISTORY_PATH = "/tmp/history.json"
 
 DEBUG_USER = ["C4software"]
+DEBUG_USER_ID = {}
