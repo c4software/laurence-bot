@@ -10,6 +10,6 @@ except:
 def cmd_do_googlesearch(msg):
     try:
         for url in search(msg["query"], tld='fr', lang='fr',num=1, stop=1):
-            return url
+            return "Voilà ce que j’ai trouvé … \n {0}".format(url)
     except:
         print ("Pour utiliser la recherche vous devez : pip install https://github.com/MarioVilas/google/archive/master.zip")
