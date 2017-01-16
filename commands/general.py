@@ -6,7 +6,7 @@ import random
 
 @register_as_command("test", None, keywords=["debug", "ping", "pong"])
 def cmd_test(msg):
-    reponse = ["Hum! 1, 2, 1, 2.", "C’est OK !", "Pong", "Debug OK.\nTag : 120391000092.\n Hum c’est OK !", "I’m sorry Dave, I’m afraid I can't do that"]
+    reponse = ["Hum! 1, 2, 1, 2.", "C’est OK ! :thumbs_up_sign:", "Pong", "Debug OK.\nTag : 120391000092.\nHum c’est OK !", "I’m sorry Dave, I’m afraid I can't do that"]
     return random.choice(reponse)
 
 @register_as_command("aide", "Affiche L'aide")
