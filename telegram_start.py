@@ -84,7 +84,7 @@ def commands_handler(bot, update, args, no_fail_reply=False):
 @run_async
 def text_handler(bot, update):
     get_debug_user_id(update.message.from_user)
-    if (update.message.chat.type != "channel" and update.message.chat.type != "private" and update.message.text.startswith(bot.name)) or update.message.chat.type == "private":
+    if update.message.chat.type != "channel" and update.message.chat.type != "private" and (bot.name in update.message.text) or update.message.chat.type == "private":
         update.message.text = update.message.text.replace(bot.name, "").lstrip()
         bot, update, args, no_fail_reply = analyze_text(bot, update)
         if bot:
