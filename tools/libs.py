@@ -18,7 +18,7 @@ def send_message_debug_user(bot, message=""):
         bot.sendMessage(chat_id=DEBUG_USER_ID[user], text=message)
 
 def get_probable_command(text):
-    commande = text.split(' ')
+    commande = text.lower().split(' ')
     commande = commande[0]
 
     if commande.startswith("/"):

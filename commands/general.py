@@ -13,6 +13,10 @@ def cmd_test(msg):
 def cmd_aide(msg):
     return get_command_list()
 
+@register_as_command("bisous", None, keywords=["kiss", "bise"])
+def cmd_aide(msg):
+    return ":kiss:"
+
 @register_as_command("bonjour", "Heu… Bonjour?", keywords=["salut", "hey", "coucou"])
 def cmd_bonjour(msg):
     return '{0} {1}, besoin d’/aide ?'.format(random.choice(["Salut", "Coucou", "Bonjour", "Hello", "Hoy"]),msg['user_name'][0])
