@@ -17,10 +17,14 @@ def get_command_list():
     from .decorators import commands, descriptions
     command_list = "\n"
     for group in descriptions:
-        command_list = command_list+"\n"
-        command_list = command_list+"{0} :".format(group)
+        sub_command_list = ""
         for command in descriptions[group]:
-            command_list = command_list+"\n- {0} ({1})".format(command, descriptions[group][command])
+            if descriptions[group][command]:
+                sub_command_list = sub_command_list+"\n- {0} ({1})".format(command, descriptions[group][command])
+
+        if sub_command_list:
+            command_list = command_list+"\n{0} : {1}".format(group, sub_command_list)
+
         command_list = command_list+"\n"
 
     return command_list
