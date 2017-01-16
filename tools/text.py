@@ -38,7 +38,6 @@ def find_closest(tags):
     return sorted(match)
 
 def analyze_text(bot, update):
-    args = update.message.text.split(' ')
     text = demojize(update.message.text)
 
     # Analyse du texte en mode POS TAGGER
@@ -52,14 +51,14 @@ def analyze_text(bot, update):
 
     if closest:
         update.message.text = closest[0][1]
+    else:
+        # Rien ne match alors on fallback en mode « Recherche Google »
+        update.message.text = "/google {0}".format(update.message.text)
 
-    # if update.message.from_user.username in DEBUG_USER:
-    #     update.message.reply_text ("Keywords: {0}".format(",".join(text_keywords)))
-    #     update.message.reply_text (blob.tags)
-    #     update.message.reply_text (blob.sentiment)
-    #     #print (difflib.get_close_matches(args[0], commands))
+    # Une fois les traitements sur le texte éffectué, on remet en place les infos pour la suite
+    args = update.message.text.split(' ')
+    text = demojize(update.message.text)
 
-    # logging.debug(text)
     if ":cry" in text or ":thumbs_down_sign:" in text:
         update.message.reply_text(emojize("Oh :pensive_face: Un soucis ?"), reply_markup=ReplyKeyboardRemove())
         update.message.text = "/giphy"
