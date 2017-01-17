@@ -42,7 +42,8 @@ def chat(kwargs):
                     # Impossible de retourner un message enrichie alors, on passe par l'API
                     callrest(domain=MATTERMOST_DOMAIN, type="POST", path=MATTERMOST_PATH, params={"payload": json.dumps(retour)})
         else:
-            return build_response(kwargs, "YOLO")
+            pass
+            # return build_response(kwargs, "YOLO")
             # return build_response(kwargs, giphy.get_gyphy("".join(kwargs["text"][0].split(' ')[1:])))
 
     except Exception as e:
