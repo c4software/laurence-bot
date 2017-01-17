@@ -3,7 +3,6 @@ from .decorators import register_as_command
 from commands.history import get_history
 from tools.libs import get_probable_command, get_username
 from commands.decorators import commands
-from settings import NA
 
 @register_as_command("plus", None, keywords=["encore"])
 def cmd_more(msg):
