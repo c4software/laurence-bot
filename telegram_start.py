@@ -12,7 +12,7 @@ from commands.history import add_history, write_history, load_history
 from settings import *
 
 from tools.text import analyze_text
-from tools.libs import send_message_debug_user, get_debug_user_id, get_probable_command
+from tools.libs import send_message_debug_user, get_debug_user_id, get_probable_command, make_attrs
 
 import random, logging, os, sys, atexit
 
@@ -41,15 +41,8 @@ def start(bot, update, args):
 def commands_handler(bot, update, args, no_fail_reply=False):
     try:
         get_debug_user_id(update.message.from_user)
-        commande = get_probable_command(update.message.text)
-
-        # Suppression du nom du bot exemple /gif@laurence_le_bot
-        if bot.name in commande:
-            commande = commande.replace(bot.name, "").replace(" ", "")
-
-        commande = commande.lower()
-
-        attrs = {"user_name": [update.message.from_user.username], "text": [update.message.text], "query": " ".join(args), "telegram": {"bot": bot, "update": update, "args": args}}
+        commande = get_probable_command(update.message.text, bot.name)
+        attrs = make_attrs(update.message.from_user.username, update.message.text, args, {"bot": bot, "update": update, "args": args})
 
         # Sauvegarde de l’historique
         add_history(pseudo=attrs["user_name"][0], command="{0} {1}".format(commande, attrs["query"]))
@@ -66,6 +59,7 @@ def commands_handler(bot, update, args, no_fail_reply=False):
             if retour != "" and retour is not None:
                 if type(retour) is not str:
                     retour = " ".join(retour)
+
                 retour = emojize(retour)
                 bot.sendMessage(chat_id=update.message.chat_id, text=retour, reply_markup=ReplyKeyboardRemove(), parse_mode="Markdown")
                 # update.message.reply_text(retour, reply_markup=ReplyKeyboardRemove())
