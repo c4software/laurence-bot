@@ -6,7 +6,7 @@ import json
 import wikipedia
 # https://fr.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles=valentin
 
-@register_as_command("def", "Recherche la définition sur Wikipedia", "Web")
+@register_as_command("def", "Recherche la définition sur Wikipedia", "Web", keywords=["wikipedia", "wiki"])
 def cmd_aide(msg):
     try:
         wikipedia.set_lang("fr")

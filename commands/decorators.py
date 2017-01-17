@@ -9,8 +9,11 @@ def register_as_command(command_name, description="", group="Global", keywords=[
         if group not in descriptions:
             descriptions[group] = {}
         descriptions[group][command_name] = description
-        # for keyword in keywords:
-        #     commands[keyword] = f
+
+        # On register les keywords comme des commandes, mais sans associer
+        # d’aide car se sont des alias.
+        for keyword in keywords:
+             commands[keyword] = f
 
         def wrapped_f(*args):
             f(*args)
