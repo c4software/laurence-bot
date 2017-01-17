@@ -17,6 +17,12 @@ def add_history(pseudo, command):
     if len(history[pseudo]) == 0 or history[pseudo][-1] != command:
         history[pseudo].append(command)
 
+def remove_last_history(pseudo):
+    if pseudo in history:
+        return history[pseudo].pop()
+    else:
+        return None
+
 def get_history(pseudo):
     return history.get(pseudo, [])
 
