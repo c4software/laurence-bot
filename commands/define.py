@@ -21,7 +21,7 @@ def cmd_aide(msg):
             page_id = list(retour["query"]["pages"]).pop(0)
             if page_id != "-1":
                 page = retour["query"]["pages"][page_id]
-                return "{0} \n\nEn savoir plus : https://{1}/wiki/{2}".format(page.get("extract", ""), domain, page.get("title", "").replace(" ", "_"))
+                return "{0} \n\nEn savoir plus : https://{1}/?curid={2}".format(page.get("extract", ""), domain, page_id)
             else:
                 raise Exception("")
     except:
