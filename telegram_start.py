@@ -12,9 +12,11 @@ from commands.history import add_history, write_history, load_history
 from settings import *
 
 from tools.text import analyze_text
-from tools.libs import send_message_debug_user, get_debug_user_id, get_probable_command, make_attrs
+from tools.libs import *
 
-import random, logging, os, sys, atexit
+from shared import save_data, clean_data
+
+import random, logging, os, sys, atexit, threading
 
 # Set up basic logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
@@ -42,10 +44,16 @@ def commands_handler(bot, update, args, no_fail_reply=False):
     try:
         get_debug_user_id(update.message.from_user)
         commande = get_probable_command(update.message.text, bot.name)
-        attrs = make_attrs(update.message.from_user.username, update.message.text, args, {"bot": bot, "update": update, "args": args})
+        attrs = make_attrs(update.message.from_user.username, update.message.text, args, update.message.chat.title, {"bot": bot, "update": update, "args": args})
 
-        # Sauvegarde de l’historique
-        add_history(pseudo=attrs["user_name"][0], command="{0} {1}".format(commande, attrs["query"]))
+        # Si c’est en mode « Salon », alors l’historique est enregistré
+        # pour le salon
+        if attrs["channel"]:
+            pseudo = "channel_{0}".format(attrs["channel"])
+        else:
+            pseudo = get_username(attrs)
+
+        add_history(pseudo=get_username(attrs), command="{0} {1}".format(commande, attrs["query"]))
 
         if commande in commands:
             if no_fail_reply == False:

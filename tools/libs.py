@@ -6,6 +6,9 @@ def is_debug(username):
 def is_telegram(msg):
     return "telegram" in msg
 
+def is_private_channel(update):
+    return update.message.chat.type is "private"
+
 def get_username(msg):
     return msg["user_name"][0]
 
@@ -30,8 +33,8 @@ def get_probable_command(text, bot_name=None):
 
     return commande.lower()
 
-def make_attrs(username, text, args, telegram=None):
-    attrs = {"user_name": [username], "text": [text], "query": " ".join(args)}
+def make_attrs(username, text, args, channel=None, telegram=None):
+    attrs = {"user_name": [username], "text": [text], "channel": channel, "query": " ".join(args)}
     if telegram:
         attrs["telegram"] = telegram
 
