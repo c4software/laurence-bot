@@ -11,18 +11,21 @@ def cmd_more(msg):
     else:
         pseudo = get_username(msg)
 
-    remove_last_history(pseudo)
-    previous_text = get_history(pseudo)[-1]
+    try:
+        remove_last_history(pseudo)
+        previous_text = get_history(pseudo)[-1]
 
-    # Réécriture des args avec la nouvelle commande
-    msg["args"]     = previous_text.split(' ')[1:]
-    msg["query"]    = " ".join(msg["args"])
+        # Réécriture des args avec la nouvelle commande
+        msg["args"]     = previous_text.split(' ')[1:]
+        msg["query"]    = " ".join(msg["args"])
 
-    if previous_text:
-        commande = get_probable_command(previous_text)
-        if commande in commands:
-            return commands[commande](msg)
+        if previous_text:
+            commande = get_probable_command(previous_text)
+            if commande in commands:
+                return commands[commande](msg)
+            else:
+                return None
         else:
             return None
-    else:
+    except:
         return None
