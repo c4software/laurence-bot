@@ -46,6 +46,18 @@ def load_history():
     except:
         history = {}
 
+def get_last_message(msg):
+    try:
+        if msg["channel"]:
+            pseudo = "channel_{0}".format(msg["channel"])
+        else:
+            pseudo = get_username(msg)
+        remove_last_history(pseudo)
+
+        return get_history(pseudo)[-1]
+    except:
+        return ""
+
 @register_as_command("historique", "Affiche votre historique de message", "Global")
 def cmd_show_history(msg):
     username = get_username(msg)
