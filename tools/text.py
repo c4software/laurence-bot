@@ -16,7 +16,7 @@ from .libs import is_debug, send_message_debug_user
 
 aliases = {}
 tb = Blobber(pos_tagger=PatternTagger(), analyzer=PatternAnalyzer())
-
+matcher = difflib.SequenceMatcher(None, [], [])
 
 def save_alias(command, tags):
     tag_length = len (tags)
@@ -27,8 +27,8 @@ def save_alias(command, tags):
 
 def find_closest(tags):
     tag_length = len(tags)
-    matcher = difflib.SequenceMatcher(None, tags, [])
     match = []
+    matcher.set_seq1(tags)
     if tag_length in aliases:
         for alias, command in aliases[tag_length]:
             matcher.set_seq2(alias)
