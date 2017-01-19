@@ -46,12 +46,17 @@ def load_history():
     except:
         history = {}
 
+def user_or_channel_history(msg):
+    if msg["channel"]:
+        pseudo = "channel_{0}".format(msg["channel"])
+    else:
+        pseudo = get_username(msg)
+
+    return pseudo
+
 def get_last_message(msg):
     try:
-        if msg["channel"]:
-            pseudo = "channel_{0}".format(msg["channel"])
-        else:
-            pseudo = get_username(msg)
+        pseudo = user_or_channel_history(msg)
         remove_last_history(pseudo)
 
         return get_history(pseudo)[-1]
