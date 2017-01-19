@@ -4,6 +4,10 @@ from commands.history import get_last_message
 from tools.libs import get_probable_command, get_username, make_attrs, is_private_channel
 from commands.decorators import commands
 
+def mark_for_awaiting_response(msg):
+    # TODO Ajouter gestion flag attente.
+    pass
+
 @register_as_command("plus", None, keywords=["encore"])
 def cmd_more(msg):
     previous_text = get_last_message(msg)
