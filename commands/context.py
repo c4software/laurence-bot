@@ -6,14 +6,12 @@ from commands.decorators import commands
 
 @register_as_command("plus", None, keywords=["encore"])
 def cmd_more(msg):
-    username = get_username(msg)
-    remove_last_history(username)
-
     if msg["channel"]:
         pseudo = "channel_{0}".format(msg["channel"])
     else:
         pseudo = get_username(msg)
 
+    remove_last_history(pseudo)
     previous_text = get_history(pseudo)[-1]
 
     # Réécriture des args avec la nouvelle commande

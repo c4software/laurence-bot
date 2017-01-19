@@ -53,7 +53,7 @@ def commands_handler(bot, update, args, no_fail_reply=False):
         else:
             pseudo = get_username(attrs)
 
-        add_history(pseudo=get_username(attrs), command="{0} {1}".format(commande, attrs["query"]))
+        add_history(pseudo=pseudo, command="{0} {1}".format(commande, attrs["query"]))
 
         if commande in commands:
             if no_fail_reply == False:
