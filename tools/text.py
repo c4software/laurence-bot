@@ -37,7 +37,7 @@ def find_closest(tags):
                 match.append((ratio, command))
     return sorted(match)
 
-def analyze_text(bot, update):
+def analyze_text(bot, update, do_google_search=False):
     text = demojize(update.message.text)
 
     # Analyse du texte en mode POS TAGGER
@@ -52,8 +52,9 @@ def analyze_text(bot, update):
     if closest:
         update.message.text = closest[0][1]
     else:
-        # Rien ne match alors on fallback en mode « Recherche Google »
-        update.message.text = "/google {0}".format(update.message.text)
+        if do_google_search:
+            # Rien ne match alors on fallback en mode « Recherche Google »
+            update.message.text = "/google {0}".format(update.message.text)
 
     # Une fois les traitements sur le texte éffectué, on remet en place les infos pour la suite
     args = update.message.text.split(' ')
