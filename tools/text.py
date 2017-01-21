@@ -12,7 +12,9 @@ from textblob_fr import PatternTagger, PatternAnalyzer
 
 from commands.history import save_last_tags
 
-from .libs import is_debug, send_message_debug_user
+from commands.context import get_awaiting_response
+
+from .libs import is_debug, send_message_debug_user, username_or_channel, make_attrs_from_telegram
 
 aliases = {}
 tb = Blobber(pos_tagger=PatternTagger(), analyzer=PatternAnalyzer())
@@ -44,7 +46,11 @@ def analyze_text(bot, update, do_google_search=False):
     blob = tb(text)
     text_keywords = [(x[0].lower(),x[1]) for x in blob.tags]
 
-    save_last_tags(update.message.from_user.username, text_keywords)
+    # Création de l’objet qui gère un peu tout
+    attrs = make_attrs_from_telegram(update, bot, {})
+    username = username_or_channel(attrs)
+
+    save_last_tags(username, text_keywords)
 
     closest = find_closest(text_keywords)
     send_message_debug_user(bot, closest)
@@ -52,7 +58,12 @@ def analyze_text(bot, update, do_google_search=False):
     if closest:
         update.message.text = closest[0][1]
     else:
-        if do_google_search:
+        # On regarde si dans le context actuel on a un message en attente
+        awaiting_command = get_awaiting_response(username)
+        if awaiting_command:
+            # Il y avait une commande en attente alors on append celle-ci pour une l’executer
+            update.message.text = "/{0} {1}".format(awaiting_command, update.message.text)
+        elif do_google_search:
             # Rien ne match alors on fallback en mode « Recherche Google »
             update.message.text = "/google {0}".format(update.message.text)
 

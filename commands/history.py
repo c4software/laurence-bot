@@ -4,7 +4,7 @@ import json
 
 from .decorators import register_as_command
 from settings import HISTORY_PATH
-from tools.libs import get_username
+from tools.libs import get_username, username_or_channel
 
 history = {}
 last_text = {}
@@ -46,17 +46,9 @@ def load_history():
     except:
         history = {}
 
-def user_or_channel_history(msg):
-    if msg["channel"]:
-        pseudo = "channel_{0}".format(msg["channel"])
-    else:
-        pseudo = get_username(msg)
-
-    return pseudo
-
 def get_last_message(msg):
     try:
-        pseudo = user_or_channel_history(msg)
+        pseudo = username_or_channel(msg)
         remove_last_history(pseudo)
 
         return get_history(pseudo)[-1]

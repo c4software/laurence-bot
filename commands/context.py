@@ -1,13 +1,19 @@
 # -*- coding: utf-8 -*-
 from .decorators import register_as_command
 from commands.history import get_last_message
-from tools.libs import get_probable_command, get_username, make_attrs, is_private_channel
+from tools.libs import get_probable_command, get_username, is_private_channel
 from commands.decorators import commands
 
-def mark_for_awaiting_response(msg):
-    # TODO Ajouter gestion flag attente.
-    pass
+awaiting = {}
 
+# Gestion des commandes en cours de process
+def mark_for_awaiting_response(username, action):
+    awaiting[username] = action
+
+def get_awaiting_response(username):
+    return awaiting.pop(username, None)
+
+# Commande pour rejouer la dernière commande
 @register_as_command("plus", None, keywords=["encore"])
 def cmd_more(msg):
     previous_text = get_last_message(msg)
