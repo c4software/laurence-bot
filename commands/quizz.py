@@ -5,6 +5,9 @@ import codecs
 import operator
 import difflib
 
+from .context import mark_for_awaiting_response
+from tools.libs import username_or_channel
+
 class quizz():
 	quizz_question = ""
 	quizz_reponse = ""
@@ -40,18 +43,20 @@ def sayindice():
 
 @register_as_command("question", "C'est parti ! (Pour répondre ! r ma réponse", "Quizz")
 def cmd_quizzstart(msg):
+	mark_for_awaiting_response(username_or_channel(msg), "r")
 	return get_question()
 
 @register_as_command("indice", "Quizz un indice", "Quizz")
 def cmd_indice(msg):
+	mark_for_awaiting_response(username_or_channel(msg), "r")
 	return sayindice()
 
-@register_as_command("r", "! r votre réponse", "Quizz")
+@register_as_command("r", "r votre réponse", "Quizz")
 def cmd_quizzreponse(msg):
+	mark_for_awaiting_response(username_or_channel(msg), "r")
 	username = msg['user_name'][0]
 
-	reponse  = str(msg['text'][0])
-	reponse = reponse.replace("{0} r ".format(msg['trigger_word'][0]), "")
+	reponse  = msg["query"]
 
 	if reponse.strip().lower() == quizz.quizz_reponse.strip().lower():
 		try:
@@ -76,6 +81,7 @@ def cmd_quizzreponse(msg):
 
 @register_as_command("score", "Affiche les scores", "Quizz")
 def cmd_quizzscore(msg):
+	mark_for_awaiting_response(username_or_channel(msg), "r")
 	string_score = "Score : "
 	for user in quizz.quizz_tabscore:
 		string_score = string_score + " \r\n " + str(user) + " : " + str(quizz.quizz_tabscore[user])
