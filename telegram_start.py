@@ -47,13 +47,8 @@ def commands_handler(bot, update, args, no_fail_reply=False):
         attrs = make_attrs(update.message.from_user.username, update.message.text, args, update.message.chat.title, {"bot": bot, "update": update, "args": args})
 
         # Si c’est en mode « Salon », alors l’historique est enregistré
-        # pour le salon
-        if attrs["channel"]:
-            pseudo = "channel_{0}".format(attrs["channel"])
-        else:
-            pseudo = get_username(attrs)
-
-        add_history(pseudo=pseudo, command="{0} {1}".format(commande, attrs["query"]))
+        # pour le salon sinon c’est pour le pseudo de l’utilisateur
+        add_history(pseudo=username_or_channel(attrs), command="{0} {1}".format(commande, attrs["query"]))
 
         if commande in commands:
             if no_fail_reply == False:

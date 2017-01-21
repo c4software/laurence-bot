@@ -2,7 +2,7 @@
 from .decorators import register_as_command
 from commands.history import get_last_message
 from commands.context import mark_for_awaiting_response
-from tools.libs import get_probable_command, get_username, make_attrs, is_private_channel
+from tools.libs import get_probable_command, username_or_channel
 from commands.decorators import commands
 
 def extract_hours_minutes(query):
@@ -17,7 +17,7 @@ def cmd_planifier(msg):
             # TODO Planification
             return "Planification effective, vous allez recevoir automatiquement « {0} » tous les jours à {1}".format(previous_text, date)
         else:
-            mark_for_awaiting_response("planning")
+            mark_for_awaiting_response(username_or_channel(msg), "planning")
             return "À qu’elle heure voulez vous planifier l’envoi automatique de « {0} » ?".format(previous_text)
     else:
         return "Je ne peux pas planifier la planification"

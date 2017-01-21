@@ -20,6 +20,14 @@ def send_message_debug_user(bot, message=""):
     for user in DEBUG_USER_ID:
         bot.sendMessage(chat_id=DEBUG_USER_ID[user], text=message)
 
+def username_or_channel(attrs):
+    if attrs["channel"]:
+        pseudo = "channel_{0}".format(attrs["channel"])
+    else:
+        pseudo = get_username(attrs)
+
+    return pseudo
+
 def get_probable_command(text, bot_name=None):
     commande = text.lower().split(' ')
     commande = commande[0]
