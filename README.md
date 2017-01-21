@@ -24,13 +24,13 @@ Serving Laurence on 0.0.0.0 port 5001 ...
 
 ## Utilisation Telegram
 ```bash
-$ export LAURENCE_TOKEN=YOUR_TOKEN
+$ export LAURENCE_TOKEN="YOUR_TOKEN"
 $ python telegram_start.py
 Laurence is ready
 ```
 
 
-## Test Curl
+## Test Curl Mattermost
 ```
 curl -s -X POST -d "text=test aaa&channel_name=test" http://localhost:5001/ | json_pp
 ```
