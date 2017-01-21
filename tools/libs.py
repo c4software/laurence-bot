@@ -1,4 +1,5 @@
 from settings import DEBUG_USER, DEBUG_USER_ID
+from commands.decorators import commands
 
 def is_debug(username):
     return username in DEBUG_USER
@@ -35,11 +36,20 @@ def get_probable_command(text, bot_name=None):
     if commande.startswith("/"):
         commande = commande[1:]
 
-    # Suppression du nom du bot exemple /gif@laurence_le_bot
+    # Suppression du nom du bot exemple /gif@laurence
     if bot_name and bot_name in commande:
         commande = commande.replace(bot_name, "").replace(" ", "")
 
-    return commande.lower()
+    if commande in commands:
+        # Commande existante
+        return commande.lower()
+    else:
+        # Commande non existante
+        return None
+
+def make_attrs_from_telegram(update, bot, args):
+    return make_attrs(update.message.from_user.username, update.message.text, args, update.message.chat.title, {"bot": bot, "update": update, "args": args})
+
 
 def make_attrs(username, text, args, channel=None, telegram=None):
     attrs = {"user_name": [username], "text": [text], "channel": channel, "query": " ".join(args)}
