@@ -6,7 +6,7 @@ import operator
 import difflib
 
 from .context import mark_for_awaiting_response
-from tools.libs import username_or_channel
+from tools.libs import username_or_channel, get_username
 
 class quizz():
 	quizz_question = ""
@@ -54,7 +54,7 @@ def cmd_indice(msg):
 @register_as_command("r", "r votre réponse", "Quizz")
 def cmd_quizzreponse(msg):
 	mark_for_awaiting_response(username_or_channel(msg), "r")
-	username = msg['user_name'][0]
+	username = get_username(msg)
 
 	reponse  = msg["query"]
 
