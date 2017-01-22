@@ -7,7 +7,6 @@ from bs4 import BeautifulSoup
 
 from settings import VDM_URL, VDM_PATH
 
-
 def get_viedemerde():
     try:
         data = callrest(domain=VDM_URL, port="80", path=VDM_PATH, user_headers={"Accept-Charset": "utf-8"})[2]

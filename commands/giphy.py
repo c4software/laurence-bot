@@ -9,6 +9,11 @@ from settings import GIPHY_URL, GIPHY_PATH, GIPHY_API_KEY, MASHAPE_KEY
 
 
 def get_gyphy(keyword, md=True):
+    '''
+    Éfféctue une recherche d’un gif via GIPHY
+    :param keyword: Mot clef recheché
+    :param md: Indique si le retour doit-être du type Markdown
+    '''
     try:
         params = {}
         params['api_key'] = GIPHY_API_KEY

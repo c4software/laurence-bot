@@ -4,10 +4,13 @@ from rest import callrest
 from .decorators import register_as_command
 import json
 import wikipedia
-# https://fr.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=&titles=valentin
 
 @register_as_command("def", "Recherche la définition sur Wikipedia", "Web", keywords=["wikipedia", "wiki"])
 def cmd_aide(msg):
+    """
+    Cherche la définition demandé par l’utilisateur
+    :param msg: Objet qui correspond à la demande de l’utilisateur.
+    """
     try:
         wikipedia.set_lang("fr")
         query = wikipedia.search(msg["query"], results=1).pop(0).replace(" ", "_")

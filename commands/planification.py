@@ -7,6 +7,9 @@ from commands.decorators import commands
 
 
 def extract_hours_minutes(query):
+    '''
+    Éxtraction des heures du message saisie par l’utilisateur
+    '''
     if query:
         query = query.replace("h", ":")
         query = query.split(":")
@@ -14,8 +17,22 @@ def extract_hours_minutes(query):
     else:
         return None, None
 
-@register_as_command("planifier", "Planifier la réccurence de la précédente commande", keywords=[])
+@register_as_command("planifier", "Planifier la réccurrence de la précédente commande", keywords=[])
 def cmd_planifier(msg):
+    '''
+    Commande pour la planification d’un message récuurrent.
+    Utilise le context pour la réponse. Ex :
+
+    - Vous: /planifier
+    - Lui : À qu’elle heure ?
+    - Vous : 10h
+    - Lui : Trés bien … planification de « commande » à 10h
+
+    ou :
+
+    - Vous /planifier 10h
+    - Lui : Trés bien … planification de « commande » à 10h
+    '''
     previous_text = get_last_message(msg)
     previous_text = get_probable_command(previous_text)
     if previous_text and previous_text != "planifier":

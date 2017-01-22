@@ -10,6 +10,11 @@ history = {}
 last_text = {}
 
 def add_history(pseudo, command):
+    '''
+    Ajout un historique
+    :param pseudo: Pseudo de l’utilisateur en question.
+    :param command: Commande à ajouter à l’historique.
+    '''
     command = command.rstrip()
     if pseudo not in history:
         history[pseudo] = []
@@ -27,17 +32,21 @@ def get_history(pseudo):
     return history.get(pseudo, [])
 
 def get_last_tags(pseudo):
+    # Gestion des tags pour l’apprentissage
     return last_text.get(pseudo, [])
 
 def save_last_tags(pseudo, tags):
+    # Gestion des tags pour l’apprentissage
     last_text[pseudo] = tags
 
 def write_history():
+    # Sauvegarde de l’historique sur disque
     fp = open(HISTORY_PATH, 'w')
     json.dump(history, fp)
     fp.close()
 
 def load_history():
+    # Chargement de l’historique dans la mémoire.
     global history
     try:
         fp = open(HISTORY_PATH, 'r')
@@ -47,6 +56,7 @@ def load_history():
         history = {}
 
 def get_last_message(msg):
+    # Récupération du dernier message dans l’historique. (Utilisé pour le context)
     try:
         pseudo = username_or_channel(msg)
         remove_last_history(pseudo)

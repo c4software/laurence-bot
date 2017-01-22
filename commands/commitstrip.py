@@ -8,6 +8,10 @@ from urllib.parse import urlparse
 import random
 
 def get_commitstrip():
+    """
+    Récupération d’un CommitStrip.
+    Utilisation du flux RSS pour récupérer la liste des CommitStrip.
+    """
     try:
         # Récupération du dernier CommitStrip
         data = callrest(domain="www.commitstrip.com", port="80", path="/fr/feed/", user_headers={"Accept-Charset": "utf-8"})[2]
