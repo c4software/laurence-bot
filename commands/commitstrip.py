@@ -14,12 +14,14 @@ def get_commitstrip(latest=False):
     :param latest: Retourne uniquement le Cs le plus récent
     """
     try:
-        # Récupération du dernier CommitStrip
+        # Récupération du flux CommitStrip
         data = callrest(domain="www.commitstrip.com", port="80", path="/fr/feed/", user_headers={"Accept-Charset": "utf-8"})[2]
         soup = BeautifulSoup(data, "html.parser")
-        if latest:
+        if not latest:
+            # Pas de flag latest on en prend un en aléatoire
             lien = random.choice(soup.select("item")).link.text
         else:
+            # Uniquement le dernier
             lien = soup.select("item")[0].link.text
 
         # Récupération de l’image.
