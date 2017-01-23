@@ -31,10 +31,12 @@ def write_learn():
 
 @register_as_command("learn", "", "Interne")
 def cmd_do_learn(msg):
-    username = get_username(msg)
-    add_alias(get_history(username)[-2], get_last_tags(username))
+    username    = get_username(msg)
+    command     = get_history(username)[-3]
+    tags        = get_last_tags(username)
+    add_alias(command, tags)
 
     if is_telegram(msg) and is_debug(username):
-        return emojize("Correspondance ajoutée :thumbs_up_sign:")
+        return emojize("Correspondance ajoutée « {0} » -> « {1} » :thumbs_up_sign:".format(tags, command))
     else:
         return emojize("Désolé le learn n’est pas disponible :unamused_face:")

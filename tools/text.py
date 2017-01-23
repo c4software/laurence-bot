@@ -64,7 +64,6 @@ def analyze_text(bot, update, do_google_search=False):
     send_message_debug_user(bot, closest)
 
     if closest:
-        print (closest)
         update.message.text = closest[0][1]
     else:
         # On regarde si dans le context actuel on a un message en attente
