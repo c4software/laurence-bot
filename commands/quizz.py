@@ -5,7 +5,7 @@ import codecs
 import operator
 import difflib
 
-from .context import mark_for_awaiting_response
+from .context import mark_for_awaiting_response, get_awaiting_response
 from tools.libs import username_or_channel, get_username
 
 class quizz():
@@ -50,6 +50,14 @@ def cmd_quizzstart(msg):
 def cmd_indice(msg):
 	mark_for_awaiting_response(username_or_channel(msg), "r")
 	return sayindice()
+
+@register_as_command("stop", "Quizz un indice", "Quizz")
+def cmd_indice(msg):
+	username = username_or_channel(msg)
+	get_awaiting_response(username) # Suppression de la dernière commande Context en attente
+	quizz.quizz_reponse = ""
+	quizz_question = ""
+	return "Quizz arreté pour {0}".format(username)
 
 @register_as_command("r", "r votre réponse", "Quizz")
 def cmd_quizzreponse(msg):
