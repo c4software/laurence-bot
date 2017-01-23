@@ -7,16 +7,20 @@ import time
 from urllib.parse import urlparse
 import random
 
-def get_commitstrip():
+def get_commitstrip(latest=False):
     """
     Récupération d’un CommitStrip.
     Utilisation du flux RSS pour récupérer la liste des CommitStrip.
+    :param latest: Retourne uniquement le Cs le plus récent
     """
     try:
         # Récupération du dernier CommitStrip
         data = callrest(domain="www.commitstrip.com", port="80", path="/fr/feed/", user_headers={"Accept-Charset": "utf-8"})[2]
         soup = BeautifulSoup(data, "html.parser")
-        lien = random.choice(soup.select("item")).link.text
+        if latest:
+            lien = random.choice(soup.select("item")).link.text
+        else:
+            lien = soup.select("item")[0].link.text
 
         # Récupération de l’image.
         o = urlparse(lien)
@@ -28,4 +32,7 @@ def get_commitstrip():
 
 @register_as_command("commitstrip", "Affiche le dernier CommitStrip", "Commitstrip", keywords=["cs"])
 def cmd_commitstrip(msg):
-    return get_commitstrip()
+    if "random" in msg["query"]:
+        return get_commitstrip()
+    else:
+        return get_commitstrip(latest=True)
