@@ -18,25 +18,33 @@ from .libs import is_debug, send_message_debug_user, username_or_channel, make_a
 
 aliases = {}
 tb = Blobber(pos_tagger=PatternTagger(), analyzer=PatternAnalyzer())
-matcher = difflib.SequenceMatcher(None, [], [])
 
-def save_alias(command, tags):
-    tag_length = len (tags)
+def add_alias(command, tags):
+    tag_length = str(len(tags))
     if tag_length not in aliases:
         aliases[tag_length] = []
 
     aliases[tag_length].append((tags, command))
 
+def load_aliases(alias):
+    global aliases
+    aliases = alias
+
+def get_aliases():
+    return aliases
+
 def find_closest(tags):
-    tag_length = len(tags)
+    tag_length = str(len(tags))
     match = []
-    matcher.set_seq1(tags)
+    matcher = difflib.SequenceMatcher(None, tags, [])
     if tag_length in aliases:
         for alias, command in aliases[tag_length]:
-            matcher.set_seq2(alias)
+            alias = [(x[0], x[1]) for x in alias]
+            matcher.set_seq2(tuple(alias))
             ratio = matcher.ratio()
             if ratio >= 0.5:
                 match.append((ratio, command))
+
     return sorted(match)
 
 def analyze_text(bot, update, do_google_search=False):
@@ -56,6 +64,7 @@ def analyze_text(bot, update, do_google_search=False):
     send_message_debug_user(bot, closest)
 
     if closest:
+        print (closest)
         update.message.text = closest[0][1]
     else:
         # On regarde si dans le context actuel on a un message en attente

@@ -9,6 +9,7 @@ from emoji import emojize, demojize
 from commands import *
 from commands.decorators import commands, descriptions
 from commands.history import add_history, write_history, load_history
+from commands.learn import load_learn, write_learn
 from settings import *
 
 from tools.text import analyze_text
@@ -29,10 +30,12 @@ if not token:
 updater = Updater(token=token)
 dispatcher = updater.dispatcher
 
-test = load_history()
+load_history()
+load_learn()
 @atexit.register
 def final_handler():
     write_history()
+    write_learn()
 
 @run_async
 def start(bot, update, args):
@@ -48,7 +51,10 @@ def commands_handler(bot, update, args, no_fail_reply=False):
 
         # Si c’est en mode « Salon », alors l’historique est enregistré
         # pour le salon sinon c’est pour le pseudo de l’utilisateur
-        add_history(pseudo=username_or_channel(attrs), command="{0} {1}".format(commande, attrs["query"]))
+        if commande:
+            add_history(pseudo=username_or_channel(attrs), command="{0} {1}".format(commande, attrs["query"]))
+        else:
+            add_history(pseudo=username_or_channel(attrs), command=update.message.text)
 
         if commande in commands:
             if no_fail_reply == False:

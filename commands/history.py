@@ -15,6 +15,7 @@ def add_history(pseudo, command):
     :param pseudo: Pseudo de l’utilisateur en question.
     :param command: Commande à ajouter à l’historique.
     '''
+    
     command = command.rstrip()
     if pseudo not in history:
         history[pseudo] = []
