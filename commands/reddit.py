@@ -61,10 +61,6 @@ def cmd_nsfw(msg):
 def cmd_image(msg):
 	return return_md(get_reddit(random.choice(REDDIT_IMAGE)), msg.get("preview", False))
 
-@register_as_command("gif", "Rien de mieux qu'un peu de mouvement…", "Reddit")
-def cmd_gif(msg):
-	return return_md(get_reddit(random.choice(REDDIT_GIF)), msg.get("preview", False))
-
 @register_as_command("cute", "Un chat ?! Où un chat ?", "Reddit")
 def cmd_cute(msg):
 	return return_md(get_reddit(random.choice(REDDIT_LOL)), msg.get("preview", False))

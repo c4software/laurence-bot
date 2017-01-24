@@ -33,7 +33,7 @@ def get_gyphy(keyword, md=True):
 def return_md(image):
     return "![image]({0})".format(image)
 
-@register_as_command("giphy", "Recherche une image sur giphy (prend un thème en paramètre)", "Gif")
+@register_as_command("giphy", "Recherche une image sur giphy (prend un thème en paramètre)", "Gif", keywords=["gif"])
 def cmd_gyphy(msg):
     return get_gyphy(msg["query"], md="telegram" not in msg)
 
