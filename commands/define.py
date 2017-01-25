@@ -5,12 +5,20 @@ from .decorators import register_as_command
 import json
 import wikipedia
 
+from .context import mark_for_awaiting_response
+from tools.libs import get_username
+
 @register_as_command("def", "Recherche la définition sur Wikipedia", "Web", keywords=["wikipedia", "wiki"])
 def cmd_aide(msg):
     """
     Cherche la définition demandé par l’utilisateur
     :param msg: Objet qui correspond à la demande de l’utilisateur.
     """
+
+    if not msg["query"]:
+        mark_for_awaiting_response(get_username(msg), "def")
+        return "Bien, sur quel sujet ?"
+
     try:
         wikipedia.set_lang("fr")
         query = wikipedia.search(msg["query"], results=1).pop(0).replace(" ", "_")
