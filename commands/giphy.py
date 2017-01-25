@@ -3,9 +3,10 @@
 from rest import callrest
 from .decorators import register_as_command
 import json
-
-
 from settings import GIPHY_URL, GIPHY_PATH, GIPHY_API_KEY, MASHAPE_KEY
+
+from .context import mark_for_awaiting_response
+from tools.libs import get_username
 
 
 def get_gyphy(keyword, md=True):
@@ -33,10 +34,25 @@ def get_gyphy(keyword, md=True):
 def return_md(image):
     return "![image]({0})".format(image)
 
+def has_msg(msg):
+    if not msg["query"]:
+        mark_for_awaiting_response(get_username(msg), "giphy")
+        return False, "Pour quel mot clef ?"
+    else:
+        return True, msg["query"]
+
+def do_gyphy(msg):
+    cont, data = has_msg(msg)
+    if cont:
+        return get_gyphy(data, md="telegram" not in msg)
+    else:
+        return data
+
 @register_as_command("giphy", "Recherche une image sur giphy (prend un thème en paramètre)", "Gif", keywords=["gif"])
 def cmd_gyphy(msg):
-    return get_gyphy(msg["query"], md="telegram" not in msg)
+    return do_gyphy(msg)
 
 @register_as_command("fail", "LA catégorie !", "Gif")
-def cmd_gyphy(msg):
-    return get_gyphy("fail", md="telegram" not in msg)
+def cmd_gyphy_fail(msg):
+    msg["query"] = "fail"
+    return do_gyphy(msg)
