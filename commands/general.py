@@ -20,6 +20,11 @@ def cmd_aide(msg):
     # Commande d’ambiance pour les salons et les chats
     return ":kiss:"
 
+@register_as_command("echo", None, keywords=[])
+def cmd_echo(msg):
+    # Commande d’echo
+    return msg["query"]
+
 @register_as_command("bonjour", "Heu… Bonjour?", keywords=["salut", "hey", "coucou"])
 def cmd_bonjour(msg):
     # Commande d’ambiance
