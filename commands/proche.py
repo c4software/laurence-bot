@@ -2,7 +2,7 @@
 from .decorators import register_as_command
 from rest import callrest
 import logging, json
-from tools.libs import is_telegram, get_username
+from tools.libs import is_telegram, get_username, username_or_channel
 from .context import mark_for_awaiting_response
 
 def search_arround_me(query):
@@ -55,5 +55,5 @@ def cmd_do_proche(msg):
         if not is_telegram(msg):
             return "Aucune position GPS fourni"
         else:
-            mark_for_awaiting_response(get_username(msg), "proche")
+            mark_for_awaiting_response(username_or_channel(msg), "proche")
             return "Pour utiliser la recherche proche merci de m’indiquer une position GPS. Ex: 48.802,2.025"

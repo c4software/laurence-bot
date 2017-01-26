@@ -6,7 +6,7 @@ import json
 import wikipedia
 
 from .context import mark_for_awaiting_response
-from tools.libs import get_username
+from tools.libs import username_or_channel
 
 @register_as_command("def", "Recherche la définition sur Wikipedia", "Web", keywords=["wikipedia", "wiki"])
 def cmd_aide(msg):
@@ -16,7 +16,7 @@ def cmd_aide(msg):
     """
 
     if not msg["query"]:
-        mark_for_awaiting_response(get_username(msg), "def")
+        mark_for_awaiting_response(username_or_channel(msg), "def")
         return "Bien, sur quel sujet ?"
 
     try:

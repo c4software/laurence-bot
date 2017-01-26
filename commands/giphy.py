@@ -6,7 +6,7 @@ import json
 from settings import GIPHY_URL, GIPHY_PATH, GIPHY_API_KEY, MASHAPE_KEY
 
 from .context import mark_for_awaiting_response
-from tools.libs import get_username
+from tools.libs import username_or_channel
 
 
 def get_gyphy(keyword, md=True):
@@ -36,7 +36,7 @@ def return_md(image):
 
 def has_msg(msg):
     if not msg["query"]:
-        mark_for_awaiting_response(get_username(msg), "giphy")
+        mark_for_awaiting_response(username_or_channel(msg), "giphy")
         return False, "Pour quel mot clef ?"
     else:
         return True, msg["query"]
