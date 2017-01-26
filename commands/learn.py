@@ -32,7 +32,10 @@ def write_learn():
 @register_as_command("learn", "", "Interne")
 def cmd_do_learn(msg):
     username    = get_username(msg)
-    command     = get_history(username)[-3]
+    if not msg["query"]:
+        command     = get_history(username)[-3]
+    else:
+        command = msg["query"]
     tags        = get_last_tags(username)
     add_alias(command, tags)
 
