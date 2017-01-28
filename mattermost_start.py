@@ -5,7 +5,7 @@ import sys
 import atexit
 
 from tools.extended_BaseHTTPServer import serve,route, redirect, override
-from rest import callrest
+from tools.rest import callrest
 
 from commands import *
 from commands.decorators import commands

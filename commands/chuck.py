@@ -2,7 +2,7 @@
 
 import json
 import html
-from rest import callrest
+from tools.rest import callrest
 from settings import CHUCK_DOMAIN, CHUCK_PATH
 from .decorators import register_as_command
 

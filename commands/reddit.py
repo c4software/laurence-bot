@@ -2,7 +2,7 @@
 
 import random
 import json
-from rest import callrest
+from tools.rest import callrest
 from .decorators import register_as_command
 
 from bs4 import BeautifulSoup

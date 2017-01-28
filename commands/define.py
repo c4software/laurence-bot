@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from rest import callrest
+from tools.rest import callrest
 from .decorators import register_as_command
 import json
 import wikipedia

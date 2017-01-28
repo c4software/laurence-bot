@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from .decorators import register_as_command
-from rest import callrest
+from tools.rest import callrest
 import logging, json
 from tools.libs import is_telegram, get_username, username_or_channel
 from .context import mark_for_awaiting_response

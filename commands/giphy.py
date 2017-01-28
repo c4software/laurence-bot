@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from rest import callrest
+from tools.rest import callrest
 from .decorators import register_as_command
 import json
 from settings import GIPHY_URL, GIPHY_PATH, GIPHY_API_KEY, MASHAPE_KEY
