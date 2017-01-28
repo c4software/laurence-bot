@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from .decorators import register_as_command
-from libs import make_message
+from tools.libs import make_message
 from settings import PSEUDO
 import random
 

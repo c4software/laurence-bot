@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import unittest
 
-from libs import make_message
+from tools.libs import make_message
 
 class TestReddit(unittest.TestCase):
     def test_make_message(self):

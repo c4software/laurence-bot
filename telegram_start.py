@@ -4,11 +4,12 @@ from telegram.ext import CommandHandler
 from telegram.ext import MessageHandler, Filters
 from telegram.ext.dispatcher import run_async
 from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove, KeyboardButton
+import telegram
 from emoji import emojize, demojize
 
 from commands import *
 from commands.decorators import commands, descriptions
-from commands.history import add_history, write_history, load_history
+from commands.history import add_history
 from commands.learn import load_learn, write_learn
 from settings import *
 
@@ -30,12 +31,19 @@ if not token:
 updater = Updater(token=token)
 dispatcher = updater.dispatcher
 
-load_history()
+
+# Gestion des enregistrements sur disque en fin d’éxécution
 load_learn()
 @atexit.register
 def final_handler():
-    write_history()
     write_learn()
+
+# Gestion des taches planifié
+# bot = telegram.Bot(token=token)
+# def doAction():
+#     bot.sendMessage(chat_id="TODO", text="Test")
+#     threading.Timer(60, doAction).start()
+# doAction()
 
 @run_async
 def start(bot, update, args):

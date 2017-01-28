@@ -5,6 +5,8 @@ PSEUDO = "Laurence"
 
 DISABLE_CHANNEL = ["si"]
 
+SQL_PARAMS = "sqlite:///db/laurence.db"
+
 MATTERMOST_DOMAIN = "mattermost.dev"
 MATTERMOST_PATH = "/hooks/4ipxwg7m3bf5xb9jxudxogkwww"
 
@@ -40,7 +42,6 @@ GIPHY_PATH = "/v1/gifs/random"
 GIPHY_API_KEY = "dc6zaTOxFJmzC"
 MASHAPE_KEY = "5HvqPQV9oimshSBiM0DVEMXL4158p1hUTxCjsn1ehRbrBuYNaQ"
 
-HISTORY_PATH = "/tmp/history.json"
 LEARN_PATH = "/tmp/learn.json"
 
 DEBUG_USER = ["C4software"]

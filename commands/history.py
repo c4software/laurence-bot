@@ -3,10 +3,11 @@
 import json
 
 from .decorators import register_as_command
-from settings import HISTORY_PATH
 from tools.libs import get_username, username_or_channel
 
-history = {}
+from database import db_session
+from models.models import Historique
+
 last_text = {}
 
 def add_history(pseudo, command):
@@ -15,22 +16,28 @@ def add_history(pseudo, command):
     :param pseudo: Pseudo de l’utilisateur en question.
     :param command: Commande à ajouter à l’historique.
     '''
-    
-    command = command.rstrip()
-    if pseudo not in history:
-        history[pseudo] = []
-
-    if len(history[pseudo]) == 0 or history[pseudo][-1] != command:
-        history[pseudo].append(command)
+    historique = Historique(pseudo, command.rstrip())
+    db_session.add(historique)
+    db_session.commit()
 
 def remove_last_history(pseudo):
-    if pseudo in history:
-        return history[pseudo].pop()
-    else:
-        return None
+    historique = Historique.query.filter_by(username=pseudo).order_by(Historique.datetime.desc()).limit(1).one()
+    if historique:
+        db_session.delete(historique)
+        db_session.commit()
 
 def get_history(pseudo):
-    return history.get(pseudo, [])
+    historique = Historique.query.filter_by(username=pseudo).all()
+    return [h.text for h in historique]
+
+def get_last_message(msg):
+    # Récupération du dernier message dans l’historique. (Utilisé pour le context)
+    try:
+        pseudo = username_or_channel(msg)
+        remove_last_history(pseudo)
+        return Historique.query.filter_by(username=pseudo).order_by(Historique.datetime.desc()).limit(1).one().text
+    except:
+        return ""
 
 def get_last_tags(pseudo):
     # Gestion des tags pour l’apprentissage
@@ -40,36 +47,10 @@ def save_last_tags(pseudo, tags):
     # Gestion des tags pour l’apprentissage
     last_text[pseudo] = tags
 
-def write_history():
-    # Sauvegarde de l’historique sur disque
-    fp = open(HISTORY_PATH, 'w')
-    json.dump(history, fp)
-    fp.close()
-
-def load_history():
-    # Chargement de l’historique dans la mémoire.
-    global history
-    try:
-        fp = open(HISTORY_PATH, 'r')
-        history = json.load(fp)
-        fp.close()
-    except:
-        history = {}
-
-def get_last_message(msg):
-    # Récupération du dernier message dans l’historique. (Utilisé pour le context)
-    try:
-        pseudo = username_or_channel(msg)
-        remove_last_history(pseudo)
-
-        return get_history(pseudo)[-1]
-    except:
-        return ""
-
 @register_as_command("historique", "Affiche votre historique de message", "Global")
 def cmd_show_history(msg):
-    username = get_username(msg)
-    if username in history:
-        return "- "+"\n- ".join(history[username])
+    historique = get_history(get_username(msg))
+    if historique:
+        return "- "+"\n- ".join(historique)
     else:
         return "Aucun historique"
