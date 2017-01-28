@@ -6,6 +6,18 @@ from .custom_type import JsonEncodedDict
 from database import Base
 from datetime import datetime
 
+class User(Base):
+	__tablename__ 	= 'user'
+	iduser		 	= Column(Integer, primary_key=True)
+	username 		= Column(Text)
+
+	def __init__(self, iduser, username):
+		if not username or not iduser:
+			raise Exception("All field are required")
+
+		self.iduser 	= iduser
+		self.username	= username
+
 class Historique(Base):
 	__tablename__ = 'historique'
 	idhistorique 	= Column(Integer, primary_key=True)

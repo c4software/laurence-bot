@@ -47,13 +47,16 @@ def final_handler():
 
 @run_async
 def start(bot, update, args):
+    # Sauvegarde de l’id du nouveau client.
+    attrs = make_attrs_from_telegram(update, bot, args)
+    save_new_user(username_or_channel(attrs), update.message.chat.id)
+
     bot.sendMessage(chat_id=update.message.chat_id,
     text="Bonjour, Je suis Laurence. Pour avoir la liste des commandes tapez /aide")
 
 @run_async
 def commands_handler(bot, update, args, no_fail_reply=False):
     try:
-        get_debug_user_id(update.message.from_user)
         commande = get_probable_command(update.message.text, bot.name)
         attrs = make_attrs_from_telegram(update, bot, args)
 
@@ -89,7 +92,6 @@ def commands_handler(bot, update, args, no_fail_reply=False):
 
 @run_async
 def text_handler(bot, update):
-    get_debug_user_id(update.message.from_user)
     update.message.text = update.message.text.replace(bot.name, "").lstrip()
     commande = get_probable_command(update.message.text)
     if commande not in commands:

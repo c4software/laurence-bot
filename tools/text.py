@@ -14,7 +14,7 @@ from commands.history import save_last_tags
 
 from commands.context import get_awaiting_response
 
-from .libs import is_debug, send_message_debug_user, username_or_channel, make_attrs_from_telegram
+from .libs import is_debug, send_message_debug_users, username_or_channel, make_attrs_from_telegram
 
 aliases = {}
 tb = Blobber(pos_tagger=PatternTagger(), analyzer=PatternAnalyzer())
@@ -61,7 +61,7 @@ def analyze_text(bot, update, do_google_search=False):
     save_last_tags(username, text_keywords)
 
     closest = find_closest(text_keywords)
-    send_message_debug_user(bot, closest)
+    send_message_debug_users(bot, closest)
 
     if closest:
         update.message.text = closest[0][1]

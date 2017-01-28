@@ -1,5 +1,10 @@
-from settings import DEBUG_USER, DEBUG_USER_ID
+from settings import DEBUG_USER
 from commands.decorators import commands
+
+from models.models import User
+from database import db_session
+
+import logging
 
 def is_debug(username):
     return username in DEBUG_USER
@@ -13,13 +18,9 @@ def is_private_channel(update):
 def get_username(msg):
     return msg["user_name"][0]
 
-def get_debug_user_id(msg):
-    if msg.id and msg.username in DEBUG_USER_ID:
-        DEBUG_USER_ID[msg.username] = msg.id
-
-def send_message_debug_user(bot, message=""):
-    for user in DEBUG_USER_ID:
-        bot.sendMessage(chat_id=DEBUG_USER_ID[user], text=message)
+def send_message_debug_users(bot, message=""):
+    for user in DEBUG_USER:
+        bot.sendMessage(chat_id=get_userid_from_username(user), text="DEBUG: {0}".format(message))
 
 def username_or_channel(attrs):
     if attrs["channel"]:
@@ -45,6 +46,22 @@ def get_probable_command(text, bot_name=None):
         return commande.lower()
     else:
         # Commande non existante
+        return None
+
+def save_new_user(username, userid):
+    try:
+        user = User(userid, username)
+        db_session.add(user)
+        db_session.commit()
+    except:
+        logging.debug("Utilisateur déjà connu. On ignore")
+        pass
+
+def get_userid_from_username(username):
+    user = User.query.filter_by(username=username).one()
+    if user:
+        return user.iduser
+    else:
         return None
 
 def make_attrs_from_telegram(update, bot, args):
