@@ -20,7 +20,9 @@ def get_username(msg):
 
 def send_message_debug_users(bot, message=""):
     for user in DEBUG_USER:
-        bot.sendMessage(chat_id=get_userid_from_username(user), text="DEBUG: {0}".format(message))
+        chat_id = get_userid_from_username(user)
+        if chat_id:
+            bot.sendMessage(chat_id=get_userid_from_username(user), text="DEBUG: {0}".format(message))
 
 def username_or_channel(attrs):
     if attrs["channel"]:
@@ -58,10 +60,13 @@ def save_new_user(username, userid):
         pass
 
 def get_userid_from_username(username):
-    user = User.query.filter_by(username=username).one()
-    if user:
-        return user.iduser
-    else:
+    try:
+        user = User.query.filter_by(username=username).one()
+        if user:
+            return user.iduser
+        else:
+            return None
+    except:
         return None
 
 def make_attrs_from_telegram(update, bot, args):

@@ -16,34 +16,26 @@ from commands.context import get_awaiting_response
 
 from .libs import is_debug, send_message_debug_users, username_or_channel, make_attrs_from_telegram
 
-aliases = {}
+from database import db_session
+from models.models import Learning_command
+
 tb = Blobber(pos_tagger=PatternTagger(), analyzer=PatternAnalyzer())
 
 def add_alias(command, tags):
-    tag_length = str(len(tags))
-    if tag_length not in aliases:
-        aliases[tag_length] = []
-
-    aliases[tag_length].append((tags, command))
-
-def load_aliases(alias):
-    global aliases
-    aliases = alias
-
-def get_aliases():
-    return aliases
+    learning_command = Learning_command(tags, command)
+    db_session.add(learning_command)
+    db_session.commit()
 
 def find_closest(tags):
     tag_length = str(len(tags))
     match = []
     matcher = difflib.SequenceMatcher(None, tags, [])
-    if tag_length in aliases:
-        for alias, command in aliases[tag_length]:
-            alias = [(x[0], x[1]) for x in alias]
-            matcher.set_seq2(tuple(alias))
-            ratio = matcher.ratio()
-            if ratio >= 0.5:
-                match.append((ratio, command))
+    learning_commands = Learning_command.query.filter_by(part_number=tag_length).all()
+    for lc in learning_commands:
+        matcher.set_seq2(tuple([(x[0], x[1]) for x in lc.tags]))
+        ratio = matcher.ratio()
+        if ratio >= 0.5:
+            match.append((ratio, lc.commande))
 
     return sorted(match)
 

@@ -10,7 +10,6 @@ from emoji import emojize, demojize
 from commands import *
 from commands.decorators import commands, descriptions
 from commands.history import add_history
-from commands.learn import load_learn, write_learn
 from settings import *
 
 from tools.text import analyze_text
@@ -31,12 +30,9 @@ if not token:
 updater = Updater(token=token)
 dispatcher = updater.dispatcher
 
-
-# Gestion des enregistrements sur disque en fin d’éxécution
-load_learn()
 @atexit.register
 def final_handler():
-    write_learn()
+    print ("Stop")
 
 # Gestion des taches planifié
 # bot = telegram.Bot(token=token)

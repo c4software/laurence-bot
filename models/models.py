@@ -8,7 +8,7 @@ from datetime import datetime
 
 class User(Base):
 	__tablename__ 	= 'user'
-	iduser		 	= Column(Integer, primary_key=True)
+	id_user		 	= Column(Integer, primary_key=True)
 	username 		= Column(Text)
 
 	def __init__(self, iduser, username):
@@ -20,7 +20,7 @@ class User(Base):
 
 class Historique(Base):
 	__tablename__ = 'historique'
-	idhistorique 	= Column(Integer, primary_key=True)
+	id_historique 	= Column(Integer, primary_key=True)
 	username 		= Column(Text)
 	text 			= Column(Text)
 	datetime 		= Column(DateTime)
@@ -38,13 +38,12 @@ class Historique(Base):
 
 class Learning_command(Base):
 	__tablename__ 	= 	"learning_command"
-	idLearn		 	= 	Column(Integer, primary_key=True)
-	username	 	= 	Column(Text)
+	id_learn		= 	Column(Integer, primary_key=True)
 	part_number		=	Column(Integer)
 	tags	 		=	Column(JsonEncodedDict)
 	commande	 	=	Column(Text)
 
-	def __init__(self, username, tags, commande):
-		self.username 		= 	username
-		self.text 			=	tags
+	def __init__(self, tags, commande):
+		self.tags 			=	tags
 		self.commande		=	commande
+		self.part_number	=	len(tags)

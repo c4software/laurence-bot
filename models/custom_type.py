@@ -12,4 +12,4 @@ class JsonEncodedDict(TypeDecorator):
   def process_result_value(self, value, dialect):
     return json.loads(value)
 
-mutable.MutableDict.associate_with(JsonEncodedDict)
+mutable.MutableList.associate_with(JsonEncodedDict)
