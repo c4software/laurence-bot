@@ -6,18 +6,18 @@ from commands.decorators import commands
 
 # Liste des commandes en attente de réponse.
 # Le tableau contiendra la liste des utilisateurs et la commande associé
-# {"pseudo": "commande"}
+# {"pseudo": {"commande": "commande", "data": {}}
 awaiting = {}
 
 # Gestion des commandes en cours de process
-def mark_for_awaiting_response(username, action):
+def mark_for_awaiting_response(username, action, data={}):
     """
     Mémorise une action en attente pour l’utilisateur
     Parameters:
       :param username: pseudo de l’utilisateur
       :param action: Action en attente
     """
-    awaiting[username] = action
+    awaiting[username] = {"commande": action, "data": data}
 
 def get_awaiting_response(username):
     """
