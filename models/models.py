@@ -34,7 +34,7 @@ class Historique(Base):
 		self.datetime	= datetime.today()
 
 	def __repr__(self):
-		return '<Historique %r>' % (self.idhistorique)
+		return '<Historique %r>' % (self.id_historique)
 
 class Learning_command(Base):
 	__tablename__ 	= 	"learning_command"
@@ -47,3 +47,6 @@ class Learning_command(Base):
 		self.tags 			=	tags
 		self.commande		=	commande
 		self.part_number	=	len(tags)
+
+	def __repr__(self):
+		return '<Learning_command %r>' % (self.id_learn)
