@@ -13,7 +13,7 @@ class User(Base):
 
 	def __init__(self, iduser, username):
 		if not username or not iduser:
-			raise Exception("All field are required")
+			raise Exception("All fields are required")
 
 		self.iduser 	= iduser
 		self.username	= username
@@ -33,8 +33,23 @@ class Historique(Base):
 		self.text 		= text
 		self.datetime	= datetime.today()
 
-	def __repr__(self):
-		return '<Historique %r>' % (self.id_historique)
+
+class Task(Base):
+	__tablename__ 	= 'task'
+	id_task		 	= Column(Integer, primary_key=True)
+	username 		= Column(Text)
+	last_execution 	= Column(DateTime)
+	planned_time 	= Column(String)
+	commande		= Column(Text)
+
+	def __init__(self, username, planned_time, commande):
+		if not username or not planned_time or not commande:
+			raise Exception("All fields are required")
+
+		self.username 		= username
+		self.planned_time 	= planned_time
+		self.commande 		= commande
+		self.commande		= datetime.today()
 
 class Learning_command(Base):
 	__tablename__ 	= 	"learning_command"
@@ -47,6 +62,3 @@ class Learning_command(Base):
 		self.tags 			=	tags
 		self.commande		=	commande
 		self.part_number	=	len(tags)
-
-	def __repr__(self):
-		return '<Learning_command %r>' % (self.id_learn)
