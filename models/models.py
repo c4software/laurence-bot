@@ -33,7 +33,6 @@ class Historique(Base):
 		self.text 		= text
 		self.datetime	= datetime.today()
 
-
 class Task(Base):
 	__tablename__ 	= 'task'
 	id_task		 	= Column(Integer, primary_key=True)
@@ -49,7 +48,7 @@ class Task(Base):
 		self.username 		= username
 		self.planned_time 	= planned_time
 		self.commande 		= commande
-		self.commande		= datetime.today()
+		self.last_execution	= datetime.today()
 
 class Learning_command(Base):
 	__tablename__ 	= 	"learning_command"
