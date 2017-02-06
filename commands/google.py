@@ -10,7 +10,7 @@ try:
 except:
     pass
 
-@register_as_command("google", "Effectue une recherche Google", "Web")
+@register_as_command("google", "Effectue une recherche Google", "Web", ["hey", "ordinateur", "laurence"])
 def cmd_do_googlesearch(msg):
     try:
         if msg["query"]:
@@ -18,6 +18,6 @@ def cmd_do_googlesearch(msg):
                 return "Voilà ce que j’ai trouvé … \n {0}".format(url)
         else:
             mark_for_awaiting_response(username_or_channel(msg), "google")
-            return "Bien, que recherchez vous ?"
+            return "Oui ? Que recherchez vous ?"
     except:
         return "Recherche impossible."
