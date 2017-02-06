@@ -16,7 +16,7 @@ def cmd_aide(msg):
     return get_command_list()
 
 @register_as_command("bisous", None, keywords=["kiss", "bise"])
-def cmd_aide(msg):
+def cmd_bisous(msg):
     # Commande d’ambiance pour les salons et les chats
     return ":kiss:"
 
