@@ -90,8 +90,11 @@ def cmd_quizzreponse(msg):
 @register_as_command("score", "Affiche les scores", "Quizz")
 def cmd_quizzscore(msg):
 	mark_for_awaiting_response(username_or_channel(msg), "r")
-	string_score = "Score : "
+	string_score = ""
 	for user in quizz.quizz_tabscore:
 		string_score = string_score + " \r\n " + str(user) + " : " + str(quizz.quizz_tabscore[user])
 
-	return string_score
+	if string_score:
+		return "Score : {0}".format(string_score)
+	else:
+		return "Aucun historique de quizz."
