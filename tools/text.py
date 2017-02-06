@@ -63,6 +63,7 @@ def analyze_text(bot, update, do_google_search=False):
         if awaiting_command:
             # Il y avait une commande en attente alors on append celle-ci pour une l’executer
             update.message.text = "/{0} {1}".format(awaiting_command["commande"], update.message.text)
+            update.data = awaiting_command["data"] # On ajoute dans l’objet update les « data » du context précédement récupéré
         elif do_google_search:
             # Rien ne match alors on fallback en mode « Recherche Google »
             update.message.text = "/google {0}".format(update.message.text)
