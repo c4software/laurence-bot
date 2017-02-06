@@ -15,14 +15,9 @@ def get_joieducode():
         titre = soup.find_all("h1")[0].string.replace("stagiaire", "@stagiaire")
         image = soup.find_all("div", class_="blog-post-content")[0].find("img")['src']
 
-        return return_md(titre.strip(), image)
+        return "{0} : ![image]({1})".format(titre.strip(), image)
     except Exception as e:
         return get_joieducode()
-
-
-def return_md(titre, image):
-    return "{0} : ![image]({1})".format(titre, image)
-
 
 @register_as_command("code", "Affiche un joieducode aléatoire", "Web")
 def cmd_joieducode(msg):
