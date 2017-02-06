@@ -13,14 +13,9 @@ def get_viedemerde():
         soup = BeautifulSoup(data, "html.parser")
         texte = soup.select("div.post.article")[0].p.text
 
-        return return_md(texte)
+        return texte
     except Exception as e:
         return get_viedemerde()
-
-
-def return_md(titre):
-    return "{0}".format(titre)
-
 
 @register_as_command("vdm", "Affiche une « quote » de vie de merde", "Web")
 def cmd_viedemerde(msg):
