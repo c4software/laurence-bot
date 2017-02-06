@@ -54,7 +54,6 @@ def cmd_indice(msg):
 @register_as_command("stop", "Quizz un indice", "Quizz")
 def cmd_indice(msg):
 	username = username_or_channel(msg)
-	get_awaiting_response(username) # Suppression de la dernière commande Context en attente
 	quizz.quizz_reponse = ""
 	quizz_question = ""
 	return "Quizz arreté pour {0}".format(username)
