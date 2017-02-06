@@ -12,7 +12,7 @@ def get_joieducode():
     try:
         data = callrest(domain=JOIESDUCODE_URL, port="80", path=JOIESDUCODE_PATH, user_headers={"Accept-Charset": "utf-8"})[2]
         soup = BeautifulSoup(data, "html.parser")
-        titre = soup.find_all("h1")[0].string.replace("stagiaire", "@stagiaire")
+        titre = soup.find_all("h1")[0]
         image = soup.find_all("div", class_="blog-post-content")[0].find("img")['src']
 
         return "{0} : ![image]({1})".format(titre.strip(), image)
