@@ -14,15 +14,10 @@ def get_fuckmylife():
         soup = BeautifulSoup(data, "html.parser")
         texte = soup.select("div.post.article")[0].p.text
 
-        return return_md(texte)
+        return texte
     except Exception as e:
         return None
-
-
-def return_md(titre):
-    return "{0}".format(titre)
-
-
+        
 @register_as_command("fml", "Affiche un fuck my life", "Web")
 def cmd_viedemerde(msg):
     return get_fuckmylife()
