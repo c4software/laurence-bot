@@ -24,15 +24,11 @@ def get_gyphy(keyword, md=True):
         if len(retour['data']) == 0:
             return get_gyphy("")
         if md:
-            return return_md(retour['data']['image_original_url'])
+            return "![image]({0})".format(retour['data']['image_original_url'])
         else:
             return retour['data']['image_original_url']
     except Exception as e:
         return None
-
-
-def return_md(image):
-    return "![image]({0})".format(image)
 
 def has_msg(msg):
     if not msg["query"]:
