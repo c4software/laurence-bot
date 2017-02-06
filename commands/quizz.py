@@ -83,7 +83,7 @@ def cmd_quizzreponse(msg):
 			if random.randint(0,20) == 10:
 				# tous les quelques messages on diffuse soit un indice, soit la question
 				if random.choice(['indice', 'question']) == "indice":
-					return sayindice()
+					return say_indice()
 				else:
 					return quizz.quizz_question
 
