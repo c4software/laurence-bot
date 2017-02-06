@@ -39,10 +39,11 @@ def cmd_do_learn(msg):
     """
     username    = get_username(msg)
     if not msg["query"]:
-        command     = get_history(username)[-3]
+        command = get_history(username)[-3]
     else:
         command = msg["query"]
-    tags        = get_last_tags(username)
+
+    tags = get_last_tags(username)
 
     if not tags:
         return "Vous devez avoir précédement dit une phrase à ajouter"
