@@ -89,15 +89,10 @@ def commands_handler(bot, update, args, no_fail_reply=False):
 @run_async
 def text_handler(bot, update):
     update.message.text = update.message.text.replace(bot.name, "").lstrip()
-    commande = get_probable_command(update.message.text)
-    if commande not in commands:
-        bot, update, args, no_fail_reply = analyze_text(bot, update, do_google_search=is_private_channel(update))
-        if bot:
-            commands_handler(bot, update, args, no_fail_reply)
-    else:
-        args = update.message.text.split(" ")
-        commands_handler(bot, update, args[1:], False)
-
+    bot, update, args, no_fail_reply = analyze_text(bot, update, do_google_search=is_private_channel(update))
+    if bot:
+        commands_handler(bot, update, args, no_fail_reply)
+        
 @run_async
 def location_handler(bot, update):
     args = update.message.text.split(' ')

@@ -55,18 +55,20 @@ def analyze_text(bot, update, do_google_search=False):
     closest = find_closest(text_keywords)
     send_message_debug_users(bot, closest)
 
-    if closest:
+    # TODO Ne plus écrire directement dans l’objet telegram
+    # TODO Paser via l’attrs plutôt.
+    
+    # On regarde si dans le context actuel on a un message en attente
+    awaiting_command = get_awaiting_response(username)
+    if awaiting_command:
+        # Il y avait une commande en attente alors on append celle-ci pour une l’executer
+        update.message.text = "/{0} {1}".format(awaiting_command["commande"], update.message.text)
+        update.data = awaiting_command["data"] # On ajoute dans l’objet update les « data » du context précédement récupéré
+    elif closest:
         update.message.text = closest[0][1]
-    else:
-        # On regarde si dans le context actuel on a un message en attente
-        awaiting_command = get_awaiting_response(username)
-        if awaiting_command:
-            # Il y avait une commande en attente alors on append celle-ci pour une l’executer
-            update.message.text = "/{0} {1}".format(awaiting_command["commande"], update.message.text)
-            update.data = awaiting_command["data"] # On ajoute dans l’objet update les « data » du context précédement récupéré
-        elif do_google_search:
-            # Rien ne match alors on fallback en mode « Recherche Google »
-            update.message.text = "/google {0}".format(update.message.text)
+    elif do_google_search:
+        # Rien ne match alors on fallback en mode « Recherche Google »
+        update.message.text = "/google {0}".format(update.message.text)
 
     # Une fois les traitements sur le texte éffectué, on remet en place les infos pour la suite
     args = update.message.text.split(' ')
