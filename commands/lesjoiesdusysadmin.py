@@ -15,14 +15,9 @@ def get_lesjoiesdusysadmin():
         titre = soup.select("div.content")[0].h3.span.text
         image = soup.find_all("div", class_="text")[0].find("img")['src']
 
-        return return_md(titre.strip(), image)
+        return "{0} : ![image]({1})".format(titre.strip(), image)
     except Exception as e:
         return get_lesjoiesdusysadmin()
-
-
-def return_md(titre, image):
-    return "{0} : ![image]({1})".format(titre, image)
-
 
 @register_as_command("sysadmin", "Affiche un joiedusysadmin aléatoire", "Web")
 def cmd_lesjoiesdusysadmin(msg):
