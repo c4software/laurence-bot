@@ -11,13 +11,6 @@ from commands import *
 from commands.decorators import commands
 from settings import *
 
-from commands.history import add_history, write_history, load_history, history
-test = load_history()
-@atexit.register
-def final_handler():
-    write_history()
-
-
 def chat(kwargs):
     try:
         commande = kwargs['text'][0].split(' ')
