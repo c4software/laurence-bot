@@ -21,7 +21,7 @@ def get_question():
 	quizz.quizz_reponse      = choice[1].lstrip().rstrip()
 	return "> "+quizz.quizz_question
 
-def sayindice():
+def say_indice():
 		if quizz.quizz_question:
 			try:
 				indice = ""
@@ -49,7 +49,7 @@ def cmd_quizzstart(msg):
 @register_as_command("indice", "Quizz un indice", "Quizz")
 def cmd_indice(msg):
 	mark_for_awaiting_response(username_or_channel(msg), "r")
-	return sayindice()
+	return say_indice()
 
 @register_as_command("stop", "Quizz un indice", "Quizz")
 def cmd_indice(msg):
