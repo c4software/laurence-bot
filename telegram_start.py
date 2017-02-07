@@ -44,17 +44,23 @@ def final_handler():
 @run_async
 def start(bot, update, args):
     # Sauvegarde de l’id du nouveau client.
-    attrs = make_attrs_from_telegram(update, bot, args)
+    attrs = make_attrs_from_telegram(update, bot, args, {})
     save_new_user(username_or_channel(attrs), update.message.chat.id)
 
     bot.sendMessage(chat_id=update.message.chat_id,
     text="Bonjour, Je suis Laurence. Pour avoir la liste des commandes tapez /aide")
 
 @run_async
-def commands_handler(bot, update, args, no_fail_reply=False):
+def commands_handler(bot, update, args, no_fail_reply=False, attrs=None):
     try:
+        if not attrs:
+            attrs = make_attrs_from_telegram(update, bot, args, {})
+        else:
+            bot     = attrs["telegram"]["bot"]
+            update  = attrs["telegram"]["update"]
+            args    = attrs["telegram"]["args"]
+
         commande = get_probable_command(update.message.text, bot.name)
-        attrs = make_attrs_from_telegram(update, bot, args)
 
         # Si c’est en mode « Salon », alors l’historique est enregistré
         # pour le salon sinon c’est pour le pseudo de l’utilisateur
@@ -89,10 +95,9 @@ def commands_handler(bot, update, args, no_fail_reply=False):
 @run_async
 def text_handler(bot, update):
     update.message.text = update.message.text.replace(bot.name, "").lstrip()
-    bot, update, args, no_fail_reply = analyze_text(bot, update, do_google_search=is_private_channel(update))
-    if bot:
-        commands_handler(bot, update, args, no_fail_reply)
-        
+    attrs = analyze_text(bot, update, do_google_search=is_private_channel(update))
+    commands_handler(None, None, None, True, attrs=attrs)
+
 @run_async
 def location_handler(bot, update):
     args = update.message.text.split(' ')

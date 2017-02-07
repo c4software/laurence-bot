@@ -6,7 +6,7 @@ from commands.decorators import commands
 
 from settings import DEBUG_USER
 
-import difflib
+import difflib, random
 from textblob import Blobber
 from textblob_fr import PatternTagger, PatternAnalyzer
 
@@ -55,15 +55,13 @@ def analyze_text(bot, update, do_google_search=False):
     closest = find_closest(text_keywords)
     send_message_debug_users(bot, closest)
 
-    # TODO Ne plus écrire directement dans l’objet telegram
-    # TODO Paser via l’attrs plutôt.
-    
     # On regarde si dans le context actuel on a un message en attente
     awaiting_command = get_awaiting_response(username)
+    context_data = {}
     if awaiting_command:
         # Il y avait une commande en attente alors on append celle-ci pour une l’executer
         update.message.text = "/{0} {1}".format(awaiting_command["commande"], update.message.text)
-        update.data = awaiting_command["data"] # On ajoute dans l’objet update les « data » du context précédement récupéré
+        context_data = awaiting_command["data"]
     elif closest:
         update.message.text = closest[0][1]
     elif do_google_search:
@@ -75,21 +73,23 @@ def analyze_text(bot, update, do_google_search=False):
     text = demojize(update.message.text)
 
     if ":cry" in text or ":thumbs_down_sign:" in text:
-        update.message.reply_text(emojize("Oh :pensive_face: Un soucis ?"), reply_markup=ReplyKeyboardRemove())
+        update.message.reply_text(emojize("Oh :pensive_face: Un soucis ?"))
         update.message.text = "/giphy"
-        return (bot, update, ["cute"], False)
+        args = ["giphy", "cute"]
     elif ":zzz:" in text or ":sleep" in text:
-        update.message.text = random.choice(["/gif","/cute", "/chuck", "/random", "/top10"])
-        return (bot, update, [], False)
+        update.message.text = random.choice(["/gif", "/cute", "/chuck", "/top10"])
+        args = []
     elif "kiss:" in text:
-        update.message.reply_text(emojize(":kiss:"), reply_markup=ReplyKeyboardRemove())
+        update.message.text = "/echo"
+        args = ["echo", ":kiss:"]
     elif ":poop:" in text or ":shit:" in text:
-        update.message.reply_text(emojize("Jolie :poop: !"), reply_markup=ReplyKeyboardRemove())
+        update.message.text = "/echo"
+        args = ["echo", "Jolie :poop: !"]
     elif ":thumbs_up_sign:" in text:
-        update.message.reply_text(emojize("YEAH ! :thumbs_up_sign:"), reply_markup=ReplyKeyboardRemove())
+        update.message.text = "/echo"
+        args = ["echo", "YEAH ! :thumbs_up_sign:"]
     elif "_heart" in text:
-        update.message.reply_text(emojize(":face_throwing_a_kiss:"), reply_markup=ReplyKeyboardRemove())
-    else:
-        return (bot, update, args[1:], True)
+        update.message.text = "/echo"
+        args = ["echo", ":face_throwing_a_kiss:"]
 
-    return None, None, None, None
+    return make_attrs_from_telegram(update, bot, args[1:])
