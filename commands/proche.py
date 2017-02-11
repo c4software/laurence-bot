@@ -29,8 +29,12 @@ def search_arround_me(query):
                 else:
                     city = adress["address"]["postcode"]
 
+                first_element = list(adress["address"].values())[0]
+                if rech in adress["address"]:
+                    first_element = adress["address"][rech]
+
                 # Récupération du « premier élément » comme Nom
-                retour.append("{0}, {1}".format(list(adress["address"].values())[0], city))
+                retour.append("{0}, {1} [Voir](https://www.google.fr/maps/@{2},{3},18z)".format(first_element, city, adress["lat"], adress["lon"]))
             except Exception as e:
                 raise (e)
 
