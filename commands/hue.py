@@ -7,6 +7,9 @@ from .decorators import register_as_command
 def cmd_hue(msg):
     return "Prochainement"
 
+def cmd_communicate_hue_server():
+    pass
+
 def cmd_init_hue():
     pass
 
