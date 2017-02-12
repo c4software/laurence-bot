@@ -77,7 +77,7 @@ def analyze_text(bot, update, do_google_search=False):
         update.message.text = "/giphy"
         args = ["giphy", "cute"]
     elif ":zzz:" in text or ":sleep" in text:
-        update.message.text = random.choice(["/gif", "/cute", "/chuck", "/top10"])
+        update.message.text = "/gif"
         args = []
     elif "kiss:" in text:
         update.message.text = "/echo"
@@ -87,7 +87,7 @@ def analyze_text(bot, update, do_google_search=False):
         args = ["echo", "Jolie :poop: !"]
     elif ":thumbs_up_sign:" in text:
         update.message.text = "/echo"
-        args = ["echo", "YEAH ! :thumbs_up_sign:"]
+        args = ["echo", ":thumbs_up_sign:"]
     elif "_heart" in text:
         update.message.text = "/echo"
         args = ["echo", ":face_throwing_a_kiss:"]
