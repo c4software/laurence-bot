@@ -10,6 +10,7 @@ class User(Base):
 	__tablename__ 	= 'user'
 	id_user		 	= Column(Integer, primary_key=True)
 	username 		= Column(Text)
+	settings		= Column(JsonEncodedDict)
 
 	def __init__(self, iduser, username):
 		if not username or not iduser:
