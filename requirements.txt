@@ -4,5 +4,7 @@ beautifulsoup4
 python-telegram-bot
 https://github.com/MarioVilas/google/archive/master.zip
 emoji
-textblob textblob_fr
+textblob
+textblob_fr
 wikipedia
+qhue
