@@ -13,8 +13,9 @@ Un bot simple et sans prétention, pour animer notre salon mattermost / Telegram
 - emoji
 - textblob textblob_fr
 - wikipedia
+- qhue (https://github.com/quentinsf/qhue)
 
-## Paramétrage
+## Parametrage
 L'ensemble des paramétrage est dans settings.py
 
 ## Utilisation Mattermost
