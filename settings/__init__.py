@@ -45,3 +45,5 @@ MASHAPE_KEY = "5HvqPQV9oimshSBiM0DVEMXL4158p1hUTxCjsn1ehRbrBuYNaQ"
 LEARN_PATH = "/tmp/learn.json"
 
 DEBUG_USER = ["C4software"]
+
+HUE_BRIDGE = "192.168.0.8"
