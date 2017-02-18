@@ -55,9 +55,10 @@ def save_new_user(username, userid):
         user = User(userid, username)
         db_session.add(user)
         db_session.commit()
+        return user
     except:
         logging.debug("Utilisateur déjà connu. On ignore")
-        pass
+        return User.query.filter_by(username=username).one()
 
 def get_userid_from_username(username):
     try:
