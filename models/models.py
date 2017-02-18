@@ -15,7 +15,6 @@ class User(Base):
 	def __init__(self, iduser, username):
 		if not username or not iduser:
 			raise Exception("All fields are required")
-
 		self.iduser 	= iduser
 		self.username	= username
 
