@@ -15,7 +15,8 @@ try:
     from qhue import Bridge, create_new_username
     @register_as_command("hue", "Gestion des ampoules hue.", "Domotique")
     def cmd_hue(msg):
-        return "Prochainement"
+        if "init" in msg["text"]:
+            cmd_init_hue(msg)
 except:
     logging.debug ("qhue is required to use the hue module")
 
