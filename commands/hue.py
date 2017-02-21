@@ -27,7 +27,7 @@ def cmd_communicate_hue_server(msg, ressource, bri):
     if "hue_username" in current_user.settings:
         b = Bridge(HUE_BRIDGE, current_user.settings.hue_username)
     else:
-        pass
+        reply_to_user(msg, "Pour utiliser les commandes HUE, vous devez faire « hue init »")
 
 def cmd_init_hue(msg):
     reply_to_user(msg, "Association avec votre bridge HUE.")
