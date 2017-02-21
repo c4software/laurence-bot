@@ -41,6 +41,9 @@ def cmd_init_hue(msg):
     db_session.merge(current_user)
     db_session.commit()
 
+    # Retour pour le client
+    msg["telegram"]["update"].message.reply_text("L’association avec votre brigde est maintenant effectif, vous pouvez utiliser toutes les commandes.")
+
 def cmd_set_level(msg, ressource, bri):
     cmd_communicate_hue_server(msg, ressource, bri)
     pass
