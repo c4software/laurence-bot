@@ -70,9 +70,11 @@ def get_userid_from_username(username):
     except:
         return None
 
+def reply_to_user(msg, text):
+    msg["telegram"]["update"].message.reply_text(text)
+
 def make_attrs_from_telegram(update, bot, args, data={}):
     return make_attrs(update.message.from_user.username, update.message.text, args, update.message.chat.title, {"bot": bot, "update": update, "args": args}, data)
-
 
 def make_attrs(username, text, args, channel=None, telegram=None, data={}):
     attrs = {"user_name": [username], "text": [text], "channel": channel, "query": " ".join(args), "data": data}

@@ -4,7 +4,7 @@ from tools.rest import callrest
 from .decorators import register_as_command
 from settings import HUE_BRIDGE
 
-from libs import get_username, save_new_user
+from libs import get_username, save_new_user, reply_to_user
 
 from database import db_session
 from models.models import User
@@ -22,13 +22,16 @@ except:
     logging.debug ("qhue is required to use the hue module")
 
 def cmd_communicate_hue_server(msg, ressource, bri):
-    pseudo = get_username(msg)
-    b = Bridge(HUE_BRIDGE, "TODO")
-    pass
+    pseudo      =   get_username(msg)
+    utilisateur =   User.query.filter_by(username=pseudo).one()
+    if "hue_username" in current_user.settings:
+        b = Bridge(HUE_BRIDGE, current_user.settings.hue_username)
+    else:
+        pass
 
 def cmd_init_hue(msg):
-    msg["telegram"]["update"].message.reply_text("Association avec votre bridge HUE.")
-    msg["telegram"]["update"].message.reply_text("Pour m’autoriser à dialoguer avec votre bridge HUE, merci d’appuyer sur le bouton présent sur celui-ci.")
+    reply_to_user(msg, "Association avec votre bridge HUE.")
+    reply_to_user(msg, "Pour m’autoriser à dialoguer avec votre bridge HUE, merci d’appuyer sur le bouton présent sur celui-ci.")
     # Récupération du « username » depuis le BRIDGE HUE
     hue_username = create_new_username(HUE_BRIDGE)
 
@@ -42,7 +45,7 @@ def cmd_init_hue(msg):
     db_session.commit()
 
     # Retour pour le client
-    msg["telegram"]["update"].message.reply_text("L’association avec votre brigde est maintenant effectif, vous pouvez utiliser toutes les commandes.")
+    reply_to_user(msg, "L’association avec votre brigde est maintenant effectif, vous pouvez utiliser toutes les commandes.")
 
 def cmd_set_level(msg, ressource, bri):
     cmd_communicate_hue_server(msg, ressource, bri)
