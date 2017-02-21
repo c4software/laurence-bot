@@ -13,6 +13,7 @@ import logging
 
 try:
     from qhue import Bridge, create_new_username
+
     @register_as_command("hue", "Gestion des ampoules hue.", "Domotique")
     def cmd_hue(msg):
         if "init" in msg["text"]:
@@ -26,6 +27,8 @@ def cmd_communicate_hue_server(msg, ressource, bri):
     pass
 
 def cmd_init_hue(msg):
+    msg["telegram"]["update"].message.reply_text("Association avec votre bridge HUE.")
+    msg["telegram"]["update"].message.reply_text("Pour m’autoriser à dialoguer avec votre bridge HUE, merci d’appuyer sur le bouton présent sur celui-ci.")
     # Récupération du « username » depuis le BRIDGE HUE
     hue_username = create_new_username(HUE_BRIDGE)
 
