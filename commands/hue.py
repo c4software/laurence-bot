@@ -18,6 +18,10 @@ try:
     def cmd_hue(msg):
         if "init" in msg["text"]:
             cmd_init_hue(msg)
+        elif "allume" in msg["text"]:
+            cmd_change_room_state(msg, "TODO", True)
+        elif "eteindre" in msg["text"]:
+            cmd_change_room_state(msg, "TODO", False)
 except:
     logging.debug ("qhue is required to use the hue module")
 
