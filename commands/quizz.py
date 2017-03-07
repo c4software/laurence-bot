@@ -26,14 +26,7 @@ def say_indice():
 			try:
 				indice = ""
 				letter = random.choice(quizz.quizz_reponse)
-				for x in quizz.quizz_reponse:
-					if x == letter:
-						indice = indice+str(x)
-					else:
-						if x == " ":
-							indice = indice+" "
-						else:
-							indice = indice+"_"
+				indice = ''.join(i if random.randint(0, 1) else '_' for i in quizz.quizz_reponse)
 
 				return "Un petit indice: ``` {0} ```".format(indice)
 			except:
@@ -53,10 +46,9 @@ def cmd_indice(msg):
 
 @register_as_command("stop", "Quizz un indice", "Quizz")
 def cmd_indice(msg):
-	username = username_or_channel(msg)
 	quizz.quizz_reponse = ""
 	quizz_question = ""
-	return "Quizz arreté pour {0}".format(username)
+	return "Arret du quizz"
 
 @register_as_command("r", "r votre réponse", "Quizz")
 def cmd_quizzreponse(msg):
@@ -76,7 +68,7 @@ def cmd_quizzreponse(msg):
 	else:
 		# Test si la reponse s'approche
 		if difflib.SequenceMatcher(None, quizz.quizz_reponse.strip().lower(), reponse.strip().lower()).ratio() > 0.7:
-			return 'ha {0} pas loin!'.format(username)
+			return 'Ah {0} pas loin!'.format(username)
 		else:
 			# Si ce n'est pas la bonne reponse et que la reponse est eloigne
 			if random.randint(0,20) == 10:
