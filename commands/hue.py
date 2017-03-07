@@ -4,7 +4,7 @@ from tools.rest import callrest
 from .decorators import register_as_command
 from settings import HUE_BRIDGE
 
-from libs import get_username, save_new_user, reply_to_user
+from tools.libs import get_username, save_new_user, reply_to_user
 
 from database import db_session
 from models.models import User
