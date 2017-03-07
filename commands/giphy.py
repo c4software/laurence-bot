@@ -44,7 +44,7 @@ def do_gyphy(msg):
     else:
         return data
 
-@register_as_command("giphy", "Recherche une image sur giphy (prend un thème en paramètre)", "Gif", keywords=["gif"])
+@register_as_command("gif", "Recherche une image sur giphy (prend un thème en paramètre)", "Gif", keywords=["giphy"])
 def cmd_gyphy(msg):
     return do_gyphy(msg)
 
