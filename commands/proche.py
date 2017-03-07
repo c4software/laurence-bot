@@ -8,7 +8,7 @@ from .context import mark_for_awaiting_response
 def search_arround_me(query):
     type_recherche = ["park", "forest", "castle"]
     type_recherche_translate = {"park": "Parc", "forest": "Forêt", "castle": "Château"}
-    retour_string = "Très bien, voilà la liste des lieux autours de vous :\n"
+    retour_string = "Voilà la liste des lieux autours de vous :\n"
     no_result = True
 
     for rech in type_recherche:
@@ -56,8 +56,5 @@ def cmd_do_proche(msg):
     elif msg["query"] != "":
         return search_arround_me(msg["query"])
     else:
-        if not is_telegram(msg):
-            return "Aucune position GPS fourni"
-        else:
-            mark_for_awaiting_response(username_or_channel(msg), "proche")
-            return "Pour utiliser la recherche proche merci de m’indiquer une position GPS. Ex: 48.802,2.025"
+        mark_for_awaiting_response(username_or_channel(msg), "proche")
+        return "Pour utiliser la recherche proche merci de m’indiquer une position GPS. Ex: 48.802,2.025"
