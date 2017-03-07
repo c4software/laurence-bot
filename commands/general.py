@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from .decorators import register_as_command
-from tools.libs import make_message
+from tools.libs import make_message, get_username
 from settings import PSEUDO
 import random
 
@@ -28,7 +28,7 @@ def cmd_echo(msg):
 @register_as_command("bonjour", "Heu… Bonjour?", keywords=["salut", "hey", "coucou"])
 def cmd_bonjour(msg):
     # Commande d’ambiance
-    return '{0} {1}, besoin d’/aide ?'.format(random.choice(["Salut", "Coucou", "Bonjour", "Hello", "Hoy"]),msg['user_name'][0])
+    return '{0} {1}, besoin d’/aide ?'.format(random.choice(["Salut", "Coucou", "Bonjour", "Hello", "Hoy"]),get_username(msg))
 
 def get_command_list():
     '''
