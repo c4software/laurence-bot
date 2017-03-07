@@ -27,8 +27,7 @@ def say_indice():
 				indice = ""
 				letter = random.choice(quizz.quizz_reponse)
 				indice = ''.join(i if random.randint(0, 1) else '_' for i in quizz.quizz_reponse)
-
-				return "Un petit indice: ``` {0} ```".format(indice)
+				return "Un indice: ``` {0} ```".format(indice)
 			except:
 				return "Pas d'indice..."
 		else:
