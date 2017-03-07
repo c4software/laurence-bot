@@ -1,16 +1,17 @@
 # -*- coding: utf-8 -*-
 import unittest
 
-from run import chat
-import json
+from tools.libs import *
+from commands import *
 
-class TestReddit(unittest.TestCase):
-    user_name = "Valentin"
-    def test_chat(self):
-        """ Test Global """
-        data = {"text": ["! bonjour"], "user_name": [self.user_name]}
-        result = json.loads(chat(data))
-        self.assertEqual(result["text"], "Bonjour {0}".format(self.user_name))
+class TestMain(unittest.TestCase):
+    def test_echo(self):
+        data = make_attrs("valentin", "Bonjour", args=["Bonjour"])
+        self.assertEqual(commands["echo"](data), "Bonjour")
+
+    def test_aide(self):
+        self.assertTrue(isinstance(general.get_command_list(), str))
+
 
 if __name__ == '__main__':
     unittest.main()
