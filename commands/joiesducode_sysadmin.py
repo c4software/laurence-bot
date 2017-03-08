@@ -8,7 +8,7 @@ from bs4 import BeautifulSoup
 from settings import JOIESDUCODE_URL, JOIESDUCODE_PATH, LESJOIESDUSYSADMIN_URL, LESJOIESDUSYSADMIN_PATH
 
 
-def get_joieducode():
+def get_joieducode(n=1):
     try:
         data = callrest(domain=JOIESDUCODE_URL, port="80", path=JOIESDUCODE_PATH, user_headers={"Accept-Charset": "utf-8"})[2]
         soup = BeautifulSoup(data, "html.parser")
@@ -17,8 +17,12 @@ def get_joieducode():
 
         return "{0} : ![image]({1})".format(titre.strip(), image)
     except Exception as e:
-        return get_joieducode()
-def get_lesjoiesdusysadmin():
+        if n > 2:
+            return None
+        else:
+            get_joieducode(n+1)
+
+def get_lesjoiesdusysadmin(n=1):
     try:
         data = callrest(domain=LESJOIESDUSYSADMIN_URL, port="80", path=LESJOIESDUSYSADMIN_PATH, user_headers={"Accept-Charset": "utf-8"})[2]
         soup = BeautifulSoup(data, "html.parser")
@@ -27,12 +31,15 @@ def get_lesjoiesdusysadmin():
 
         return "{0} : ![image]({1})".format(titre.strip(), image)
     except Exception as e:
-        return get_lesjoiesdusysadmin()
-        
+        if n > 2:
+            return None
+        else:
+            get_lesjoiesdusysadmin(n+1)
+
 @register_as_command("code", "Affiche un joieducode aléatoire", "Web")
 def cmd_joieducode(msg):
-    return get_joieducode()
+    return get_joieducode(1)
 
 @register_as_command("sysadmin", "Affiche un joiedusysadmin aléatoire", "Web")
 def cmd_lesjoiesdusysadmin(msg):
-    return get_lesjoiesdusysadmin()
+    return get_lesjoiesdusysadmin(1)
