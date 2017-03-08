@@ -4,6 +4,8 @@ from tools.rest import callrest
 from .decorators import register_as_command
 
 from bs4 import BeautifulSoup
+import html
+import json
 
 from settings import FML_URL, FML_PATH, CHUCK_DOMAIN, CHUCK_PATH
 
@@ -12,10 +14,10 @@ def cmd_fml(msg):
     try:
         data = callrest(domain=FML_URL, port="80", path=FML_PATH, user_headers={"Accept-Charset": "utf-8"})[2]
         soup = BeautifulSoup(data, "html.parser")
-        texte = soup.select("div.post.article")[0].p.text
-
+        texte = soup.select("p.block")[0].a.text
         return texte
     except Exception as e:
+        print (e)
         return None
 
 @register_as_command("chuck", "Chuck Norris a déjà compté jusqu'à l'infini. Deux fois.", "Web")
