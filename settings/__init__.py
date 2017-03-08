@@ -31,7 +31,7 @@ VDM_PATH = "/aleatoire?"
 FML_URL = "www.fmylife.com"
 FML_PATH = "/random?"
 
-MADAME_URL = "ditesbonjouralamadame.tumblr.com"
+MADAME_URL = "dites.bonjourmadame.fr"
 MADAME_PATH = "/random"
 
 MADEMOISELLE_URL = "www.bonjourmademoiselle.fr"
