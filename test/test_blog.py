@@ -12,7 +12,8 @@ class TestMlleMadame(unittest.TestCase):
         self.assertTrue("![image](" in commands["madame"](None))
 
     def test_cmd_commitstrip(self):
-        self.assertTrue("http" in commands["commitstrip"](None))
+        data = make_attrs("valentin", "", args=[""])
+        self.assertTrue("http" in commands["commitstrip"](data))
 
     def test_cmd_chuck(self):
         self.assertIsNot(commands["chuck"](None), None)
