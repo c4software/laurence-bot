@@ -4,7 +4,7 @@ import unittest
 from tools.libs import *
 from commands import *
 
-class TestMlleMadame(unittest.TestCase):
+class TestBlog(unittest.TestCase):
     def test_cmd_mademoiselle(self):
         self.assertTrue("![image](" in commands["mlle"](None))
 
