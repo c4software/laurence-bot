@@ -21,6 +21,12 @@ class TestMlleMadame(unittest.TestCase):
     def test_cmd_fml(self):
         self.assertIsNot(commands["fml"](None), None)
 
+    def test_cmd_code(self):
+        self.assertTrue(isinstance(commands["code"](None), str))
+
+    def test_cmd_sysadmin(self):
+        self.assertTrue(isinstance(commands["sysadmin"](None), str))
+
 
 if __name__ == '__main__':
     unittest.main()
