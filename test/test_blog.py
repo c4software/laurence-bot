@@ -6,12 +6,19 @@ from commands import *
 
 class TestMlleMadame(unittest.TestCase):
     def test_cmd_mademoiselle(self):
-        retour = commands["mlle"](None)
-        self.assertTrue("![image](" in retour)
+        self.assertTrue("![image](" in commands["mlle"](None))
 
     def test_cmd_madame(self):
-        retour = commands["madame"](None)
-        self.assertTrue("![image](" in retour)
+        self.assertTrue("![image](" in commands["madame"](None))
+
+    def test_cmd_commitstrip(self):
+        self.assertTrue("http" in commands["commitstrip"](None))
+
+    def test_cmd_chuck(self):
+        self.assertIsNot(commands["chuck"](None), None)
+
+    def test_cmd_fml(self):
+        self.assertIsNot(commands["fml"](None), None)
 
 
 if __name__ == '__main__':
