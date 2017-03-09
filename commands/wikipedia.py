@@ -34,7 +34,7 @@ def cmd_aide(msg):
                 page = retour["query"]["pages"][page_id]
                 return "{0} \n\nEn savoir plus : https://{1}/?curid={2}".format(page.get("extract", ""), domain, page_id)
             else:
-                raise Exception("")
+                raise Exception("KO")
     except:
         if msg["query"]:
             return "Aucun résultat pour {0}".format(query)
