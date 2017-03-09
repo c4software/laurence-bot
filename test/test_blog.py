@@ -22,10 +22,10 @@ class TestBlog(unittest.TestCase):
         self.assertIsNot(commands["fml"](None), None)
 
     def test_cmd_code(self):
-        self.assertTrue(isinstance(commands["code"](None), str))
+        self.assertIsNot(commands["code"](None), None)
 
     def test_cmd_sysadmin(self):
-        self.assertTrue(isinstance(commands["sysadmin"](None), str))
+        self.assertIsNot(commands["sysadmin"](None), None)
 
 
 if __name__ == '__main__':
