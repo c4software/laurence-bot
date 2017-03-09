@@ -13,6 +13,9 @@ class TestGeneral(unittest.TestCase):
         data = make_attrs("valentin", "Bonjour", args=["Bonjour"])
         self.assertTrue("valentin" in commands["bonjour"](data))
 
+    def test_bisous(self):
+        data = make_attrs("valentin", "bisous", args=["bisous"])
+        self.assertEqual(commands["bisous"](data), ":kiss:")
 
     def test_aide(self):
         self.assertTrue(isinstance(general.get_command_list(), str))
