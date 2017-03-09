@@ -6,10 +6,10 @@ from commands import *
 
 class TestBlog(unittest.TestCase):
     def test_cmd_mademoiselle(self):
-        self.assertTrue("![image](" in commands["mlle"](None))
+        self.assertIsNot(commands["mlle"](None), None)
 
     def test_cmd_madame(self):
-        self.assertTrue("![image](" in commands["madame"](None))
+        self.assertIsNot(commands["madame"](None), None)
 
     def test_cmd_commitstrip(self):
         data = make_attrs("valentin", "", args=[""])
