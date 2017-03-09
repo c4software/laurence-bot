@@ -13,6 +13,10 @@ class TestRecherche(unittest.TestCase):
         data = make_attrs("valentin", "Test", args=["Test"])
         self.assertTrue(isinstance(commands["def"](data), str))
 
+    def test_proche(self):
+        data = make_attrs("valentin", "48.802,2.025", args=["48.802,2.025"])
+        self.assertTrue("Désolé" not in commands["proche"](data))
+
 
 if __name__ == '__main__':
     unittest.main()
