@@ -4,5 +4,5 @@
 # pip install coverage coverage-badge
 
 coverage run --source=. -m unittest discover
-coverage report -m
-coverage-badge -o test/coverage.svg
+coverage report -m > test/coverage/coverage.txt
+coverage-badge -f -o test/coverage/coverage.svg
