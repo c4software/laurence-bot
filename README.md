@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/c4software/laurence-bot.svg?branch=master)](https://travis-ci.org/c4software/laurence-bot)
 
+[![Couverture](https://github.com/c4software/laurence-bot)](test/coverage.svg)
+
 Un bot simple et sans prétention, pour animer notre salon mattermost / Telegram interne…
 
 ## Requiert   
