@@ -16,11 +16,11 @@ def get_joieducode(n=1):
         image = soup.find_all("div", class_="blog-post-content")[0].find("img")['src']
 
         return "{0} : ![image]({1})".format(titre.strip(), image)
-    except Exception as e:
+    except:
         if n > 2:
-            return None
+            return "Désolé récupération impossible"
         else:
-            get_joieducode(n+1)
+            return get_joieducode(n=n+1)
 
 def get_lesjoiesdusysadmin(n=1):
     try:
@@ -30,16 +30,16 @@ def get_lesjoiesdusysadmin(n=1):
         image = soup.find_all("div", class_="text")[0].find("img")['src']
 
         return "{0} : ![image]({1})".format(titre.strip(), image)
-    except Exception as e:
+    except:
         if n > 2:
-            return None
+            return "Désolé récupération impossible"
         else:
-            get_lesjoiesdusysadmin(n+1)
+            return get_lesjoiesdusysadmin(n=n+1)
 
 @register_as_command("code", "Affiche un joieducode aléatoire", "Web")
 def cmd_joieducode(msg):
-    return get_joieducode(1)
+    return get_joieducode()
 
 @register_as_command("sysadmin", "Affiche un joiedusysadmin aléatoire", "Web")
 def cmd_lesjoiesdusysadmin(msg):
-    return get_lesjoiesdusysadmin(1)
+    return get_lesjoiesdusysadmin()
