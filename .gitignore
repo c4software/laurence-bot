@@ -1,5 +1,5 @@
 db/*.db
-
+.coverage
 
 .DS_Store
 
