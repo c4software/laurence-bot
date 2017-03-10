@@ -1,6 +1,6 @@
 # Laurence-bot
 
-[![Build Status](https://travis-ci.org/c4software/laurence-bot.svg?branch=master)](https://travis-ci.org/c4software/laurence-bot) [![Couverture](test/coverage/coverage.txt)](https://cdn.rawgit.com/c4software/laurence-bot/master/test/coverage/coverage.svg)
+[![Build Status](https://travis-ci.org/c4software/laurence-bot.svg?branch=master)](https://travis-ci.org/c4software/laurence-bot) [![Couverture](https://cdn.rawgit.com/c4software/laurence-bot/master/test/coverage/coverage.svg)](test/coverage/coverage.txt)
 
 Un bot simple et sans prétention, pour animer notre salon mattermost / Telegram interne…
 
