@@ -15,7 +15,7 @@ def cmd_mademoiselle(msg):
         image = soup.find_all("div", class_="photo")[0].find("img")['src']
         return "![image]({0})".format(image)
     except Exception as e:
-        return None
+        return "Oups…"
 
 @register_as_command("madame", "Affiche un bonjour madame aléatoire", "Images")
 def cmd_madame(msg):
@@ -25,4 +25,4 @@ def cmd_madame(msg):
         image = soup.find_all("div", class_="photo")[0].find("img")['src']
         return "![image]({0})".format(image)
     except Exception as e:
-        return None
+        return "Oups…"
