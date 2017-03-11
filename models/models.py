@@ -53,11 +53,11 @@ class Task(Base):
 class Learning_command(Base):
 	__tablename__ 	= 	"learning_command"
 	id_learn		= 	Column(Integer, primary_key=True)
-	part_number		=	Column(Integer)
+	tags_len		=	Column(Integer)
 	tags	 		=	Column(JsonEncodedDict)
 	commande	 	=	Column(Text)
 
 	def __init__(self, tags, commande):
 		self.tags 			=	tags
 		self.commande		=	commande
-		self.part_number	=	len(tags)
+		self.tags_len           =	len(tags)
