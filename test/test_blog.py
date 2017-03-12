@@ -15,6 +15,10 @@ class TestBlog(unittest.TestCase):
         data = make_attrs("valentin", "", args=[""])
         self.assertTrue("http" in commands["commitstrip"](data))
 
+    def test_cmd_commitstrip_random(self):
+        data = make_attrs("valentin", "random", args=["random"])
+        self.assertTrue("http" in commands["commitstrip"](data))
+
     def test_cmd_chuck(self):
         self.assertIsNot(commands["chuck"](None), None)
 
