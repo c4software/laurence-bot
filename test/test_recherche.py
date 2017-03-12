@@ -9,6 +9,10 @@ class TestRecherche(unittest.TestCase):
         data = make_attrs("valentin", "Test", args=["Test"])
         self.assertTrue(commands["google"](data) is not "Recherche impossible.")
 
+    def test_google_non_keywords(self):
+        data = make_attrs("valentin", "", args=[""])
+        self.assertTrue("Oui ?" in commands["google"](data))
+
     def test_wikipedia(self):
         data = make_attrs("valentin", "Test", args=["Test"])
         self.assertTrue(isinstance(commands["def"](data), str))
