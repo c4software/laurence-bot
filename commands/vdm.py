@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 
 from settings import VDM_URL, VDM_PATH
 
-def get_viedemerde():
+def get_viedemerde(n=0):
     try:
         data = callrest(domain=VDM_URL, port="80", path=VDM_PATH, user_headers={"Accept-Charset": "utf-8"})[2]
         soup = BeautifulSoup(data, "html.parser")
@@ -15,7 +15,10 @@ def get_viedemerde():
 
         return texte
     except Exception as e:
-        return get_viedemerde()
+        if n > 2:
+            return "Désolé récupération impossible"
+        else:
+            return get_viedemerde(n=n+1)
 
 @register_as_command("vdm", "Affiche une « quote » de vie de merde", "Web")
 def cmd_viedemerde(msg):
