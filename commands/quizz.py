@@ -77,6 +77,8 @@ def cmd_quizzreponse(msg):
 					return say_indice()
 				else:
 					return quizz.quizz_question
+			else:
+				return ""
 
 @register_as_command("score", "Affiche les scores", "Quizz")
 def cmd_quizzscore(msg):
