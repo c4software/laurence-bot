@@ -17,7 +17,6 @@ def cmd_fml(msg):
         texte = soup.select("p.block")[0].a.text
         return texte
     except Exception as e:
-        print (e)
         return None
 
 @register_as_command("chuck", "Chuck Norris a déjà compté jusqu'à l'infini. Deux fois.", "Web")
