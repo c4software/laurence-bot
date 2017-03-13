@@ -25,6 +25,9 @@ class TestBlog(unittest.TestCase):
     def test_cmd_fml(self):
         self.assertIsNot(commands["fml"](None), None)
 
+    def test_cmd_vdm(self):
+        self.assertIsNot(commands["vdm"](None), "Désolé récupération impossible")
+
     def test_cmd_code(self):
         self.assertIsNot(commands["code"](None), None)
 
