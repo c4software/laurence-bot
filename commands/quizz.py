@@ -47,7 +47,7 @@ def cmd_indice(msg):
 @register_as_command("stop", "Quizz un indice", "Quizz")
 def cmd_indice(msg):
 	quizz.quizz_reponse = ""
-	quizz_question = ""
+	quizz.quizz_question = ""
 	return "Arret du quizz"
 
 @register_as_command("r", "r votre réponse", "Quizz")
