@@ -2,6 +2,7 @@
 import unittest
 
 from tools.extended_BaseHTTPServer import *
+import tools
 
 class TestExtended_BaseHTTPServer(unittest.TestCase):
     pseudo = "test_valentin"
@@ -9,7 +10,7 @@ class TestExtended_BaseHTTPServer(unittest.TestCase):
         data = redirect("test_lien")
         self.assertTrue(data["Location"] == "test_lien")
 
-    def add_route(self):
+    def test_add_route(self):
         @route(path="/get", method=["GET"])
         def stub():
             pass
@@ -20,6 +21,13 @@ class TestExtended_BaseHTTPServer(unittest.TestCase):
 
         self.assertTrue("/get" in register_route["GET"])
         self.assertTrue("/post" in register_route["POST"])
+
+    def test_override(self):
+        @override("404")
+        def stub():
+            pass
+            
+        self.assertTrue("404" in handler_method)
 
 if __name__ == '__main__':
     unittest.main()

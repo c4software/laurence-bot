@@ -12,7 +12,7 @@ commands/history.py                   34      5    85%   38, 52-56
 commands/hue.py                       41     26    37%   17-24, 29-34, 37-52, 55-56, 59-62
 commands/joiesducode_sysadmin.py      30      3    90%   29-32
 commands/learn.py                     19     11    42%   40-56
-commands/madame_mademoiselle.py       20      4    80%   17-18, 27-28
+commands/madame_mademoiselle.py       20      4    80%   17-18, 25-26
 commands/planification.py             33     12    64%   20, 26-28, 52-60
 commands/proche.py                    45     11    76%   24, 27-30, 38-39, 49, 54-55, 59-60
 commands/quizz.py                     63     45    29%   17-22, 25-34, 38-39, 43-44, 48-50, 54-78, 82-90
@@ -20,9 +20,9 @@ commands/reddit.py                    57     40    30%   16-18, 21-25, 28-32, 35
 commands/vdm.py                       16      1    94%   16
 commands/wikipedia.py                 26      4    85%   37-40
 tools/__init__.py                      0      0   100%
-tools/extended_BaseHTTPServer.py      86     64    26%   13-20, 24-27, 31, 34-36, 39-42, 45-47, 50-80, 84-95, 105-110
+tools/extended_BaseHTTPServer.py      86     54    37%   17-18, 31, 34-36, 39-42, 45-47, 50-80, 84-95, 105-110
 tools/libs.py                         61     34    44%   10, 16, 22-25, 29, 36-51, 54-61, 64-71, 74, 77, 82
 tools/rest.py                         55     17    69%   32-40, 48-50, 62-66, 71, 78
 tools/text.py                         68     52    24%   25-27, 30-40, 43-95
 ----------------------------------------------------------------
-TOTAL                                812    362    55%
+TOTAL                                812    352    57%
