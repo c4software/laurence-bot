@@ -118,26 +118,22 @@ def register_slash_commands():
 def error(bot, update, error):
     logging.warn('Update "%s" caused error "%s"' % (update, error))
 
-dispatcher.add_handler(CommandHandler('start', start, pass_args=True))
-register_slash_commands()
+if __name__ == '__main__':
+    dispatcher.add_handler(CommandHandler('start', start, pass_args=True))
+    register_slash_commands()
 
-# Gestion des /command inconnue
-# unknown_handler = MessageHandler(Filters.command, commands_handler)
-# dispatcher.add_handler(unknown_handler)
+    # Gestion du text comme commande (Temporaire)
+    dispatcher.add_handler(MessageHandler(Filters.text, text_handler))
 
-# Gestion du text comme commande (Temporaire)
-dispatcher.add_handler(MessageHandler(Filters.text, text_handler))
+    # Gestion des envois type « position »
+    dispatcher.add_handler(MessageHandler(Filters.location, location_handler))
 
-# Gestion des envois type « position »
-dispatcher.add_handler(MessageHandler(Filters.location, location_handler))
+    # Gestion des envois type « Voice »
+    dispatcher.add_handler(MessageHandler(Filters.voice, voice_handler))
 
-# Gestion des envois type « Voice »
-dispatcher.add_handler(MessageHandler(Filters.voice, voice_handler))
+    # log all errors
+    dispatcher.add_error_handler(error)
 
-# log all errors
-dispatcher.add_error_handler(error)
+    print ("Laurence is ready.")
 
-print ("Laurence is ready.")
-
-updater.start_polling()
-# updater.idle()
+    updater.start_polling()
