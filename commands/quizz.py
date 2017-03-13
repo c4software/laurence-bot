@@ -19,6 +19,7 @@ def get_question():
 	choice =random.choice(questions).split("\\")
 	quizz.quizz_question     = choice[0]
 	quizz.quizz_reponse      = choice[1].lstrip().rstrip()
+	f.close()
 	return "> "+quizz.quizz_question
 
 def say_indice():
