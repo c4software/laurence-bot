@@ -31,8 +31,14 @@ class TestQuizz(unittest.TestCase):
         self.assertIsInstance(commands["r"](data), str)
         self.assertTrue(self.pseudo in commands["score"](data))
 
-        data = make_attrs(self.pseudo, quizz.quizz_reponse.replace(' ', '')[:-3], args=[quizz.quizz_reponse.replace(' ', '')[:-3]])
+        data = make_attrs(self.pseudo, quizz.quizz_reponse[:-1], args=[quizz.quizz_reponse[:-3]])
         self.assertTrue("pas loin" in commands["r"](data))
+
+        # Deux bonnes réponses
+        get_question()
+        data = make_attrs(self.pseudo, quizz.quizz_reponse, args=[quizz.quizz_reponse])
+        self.assertIsInstance(commands["r"](data), str)
+        self.assertTrue(self.pseudo in commands["score"](data))
 
     def test_indice(self):
         data = make_attrs(self.pseudo, "", args=[""])
