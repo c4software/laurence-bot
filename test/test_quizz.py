@@ -31,7 +31,8 @@ class TestQuizz(unittest.TestCase):
         self.assertIsInstance(commands["r"](data), str)
         self.assertTrue(self.pseudo in commands["score"](data))
 
-        data = make_attrs(self.pseudo, quizz.quizz_reponse[:-1], args=[quizz.quizz_reponse[:-3]])
+        quizz.quizz_reponse = "test t"
+        data = make_attrs(self.pseudo, "test", args=["test"])
         self.assertTrue("pas loin" in commands["r"](data))
 
         # Deux bonnes réponses
