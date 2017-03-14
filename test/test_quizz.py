@@ -4,6 +4,7 @@ import unittest
 from tools.libs import *
 from commands import *
 from commands.quizz import *
+import itertools
 
 class TestQuizz(unittest.TestCase):
     pseudo = "valentin_test"
@@ -24,8 +25,11 @@ class TestQuizz(unittest.TestCase):
 
     def test_r(self):
         get_question()
-        data = make_attrs(self.pseudo, "test", args=["test"])
-        self.assertIsInstance(commands["r"](data), str)
+
+        # 30 tentatives
+        for _ in itertools.repeat(None, 40):
+            data = make_attrs(self.pseudo, "test", args=["test"])
+            self.assertIsInstance(commands["r"](data), str)
 
         data = make_attrs(self.pseudo, quizz.quizz_reponse, args=[quizz.quizz_reponse])
         self.assertIsInstance(commands["r"](data), str)
