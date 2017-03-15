@@ -3,7 +3,7 @@ import unittest
 
 from tools.libs import *
 from commands import *
-from commands.history import save_last_tags
+from commands.history import save_last_tags, add_history
 from settings import DEBUG_USER
 
 class TestGeneral(unittest.TestCase):
@@ -26,6 +26,12 @@ class TestGeneral(unittest.TestCase):
     def test_hue(self):
         data = make_attrs(self.pseudo, "", args=[""])
         self.assertIs(commands["hue"](data), None)
+
+    def test_context(self):
+        data = make_attrs(self.pseudo, "", args=[""])
+        self.assertIsInstance(commands["plus"](data), str)
+        add_history(self.pseudo, "test")
+        self.assertIsInstance(commands["plus"](data), str)
 
     def test_learn(self):
         data = make_attrs(self.pseudo, "Bonjour", args=["Bonjour"])

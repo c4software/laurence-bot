@@ -41,6 +41,6 @@ def cmd_more(msg):
         if commande in commands:
             return commands[commande](msg)
         else:
-            return None
+            return ""
     else:
-        return None
+        return ""
