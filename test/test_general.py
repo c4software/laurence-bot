@@ -24,7 +24,7 @@ class TestGeneral(unittest.TestCase):
         self.assertTrue(isinstance(general.get_command_list(), str))
 
     def test_hue(self):
-        data = make_attrs(self.pseudo, "Bonjour", args=["Bonjour"])
+        data = make_attrs(self.pseudo, "", args=[""])
         self.assertIs(commands["hue"](data), None)
 
     def test_learn(self):
