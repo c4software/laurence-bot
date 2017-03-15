@@ -118,7 +118,7 @@ if __name__ == '__main__':
 
     updater = Updater(token=token)
     dispatcher = updater.dispatcher
-    
+
     dispatcher.add_handler(CommandHandler('start', start, pass_args=True))
     register_slash_commands()
 
