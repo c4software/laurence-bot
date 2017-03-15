@@ -22,14 +22,6 @@ import random, logging, os, sys, atexit, threading
 # Set up basic logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
-token = os.getenv('LAURENCE_TOKEN')
-if not token:
-    logging.critical('Token absent')
-    sys.exit()
-
-updater = Updater(token=token)
-dispatcher = updater.dispatcher
-
 @atexit.register
 def final_handler():
     print ("Stop")
@@ -119,6 +111,14 @@ def error(bot, update, error):
     logging.warn('Update "%s" caused error "%s"' % (update, error))
 
 if __name__ == '__main__':
+    token = os.getenv('LAURENCE_TOKEN')
+    if not token:
+        logging.critical('Token absent')
+        sys.exit()
+
+    updater = Updater(token=token)
+    dispatcher = updater.dispatcher
+    
     dispatcher.add_handler(CommandHandler('start', start, pass_args=True))
     register_slash_commands()
 
