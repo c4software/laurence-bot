@@ -23,6 +23,10 @@ class TestGeneral(unittest.TestCase):
     def test_aide(self):
         self.assertTrue(isinstance(general.get_command_list(), str))
 
+    def test_hue(self):
+        data = make_attrs(self.pseudo, "Bonjour", args=["Bonjour"])
+        self.assertIs(commands["hue"](data), None)
+
     def test_learn(self):
         data = make_attrs(self.pseudo, "Bonjour", args=["Bonjour"])
         self.assertTrue("Vous devez avoir" in commands["learn"](data))

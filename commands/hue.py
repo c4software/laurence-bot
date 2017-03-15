@@ -23,7 +23,7 @@ try:
         elif "eteindre" in msg["text"]:
             cmd_change_room_state(msg, "TODO", False)
 except:
-    logging.debug ("qhue is required to use the hue module")
+    logging.error ("qhue is required to use the hue module")
 
 def cmd_communicate_hue_server(msg, ressource, bri):
     pseudo      =   get_username(msg)
