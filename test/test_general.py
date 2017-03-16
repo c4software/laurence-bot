@@ -4,7 +4,9 @@ import unittest
 from tools.libs import *
 from commands import *
 from commands.history import save_last_tags, add_history
+from commands.context import get_awaiting_response
 from settings import DEBUG_USER
+
 
 class TestGeneral(unittest.TestCase):
     pseudo = "valentin_test"
@@ -32,6 +34,8 @@ class TestGeneral(unittest.TestCase):
         self.assertIsInstance(commands["plus"](data), str)
         add_history(self.pseudo, "test")
         self.assertIsInstance(commands["plus"](data), str)
+        self.assertTrue(get_awaiting_response(self.pseudo) is None)
+
 
     def test_learn(self):
         data = make_attrs(self.pseudo, "Bonjour", args=["Bonjour"])
