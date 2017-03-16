@@ -29,7 +29,7 @@ def get_commitstrip(latest=False):
         data = callrest(domain=o.netloc, port="80", path=o.path, user_headers={"Accept-Charset": "utf-8"})[2]
         soup = BeautifulSoup(data, "html.parser")
         return soup.select("p > img")[0].attrs.get("src")
-    except Exception as e:
+    except Exception as e: # pragma: no cover
         return "Désolé pas de CommitStrip disponible."
 
 @register_as_command("commitstrip", "Affiche le dernier CommitStrip", "Commitstrip", keywords=["cs"])

@@ -16,7 +16,7 @@ def get_joieducode(n=1):
         image = soup.find_all("div", class_="blog-post-content")[0].find("img")['src']
 
         return "{0} : ![image]({1})".format(titre.strip(), image)
-    except:
+    except: # pragma: no cover
         if n > 2:
             return "Désolé récupération impossible"
         else:
@@ -30,7 +30,7 @@ def get_lesjoiesdusysadmin(n=1):
         image = soup.find_all("div", class_="text")[0].find("img")['src']
 
         return "{0} : ![image]({1})".format(titre.strip(), image)
-    except:
+    except: # pragma: no cover
         if n > 2:
             return "Désolé récupération impossible"
         else:

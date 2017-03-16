@@ -7,7 +7,7 @@ from tools.libs import username_or_channel
 
 try:
     from google import search
-except:
+except: # pragma: no cover
     pass
 
 @register_as_command("google", "Effectue une recherche Google", "Web", ["hey", "ordinateur", "laurence"])
@@ -19,5 +19,5 @@ def cmd_do_googlesearch(msg):
         else:
             mark_for_awaiting_response(username_or_channel(msg), "google")
             return "Oui ? Que recherchez vous ?"
-    except:
+    except: # pragma: no cover
         return "Recherche impossible."

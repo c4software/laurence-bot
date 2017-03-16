@@ -14,7 +14,7 @@ def get_viedemerde(n=0):
         texte = soup.select("div.post.article")[0].p.text
 
         return texte
-    except Exception as e:
+    except Exception as e: # pragma: no cover
         if n > 2:
             return "Désolé récupération impossible"
         else:

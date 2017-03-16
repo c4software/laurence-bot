@@ -71,7 +71,7 @@ def cmd_quizzreponse(msg):
 			return 'Ah {0} pas loin!'.format(username)
 		else:
 			# Si ce n'est pas la bonne reponse et que la reponse est eloigne
-			if random.randint(0,20) == 10:
+			if random.randint(0,20) == 10: # pragma: no cover
 				# tous les quelques messages on diffuse soit un indice, soit la question
 				if random.choice(['indice', 'question']) == "indice":
 					return say_indice()

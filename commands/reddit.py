@@ -21,7 +21,7 @@ def get_reddit(subreddit):
     try:
         data = callrest(domain="www.reddit.com", port=443, ssl=True, path="/r/{0}/new/.json".format(subreddit), params={})[2]
         return random.choice(json.loads(data).get("data").get("children")).get("data")
-    except Exception as e:
+    except Exception as e: # pragma: no cover
         return "Désolé, aucun résultat"
 
 def return_md(message, preview=False):
@@ -37,7 +37,7 @@ def get_redditlist(type_reddit="all"):
         result = callrest(domain="redditlist.com", type="GET", path="/{0}".format(type_reddit), params={})
         if result[0] == 200:
             cache[cache_key] = result[2]
-        else:
+        else: # pragma: no cover
             return get_reddit_random()
 
     soup = BeautifulSoup(cache[cache_key], "html.parser")
@@ -45,7 +45,7 @@ def get_redditlist(type_reddit="all"):
     if len(links)>0:
         subReddit = random.choice(links).get("data-target-subreddit", "")
         return get_reddit(subReddit)
-    else:
+    else: # pragma: no cover
         return get_reddit_random()
 
 @register_as_command("random", "Retourne un résultat aléatoire depuis redditlist", "Reddit")
@@ -75,9 +75,9 @@ def cmd_top10(msg):
         for element in data:
             try:
                 return_values.append("{title} : {url}".format(**element["data"]))
-            except:
+            except: # pragma: no cover
                 pass
 
         return "Top10 : \r\n- {0}".format("\r\n- ".join(return_values))
-    except Exception as e:
+    except Exception as e: # pragma: no cover
         raise Exception(e)

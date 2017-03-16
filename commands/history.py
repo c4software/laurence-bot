@@ -36,7 +36,7 @@ def get_last_message(msg):
         pseudo = username_or_channel(msg)
         remove_last_history(pseudo)
         return Historique.query.filter_by(username=pseudo).order_by(Historique.datetime.desc()).limit(1).one().text
-    except:
+    except: # pragma: no cover
         return ""
 
 def get_last_tags(pseudo):
@@ -52,5 +52,5 @@ def cmd_show_history(msg):
     historique = get_history(get_username(msg))
     if historique:
         return "- "+"\n- ".join(historique)
-    else:
+    else: # pragma: no cover
         return "Aucun historique"

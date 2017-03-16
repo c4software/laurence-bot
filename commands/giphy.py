@@ -21,13 +21,13 @@ def get_gyphy(keyword, md=True):
         params['tag'] = keyword
         data = callrest(domain=GIPHY_URL, ssl=True, path=GIPHY_PATH, params=params, user_headers={"X-Mashape-Key": MASHAPE_KEY})[2]
         retour = json.loads(data)
-        if len(retour['data']) == 0:
+        if len(retour['data']) == 0: # pragma: no cover
             return get_gyphy("")
         if md:
             return "![image]({0})".format(retour['data']['image_original_url'])
         else:
             return retour['data']['image_original_url']
-    except Exception as e:
+    except Exception as e: # pragma: no cover
         return None
 
 def has_msg(msg):
@@ -41,7 +41,7 @@ def do_gyphy(msg):
     cont, data = has_msg(msg)
     if cont:
         return get_gyphy(data, md="telegram" not in msg)
-    else:
+    else: # pragma: no cover
         return data
 
 @register_as_command("gif", "Recherche une image sur giphy (prend un thème en paramètre)", "Gif", keywords=["giphy"])

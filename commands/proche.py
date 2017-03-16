@@ -45,7 +45,7 @@ def search_arround_me(query):
 
     if not no_result:
         return retour_string
-    else:
+    else: # pragma: no cover
         return "Désolé, aucun résultat autour de votre position."
 
 @register_as_command("proche", "Recherche les lieux d’interêts autour de votre position", "Geo")
@@ -55,6 +55,6 @@ def cmd_do_proche(msg):
         return search_arround_me("{0}, {1}".format(user_location.latitude, user_location.longitude))
     elif msg["query"] != "":
         return search_arround_me(msg["query"])
-    else:
+    else: # pragma: no cover
         mark_for_awaiting_response(username_or_channel(msg), "proche")
         return "Pour utiliser la recherche proche merci de m’indiquer une position GPS. Ex: 48.802,2.025"

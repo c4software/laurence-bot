@@ -16,7 +16,7 @@ def cmd_fml(msg):
         soup = BeautifulSoup(data, "html.parser")
         texte = soup.select("p.block")[0].a.text
         return texte
-    except Exception as e:
+    except Exception as e: # pragma: no cover
         return ""
 
 @register_as_command("chuck", "Chuck Norris a déjà compté jusqu'à l'infini. Deux fois.", "Web")
@@ -24,5 +24,5 @@ def cmd_chuck(msg):
     try:
         data = callrest(domain=CHUCK_DOMAIN, path=CHUCK_PATH)[2]
         return html.unescape(json.loads(data)[0].get("fact"))
-    except Exception as e:
+    except Exception as e: # pragma: no cover
         return ""

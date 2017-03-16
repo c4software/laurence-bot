@@ -14,7 +14,7 @@ def cmd_mademoiselle(msg):
         soup = BeautifulSoup(data, "html.parser")
         image = soup.find_all("div", class_="photo")[0].find("img")['src']
         return "![image]({0})".format(image)
-    except Exception as e:
+    except Exception as e: # pragma: no cover
         return "Oups…"
 
 @register_as_command("madame", "Affiche un bonjour madame aléatoire", "Images")
@@ -24,5 +24,5 @@ def cmd_madame(msg):
         soup = BeautifulSoup(data, "html.parser")
         image = soup.find_all("div", class_="photo")[0].find("img")['src']
         return "![image]({0})".format(image)
-    except Exception as e:
+    except Exception as e: # pragma: no cover
         return "Oups…"
