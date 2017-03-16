@@ -16,16 +16,16 @@ try:
 
     @register_as_command("hue", "Gestion des ampoules hue.", "Domotique")
     def cmd_hue(msg):
-        if "init" in msg["text"]:
+        if "init" in msg["text"]: # pragma: no cover
             cmd_init_hue(msg)
-        elif "allume" in msg["text"]:
+        elif "allume" in msg["text"]: # pragma: no cover
             cmd_change_room_state(msg, "TODO", True)
-        elif "eteindre" in msg["text"]:
+        elif "eteindre" in msg["text"]: # pragma: no cover
             cmd_change_room_state(msg, "TODO", False)
-except:
+except: # pragma: no cover
     logging.error ("qhue is required to use the hue module")
 
-def cmd_communicate_hue_server(msg, ressource, bri):
+def cmd_communicate_hue_server(msg, ressource, bri): # pragma: no cover
     pseudo      =   get_username(msg)
     utilisateur =   User.query.filter_by(username=pseudo).one()
     if "hue_username" in current_user.settings:
@@ -33,7 +33,7 @@ def cmd_communicate_hue_server(msg, ressource, bri):
     else:
         reply_to_user(msg, "Pour utiliser les commandes HUE, vous devez faire « hue init »")
 
-def cmd_init_hue(msg):
+def cmd_init_hue(msg): # pragma: no cover
     reply_to_user(msg, "Association avec votre bridge HUE.")
     reply_to_user(msg, "Pour m’autoriser à dialoguer avec votre bridge HUE, merci d’appuyer sur le bouton présent sur celui-ci.")
     # Récupération du « username » depuis le BRIDGE HUE
@@ -51,11 +51,10 @@ def cmd_init_hue(msg):
     # Retour pour le client
     reply_to_user(msg, "L’association avec votre brigde est maintenant effectif, vous pouvez utiliser toutes les commandes.")
 
-def cmd_set_level(msg, ressource, bri):
+def cmd_set_level(msg, ressource, bri): # pragma: no cover
     cmd_communicate_hue_server(msg, ressource, bri)
-    pass
 
-def cmd_change_room_state(msg, ressource, state=True):
+def cmd_change_room_state(msg, ressource, state=True): # pragma: no cover
     if state:
         cmd_communicate_hue_server(msg, ressource, 128)
     else:
