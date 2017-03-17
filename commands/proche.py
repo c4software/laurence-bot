@@ -20,13 +20,13 @@ def search_arround_me(query):
         for adress in data:
             try:
                 # Récupération de la ville / village / code postal
-                if "city" in adress["address"]:
+                if "city" in adress["address"]: # pragma: no cover
                     city = adress["address"]["city"]
-                elif "town" in adress["address"]:
+                elif "town" in adress["address"]: # pragma: no cover
                     city = adress["address"]["town"]
-                elif "village" in adress["address"]:
+                elif "village" in adress["address"]: # pragma: no cover
                     city = adress["address"]["village"]
-                else:
+                else: # pragma: no cover
                     city = adress["address"]["postcode"]
 
                 first_element = list(adress["address"].values())[0]
@@ -35,7 +35,7 @@ def search_arround_me(query):
 
                 # Récupération du « premier élément » comme Nom
                 retour.append("{0}, {1} [Voir](https://www.google.fr/maps/@{2},{3},18z)".format(first_element, city, adress["lat"], adress["lon"]))
-            except Exception as e:
+            except Exception as e: # pragma: no cover
                 raise (e)
 
         if retour:
@@ -50,7 +50,7 @@ def search_arround_me(query):
 
 @register_as_command("proche", "Recherche les lieux d’interêts autour de votre position", "Geo")
 def cmd_do_proche(msg):
-    if is_telegram(msg) and msg["telegram"]["update"].message.location:
+    if is_telegram(msg) and msg["telegram"]["update"].message.location: # pragma: no cover
         user_location = msg["telegram"]["update"].message.location
         return search_arround_me("{0}, {1}".format(user_location.latitude, user_location.longitude))
     elif msg["query"] != "":

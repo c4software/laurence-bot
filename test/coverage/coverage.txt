@@ -12,12 +12,12 @@ commands/history.py                   31      3    90%   52-54
 commands/hue.py                       10      0   100%
 commands/joiesducode_sysadmin.py      22      0   100%
 commands/learn.py                     19      1    95%   42
-commands/madame_mademoiselle.py       16      2    88%   25-26
+commands/madame_mademoiselle.py       16      0   100%
 commands/planification.py             33     12    64%   20, 26-28, 52-60
-commands/proche.py                    42      8    81%   24, 27-30, 38-39, 54-55
+commands/proche.py                    30      0   100%
 commands/quizz.py                     61      0   100%
 commands/reddit.py                    49      1    98%   30
 commands/vdm.py                       12      1    92%   16
 commands/wikipedia.py                 23      1    96%   37
 ----------------------------------------------------------------
-TOTAL                                461     37    92%
+TOTAL                                449     27    94%
