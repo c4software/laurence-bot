@@ -1,8 +1,16 @@
 # -*- coding: utf-8 -*-
 from .decorators import register_as_command
-from tools.libs import make_message, get_username
+from tools.libs import make_message, get_username, save_new_user
 from settings import PSEUDO
 import random
+
+def cmd_start(msg):
+    if "telegram" in msg: # pragma: no cover
+        save_new_user(username_or_channel(msg), msg["telegram"]["update"].message.chat.id)
+        reply_to_user(msg, "Bonjour, Je suis Laurence. Pour avoir la liste des commandes tapez /aide")
+        return True
+    else:
+        return False
 
 @register_as_command("test", None, keywords=["debug", "ping", "pong"])
 def cmd_test(msg):

@@ -10,6 +10,7 @@ from emoji import emojize, demojize
 from commands import *
 from commands.decorators import commands, descriptions
 from commands.history import add_history
+from commands.general import cmd_start
 from settings import *
 
 from tools.text import analyze_text
@@ -37,10 +38,8 @@ def final_handler():
 def start(bot, update, args):
     # Sauvegarde de l’id du nouveau client.
     attrs = make_attrs_from_telegram(update, bot, args, {})
-    save_new_user(username_or_channel(attrs), update.message.chat.id)
+    cmd_start(attrs)
 
-    bot.sendMessage(chat_id=update.message.chat_id,
-    text="Bonjour, Je suis Laurence. Pour avoir la liste des commandes tapez /aide")
 
 @run_async
 def commands_handler(bot, update, args, no_fail_reply=False, attrs=None):

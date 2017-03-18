@@ -5,11 +5,16 @@ from tools.libs import *
 from commands import *
 from commands.history import save_last_tags, add_history
 from commands.context import get_awaiting_response
+from commands.general import cmd_start
 from settings import DEBUG_USER
 
 
 class TestGeneral(unittest.TestCase):
     pseudo = "valentin_test"
+    def test_start(self):
+        data = make_attrs(self.pseudo, "", args=[""])
+        self.assertIs(cmd_start(data), False)
+
     def test_echo(self):
         data = make_attrs(self.pseudo, "Bonjour", args=["Bonjour"])
         self.assertEqual(commands["echo"](data), "Bonjour")

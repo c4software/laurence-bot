@@ -5,14 +5,14 @@ commands/chuck_fml.py                 16      0   100%
 commands/commitstrip.py               21      0   100%
 commands/context.py                   19      4    79%   40-44
 commands/decorators.py                14      1    93%   30
-commands/general.py                   27      3    89%   10-11, 16
+commands/general.py                   29      3    90%   18-19, 24
 commands/giphy.py                     30      0   100%
 commands/google.py                    12      0   100%
 commands/history.py                   31      3    90%   52-54
 commands/hue.py                       10      0   100%
-commands/joiesducode_sysadmin.py      22      0   100%
+commands/joiesducode_sysadmin.py      22      3    86%   15-18
 commands/learn.py                     19      1    95%   42
-commands/madame_mademoiselle.py       16      0   100%
+commands/madame_mademoiselle.py       16      2    88%   25-26
 commands/planification.py             33     12    64%   20, 26-28, 52-60
 commands/proche.py                    30      0   100%
 commands/quizz.py                     61      0   100%
@@ -20,4 +20,4 @@ commands/reddit.py                    49      1    98%   30
 commands/vdm.py                       12      1    92%   16
 commands/wikipedia.py                 23      1    96%   37
 ----------------------------------------------------------------
-TOTAL                                449     27    94%
+TOTAL                                451     32    93%
