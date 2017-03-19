@@ -71,7 +71,14 @@ def get_userid_from_username(username):
         return None
 
 def reply_to_user(msg, text):
-    msg["telegram"]["update"].message.reply_text(text)
+    try:
+        if "telegram" in msg:
+            msg["telegram"]["update"].message.reply_text(text)
+        else:
+            # TODO faire réponse via les api de Mattermost
+            pass
+    except:
+        logging.error("Erreur lors de la réponse « {0} »".format(text))
 
 def make_attrs_from_telegram(update, bot, args, data={}):
     return make_attrs(update.message.from_user.username, update.message.text, args, update.message.chat.title, {"bot": bot, "update": update, "args": args}, data)
