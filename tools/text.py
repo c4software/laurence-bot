@@ -30,7 +30,7 @@ def find_closest(tags):
     tag_length = str(len(tags))
     match = []
     matcher = difflib.SequenceMatcher(None, tags, [])
-    learning_commands = Learning_command.query.filter_by(part_number=tag_length).all()
+    learning_commands = Learning_command.query.filter_by(tags_len=tag_length).all()
     for lc in learning_commands:
         matcher.set_seq2(tuple([(x[0], x[1]) for x in lc.tags]))
         ratio = matcher.ratio()
