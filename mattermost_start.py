@@ -11,6 +11,10 @@ from commands import *
 from commands.decorators import commands
 from settings import *
 
+import logging
+
+logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
+
 def chat(kwargs):
     try:
         commande = kwargs['text'][0].split(' ')
@@ -38,7 +42,7 @@ def chat(kwargs):
             pass
 
     except Exception as e:
-        print (e)
+        logging.error(e)
         pass
 
 def build_response(kwargs, retour):
@@ -60,7 +64,7 @@ def form(**kwargs):
 
     # Test si le bot est non actif sur le channel en cours.
     if kwargs['channel_name'][0] in DISABLE_CHANNEL:
-        return build_response(kwargs, "Impossible...")
+        pass
 
     return chat(kwargs)
 
