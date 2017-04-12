@@ -69,5 +69,5 @@ def form(**kwargs):
     return chat(kwargs)
 
 if __name__ == '__main__':
-    print("Serving Laurenc on {0} port {1} ...".format(IP, PORT))
+    logging.info("Serving Laurence on {0} port {1} ...".format(IP, PORT))
     serve(ip=IP, port=PORT)
