@@ -36,8 +36,6 @@ def chat(kwargs):
                     callrest(domain=MATTERMOST_DOMAIN, type="POST", path=MATTERMOST_PATH, params={"payload": json.dumps(retour)})
         else:
             pass
-            # return build_response(kwargs, "YOLO")
-            # return build_response(kwargs, giphy.get_gyphy("".join(kwargs["text"][0].split(' ')[1:])))
 
     except Exception as e:
         print (e)
