@@ -17,7 +17,7 @@ def cmd_aide(msg):
 
     if not msg["query"]:
         mark_for_awaiting_response(username_or_channel(msg), "def")
-        return "Bien, sur quel sujet ?"
+        return "Sur quel sujet ?"
 
     try:
         wikipedia.set_lang("fr")
