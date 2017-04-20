@@ -30,7 +30,7 @@ def get_commitstrip(latest=False):
         soup = BeautifulSoup(data, "html.parser")
         return soup.select("p > img")[0].attrs.get("src")
     except Exception as e: # pragma: no cover
-        return "Désolé pas de CommitStrip disponible."
+        return "Impossible de récupérer les CommitStrip."
 
 @register_as_command("commitstrip", "Affiche le dernier CommitStrip", "Commitstrip", keywords=["cs"])
 def cmd_commitstrip(msg):
