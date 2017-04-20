@@ -15,7 +15,7 @@ def cmd_do_googlesearch(msg):
     try:
         if msg["query"]:
             for url in search(msg["query"], tld='fr', lang='fr',num=1, stop=1):
-                return "Voilà ce que j’ai trouvé … \n {0}".format(url)
+                return "Voici le premier résultat \n {0}".format(url)
         else:
             mark_for_awaiting_response(username_or_channel(msg), "google")
             return "Oui ? Que recherchez vous ?"
