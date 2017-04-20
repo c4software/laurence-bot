@@ -19,7 +19,7 @@ class TestRecherche(unittest.TestCase):
 
     def test_wikipedia_no_keywords(self):
         data = make_attrs("valentin", "", args=[""])
-        self.assertTrue("http" in commands["def"](data))
+        self.assertTrue("Sur" in commands["def"](data))
 
     def test_proche(self):
         data = make_attrs("valentin", "48.802,2.025", args=["48.802,2.025"])
