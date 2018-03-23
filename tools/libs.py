@@ -1,5 +1,5 @@
 from settings import DEBUG_USER
-from commands.decorators import commands
+from commands.libs.decorators import commands
 
 from models.models import User
 from database import db_session
