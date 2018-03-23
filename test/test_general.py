@@ -3,8 +3,8 @@ import unittest
 
 from tools.libs import *
 from commands import *
-from commands.history import save_last_tags, add_history
-from commands.context import get_awaiting_response
+from commands.libs.history import save_last_tags, add_history
+from commands.libs.context import get_awaiting_response
 from commands.general import cmd_start
 from settings import DEBUG_USER
 
