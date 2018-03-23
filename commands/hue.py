@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from tools.rest import callrest
-from .decorators import register_as_command
+from libs.decorators import register_as_command
 from settings import HUE_BRIDGE
 
 from tools.libs import get_username, save_new_user, reply_to_user

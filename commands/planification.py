@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-from .decorators import register_as_command
-from commands.history import get_last_message
-from commands.context import mark_for_awaiting_response
+from libs.decorators import register_as_command
+from libs.history import get_last_message
+from libs.context import mark_for_awaiting_response
 from tools.libs import get_probable_command, username_or_channel
-from commands.decorators import commands
+from libs.decorators import commands
 
 from database import db_session
 from models.models import Task

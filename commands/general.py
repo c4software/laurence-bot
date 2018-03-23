@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
-from .decorators import register_as_command
-from tools.libs import make_message, get_username, save_new_user
+from libs.decorators import register_as_command
+from libs.history import get_history
+from libs.context import get_last_message, get_probable_command
+from tools.libs import make_message, get_username, save_new_user, username_or_channel, reply_to_user
 from settings import PSEUDO
+from libs.decorators import commands
 import random
 
 def cmd_start(msg):
@@ -44,7 +47,7 @@ def get_command_list():
         Parcours des commandes et des descriptions chargé au lancement du bot.
         Les commandes sans descriptions ne sont pas retourné.
     '''
-    from .decorators import commands, descriptions
+    from libs.decorators import commands, descriptions
     command_list = "\n"
     for group in descriptions:
         sub_command_list = ""
@@ -58,3 +61,30 @@ def get_command_list():
         command_list = command_list+"\n"
 
     return command_list
+
+
+@register_as_command("historique", "Affiche votre historique de message", "Global")
+def cmd_show_history(msg):
+    historique = get_history(get_username(msg))
+    if historique:
+        return "- "+"\n- ".join(historique)
+    else: # pragma: no cover
+        return "Aucun historique"
+
+# Commande pour rejouer la dernière commande
+@register_as_command("plus", None, keywords=["encore"])
+def cmd_more(msg):
+    previous_text = get_last_message(msg)
+
+    # Réécriture des args avec la nouvelle commande
+    msg["args"]     = previous_text.split(' ')[1:]
+    msg["query"]    = " ".join(msg["args"])
+
+    if previous_text:
+        commande = get_probable_command(previous_text)
+        if commande in commands:
+            return commands[commande](msg)
+        else:
+            return ""
+    else:
+        return ""

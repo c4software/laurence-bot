@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-from .decorators import register_as_command
+from libs.decorators import register_as_command
 
-from .context import mark_for_awaiting_response
+from libs.context import mark_for_awaiting_response
 from tools.libs import username_or_channel
 
 try:

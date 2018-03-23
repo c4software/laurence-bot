@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-from .decorators import register_as_command
+from libs.decorators import register_as_command
 import random
 import codecs
 import operator
 import difflib
 
-from .context import mark_for_awaiting_response, get_awaiting_response
+from libs.context import mark_for_awaiting_response, get_awaiting_response
 from tools.libs import username_or_channel, get_username
 
 class quizz():
@@ -45,7 +45,7 @@ def cmd_indice(msg):
 	return say_indice()
 
 @register_as_command("stop", "Quizz un indice", "Quizz")
-def cmd_indice(msg):
+def cmd_stop(msg):
 	quizz.quizz_reponse = ""
 	quizz.quizz_question = ""
 	return "Arret du quizz"

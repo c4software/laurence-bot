@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from tools.rest import callrest
-from .decorators import register_as_command
+from libs.decorators import register_as_command
 from bs4 import BeautifulSoup
 import time
 from urllib.parse import urlparse
