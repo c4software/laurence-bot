@@ -26,8 +26,8 @@ except: # pragma: no cover
     logging.error ("qhue is required to use the hue module")
 
 def cmd_communicate_hue_server(msg, ressource, bri): # pragma: no cover
-    pseudo      =   get_username(msg)
-    utilisateur =   User.query.filter_by(username=pseudo).one()
+    pseudo        =   get_username(msg)
+    current_user  =   User.query.filter_by(username=pseudo).one()
     if "hue_username" in current_user.settings:
         b = Bridge(HUE_BRIDGE, current_user.settings.hue_username)
     else:
