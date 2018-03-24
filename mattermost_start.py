@@ -8,7 +8,8 @@ from tools.extended_BaseHTTPServer import serve,route, redirect, override
 from tools.rest import callrest
 
 from commands import *
-from commands.decorators import commands
+from commands.libs.decorators import commands
+from commands.libs.history import add_history
 from settings import *
 
 import logging

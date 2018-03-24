@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-from libs.decorators import register_as_command
+from commands.libs.decorators import register_as_command
 from tools.rest import callrest
 import logging, json
 from tools.libs import is_telegram, get_username, username_or_channel
-from libs.context import mark_for_awaiting_response
+from commands.libs.context import mark_for_awaiting_response
 
 def search_arround_me(query):
     type_recherche = ["park", "forest", "castle"]

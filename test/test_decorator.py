@@ -2,7 +2,7 @@
 import unittest
 
 from tools.libs import *
-from commands.decorators import register_as_command, commands
+from commands.libs.decorators import register_as_command, commands
 
 class testDecorator(unittest.TestCase):
     def test_decorator(self):

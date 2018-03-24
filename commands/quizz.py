@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-from libs.decorators import register_as_command
+from commands.libs.decorators import register_as_command
 import random
 import codecs
 import operator
 import difflib
 
-from libs.context import mark_for_awaiting_response, get_awaiting_response
+from commands.libs.context import mark_for_awaiting_response, get_awaiting_response
 from tools.libs import username_or_channel, get_username
 
 class quizz():
@@ -25,8 +25,6 @@ def get_question():
 def say_indice():
 		if quizz.quizz_question:
 			try:
-				indice = ""
-				letter = random.choice(quizz.quizz_reponse)
 				indice = ''.join(i if random.randint(0, 1) else '_' for i in quizz.quizz_reponse)
 				return "Un indice: ``` {0} ```".format(indice)
 			except:

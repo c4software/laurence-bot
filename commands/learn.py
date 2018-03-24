@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from libs.decorators import register_as_command
-from libs.history import get_history, get_last_tags
+from commands.libs.decorators import register_as_command
+from commands.libs.history import get_history, get_last_tags
 from settings import DEBUG_USER
 from emoji import emojize
 from tools.text import add_alias

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from tools.rest import callrest
-from libs.decorators import register_as_command
+from commands.libs.decorators import register_as_command
 from bs4 import BeautifulSoup
 import time
 from urllib.parse import urlparse
@@ -30,7 +30,7 @@ def get_commitstrip(latest=False):
         soup = BeautifulSoup(data, "html.parser")
         return soup.select("p > img")[0].attrs.get("src")
     except Exception as e: # pragma: no cover
-        return "Impossible de récupérer les CommitStrip."
+        return "Impossible de récupérer les CommitStrip. {}".format(e)
 
 @register_as_command("commitstrip", "Affiche le dernier CommitStrip", "Commitstrip", keywords=["cs"])
 def cmd_commitstrip(msg):

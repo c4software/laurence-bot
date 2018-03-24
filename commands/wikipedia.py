@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
 from tools.rest import callrest
-from libs.decorators import register_as_command
+from commands.libs.decorators import register_as_command
 import json
 import wikipedia
 
-from libs.context import mark_for_awaiting_response
+from commands.libs.context import mark_for_awaiting_response
 from tools.libs import username_or_channel
 
 @register_as_command("def", "Recherche la définition sur Wikipedia", "Web", keywords=["wikipedia", "wiki"])

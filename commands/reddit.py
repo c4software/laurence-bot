@@ -3,7 +3,7 @@
 import random
 import json
 from tools.rest import callrest
-from libs.decorators import register_as_command
+from commands.libs.decorators import register_as_command
 
 from bs4 import BeautifulSoup
 from expiringdict import ExpiringDict

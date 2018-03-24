@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 
 from tools.rest import callrest
-from libs.decorators import register_as_command
+from commands.libs.decorators import register_as_command
 import json
 from settings import GIPHY_URL, GIPHY_PATH, GIPHY_API_KEY, MASHAPE_KEY
 
-from libs.context import mark_for_awaiting_response
+from commands.libs.context import mark_for_awaiting_response
 from tools.libs import username_or_channel
 
 
@@ -28,6 +28,7 @@ def get_gyphy(keyword, md=True):
         else:
             return retour['data']['image_original_url']
     except Exception as e: # pragma: no cover
+        print (e)
         return None
 
 def has_msg(msg):

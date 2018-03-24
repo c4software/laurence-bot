@@ -8,8 +8,8 @@ import telegram
 from emoji import emojize, demojize
 
 from commands import *
-from commands.decorators import commands, descriptions
-from commands.history import add_history
+from commands.libs.decorators import commands, descriptions
+from commands.libs.history import add_history
 from commands.general import cmd_start
 from settings import *
 

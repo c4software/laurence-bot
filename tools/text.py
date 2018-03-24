@@ -2,7 +2,7 @@
 
 from emoji import emojize, demojize
 from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove, KeyboardButton
-from commands.decorators import commands
+from commands.libs.decorators import commands
 
 from settings import DEBUG_USER
 
@@ -10,11 +10,11 @@ import difflib, random
 from textblob import Blobber
 from textblob_fr import PatternTagger, PatternAnalyzer
 
-from commands.history import save_last_tags
+from commands.libs.history import save_last_tags
 
-from commands.context import get_awaiting_response
+from commands.libs.context import get_awaiting_response
 
-from .libs import is_debug, send_message_debug_users, username_or_channel, make_attrs_from_telegram
+from tools.libs import is_debug, send_message_debug_users, username_or_channel, make_attrs_from_telegram
 
 from database import db_session
 from models.models import Learning_command

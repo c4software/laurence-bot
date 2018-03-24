@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-from libs.decorators import register_as_command
-from libs.history import get_history
-from libs.context import get_last_message, get_probable_command
+from commands.libs.decorators import register_as_command
+from commands.libs.history import get_history
+from commands.libs.context import get_last_message, get_probable_command
 from tools.libs import make_message, get_username, save_new_user, username_or_channel, reply_to_user
 from settings import PSEUDO
-from libs.decorators import commands
+from commands.libs.decorators import commands
 import random
 
 def cmd_start(msg):
@@ -47,7 +47,7 @@ def get_command_list():
         Parcours des commandes et des descriptions chargé au lancement du bot.
         Les commandes sans descriptions ne sont pas retourné.
     '''
-    from libs.decorators import commands, descriptions
+    from commands.libs.decorators import descriptions
     command_list = "\n"
     for group in descriptions:
         sub_command_list = ""

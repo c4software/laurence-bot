@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from tools.rest import callrest
-from libs.decorators import register_as_command
+from commands.libs.decorators import register_as_command
 from settings import HUE_BRIDGE
 
 from tools.libs import get_username, save_new_user, reply_to_user
@@ -29,7 +29,7 @@ def cmd_communicate_hue_server(msg, ressource, bri): # pragma: no cover
     pseudo        =   get_username(msg)
     current_user  =   User.query.filter_by(username=pseudo).one()
     if "hue_username" in current_user.settings:
-        b = Bridge(HUE_BRIDGE, current_user.settings.hue_username)
+        Bridge(HUE_BRIDGE, current_user.settings.hue_username)
     else:
         reply_to_user(msg, "Pour utiliser les commandes HUE, vous devez faire « hue init »")
 
