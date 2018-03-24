@@ -3,11 +3,11 @@ import unittest
 
 from tools.libs import *
 from commands import *
-from commands.history import *
+from commands.libs.history import *
 
 class TestHistory(unittest.TestCase):
     pseudo = "valentin_test"
-    def test_get(self):
+    def test_a(self):
         data = make_attrs(self.pseudo, "", args=[""])
         self.assertTrue(commands["historique"](data) is not None)
 

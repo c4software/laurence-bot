@@ -15,18 +15,17 @@ def get_commitstrip(latest=False):
     """
     try:
         # Récupération du flux CommitStrip
-        data = callrest(domain="www.commitstrip.com", port="80", path="/fr/feed/", user_headers={"Accept-Charset": "utf-8"})[2]
+        data = callrest(domain="www.commitstrip.com", port="80", path="/fr/feed/")[2]
         soup = BeautifulSoup(data, "html.parser")
+        liens = soup.select("item")
         if not latest:
             # Pas de flag latest on en prend un en aléatoire
-            lien = random.choice(soup.select("item")).link.text
+            data = random.choice(liens).find("content:encoded").text
         else:
             # Uniquement le dernier
-            lien = soup.select("item")[0].link.text
+            data = liens[0].find("content:encoded").text
 
-        # Récupération de l’image.
-        o = urlparse(lien)
-        data = callrest(domain=o.netloc, port="80", path=o.path, user_headers={"Accept-Charset": "utf-8"})[2]
+        # Get the image
         soup = BeautifulSoup(data, "html.parser")
         return soup.select("p > img")[0].attrs.get("src")
     except Exception as e: # pragma: no cover
