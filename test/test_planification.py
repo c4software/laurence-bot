@@ -4,7 +4,7 @@ import unittest
 from tools.libs import *
 from commands import *
 from commands.planification import extract_hours_minutes
-from commands.history import add_history
+from commands.libs.history import add_history
 
 class TestPlanification(unittest.TestCase):
     pseudo = "test_valentin"
