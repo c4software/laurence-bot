@@ -5,6 +5,18 @@ from tools.libs import get_username
 
 today_metting = []
 
+@register_as_command("meeting_repport", "Affiche le rapport global", "Meeting")
+def cmd_report(msg):
+    message = ""
+    for username in today_metting:
+        message = "{0}: \r\n"
+        for event in today_metting[username]:
+            message += "{0} : \r\n {1}".format(event, today_metting[username][event])
+
+    today_metting = []
+
+    return message
+
 @register_as_command("meeting", "Enregistre une nouvelle entrée", "Meeting")
 def cmd_metting(msg):
     username = get_username(msg)
