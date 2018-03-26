@@ -9,9 +9,9 @@ today_metting = []
 def cmd_report(msg):
     message = ""
     for username in today_metting:
-        message = "{0}: \r\n"
+        message = "@{0}: \r\n"
         for event in today_metting[username]:
-            message += "{0} : \r\n {1}".format(event, today_metting[username][event])
+            message += "\t{0} : \r\n\t\t {1}".format(event, today_metting[username][event])
 
     today_metting = []
 
