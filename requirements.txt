@@ -8,3 +8,4 @@ textblob
 textblob_fr
 wikipedia
 qhue
+slackclient
