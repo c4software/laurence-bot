@@ -16,7 +16,7 @@ def cmd_report(msg):
 
     return message
 
-@register_as_command("meeting", "Enregistre une nouvelle entrée", "Meeting")
+@register_as_command("meeting", "Enregistre une nouvelle entree", "Meeting")
 def cmd_metting(msg):
     username = get_username(msg)
     task =  msg["query"]
