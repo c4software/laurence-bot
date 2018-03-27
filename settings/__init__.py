@@ -19,24 +19,6 @@ REDDIT_GIF = ["gifs", "CatGifs", "perfectLoops", "SurrealGifs", "SpaceGifs","aww
 REDDIT_OTHER = ["Futurology", "Nostalgia","ads","france", "CollegeCooking", "EarthPorn", "history", "videos","worldnews", "random", "random", "random"]
 REDDIT_ALL = [REDDIT_IMAGE, REDDIT_LOL, REDDIT_GIF, REDDIT_OTHER]
 
-JOIESDUCODE_URL = "lesjoiesducode.fr"
-JOIESDUCODE_PATH = "/random"
-
-LESJOIESDUSYSADMIN_URL = "lesjoiesdusysadmin.tumblr.com"
-LESJOIESDUSYSADMIN_PATH = "/random"
-
-VDM_URL = "www.viedemerde.fr"
-VDM_PATH = "/aleatoire?"
-
-FML_URL = "www.fmylife.com"
-FML_PATH = "/random?"
-
-MADAME_URL = "dites.bonjourmadame.fr"
-MADAME_PATH = "/random"
-
-MADEMOISELLE_URL = "www.bonjourmademoiselle.fr"
-MADEMOISELLE_PATH = "/random"
-
 GIPHY_URL = "giphy.p.mashape.com"
 GIPHY_PATH = "/v1/gifs/random"
 GIPHY_API_KEY = "dc6zaTOxFJmzC"
