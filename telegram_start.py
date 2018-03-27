@@ -80,6 +80,7 @@ def commands_handler(bot, update, args, no_fail_reply=False, attrs=None):
             # Cas d’erreur uniquement si on est dans le cas ou l’on doit pas répondre en cas d’erreur
             update.message.reply_text("Désolé, je ne comprend pas encore votre demande… La liste des commandes est disponible via /aide", reply_markup=ReplyKeyboardRemove())
     except Exception as e:
+        print (e)
         import traceback
         traceback.print_exc()
 
