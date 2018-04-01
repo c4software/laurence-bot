@@ -48,6 +48,8 @@ def handle_command(text, channel, event):
     probable_command = extract_command(text)
     attrs = make_attrs(get_slack_username(event["user"]), text, event, event["channel"], None, {})
 
+    add_history(pseudo=username_or_channel(attrs), command="{0} {1}".format(commande, attrs["query"]))
+
     if probable_command in commands:
         retour = commands[probable_command](attrs)
         if retour != "" and retour is not None:
