@@ -34,24 +34,20 @@ def parse_bot_messages(slack_events):
             return event["text"], event["channel"], event
     return None, None, None
 
-def extract_command(commande):
-    commande = commande.split(' ')
-    if len (commande) > 1:
-        commande = commande[1]
-    else:
-        commande = commande[0]
-
-    return commande.lower()
+def extract_command_query(commande):
+    commande = commande.lower().split(' ')
+    return commande
 
 
 def handle_command(text, channel, event):
-    probable_command = extract_command(text)
-    attrs = make_attrs(get_slack_username(event["user"]), text, event, event["channel"], None, {})
+    commande = extract_command_query(text)
+    pseudo = get_slack_username(event["user"])
+    attrs = make_attrs(pseudo, text, commande[1:], event["channel"], None, {})
 
-    add_history(pseudo=username_or_channel(attrs), command="{0} {1}".format(commande, attrs["query"]))
+    add_history(pseudo=pseudo, command=text)
 
-    if probable_command in commands:
-        retour = commands[probable_command](attrs)
+    if commande[0] in commands:
+        retour = commands[commande[0]](attrs)
         if retour != "" and retour is not None:
             if type(retour) is not str:
                 retour = " ".join(retour)
