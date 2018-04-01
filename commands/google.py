@@ -19,5 +19,5 @@ def cmd_do_googlesearch(msg):
         else:
             mark_for_awaiting_response(username_or_channel(msg), "google")
             return "Oui ? Que recherchez vous ?"
-    except: # pragma: no cover
+    except Exception as e: # pragma: no cover
         return "Recherche impossible."
