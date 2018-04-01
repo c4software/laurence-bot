@@ -35,6 +35,6 @@ def cmd_aide(msg):
                 return "{0} \n\nhttps://{1}/?curid={2}".format(page.get("extract", ""), domain, page_id)
             else:
                 raise Exception("KO")
-    except: # pragma: no cover
+    except Exception as e: # pragma: no cover
         if msg["query"]:
-            return "Aucun résultat pour {0}".format(query)
+            return "Aucun résultat pour {0}".format(msg["query"])
