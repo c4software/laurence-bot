@@ -14,7 +14,7 @@ from commands.libs.history import save_last_tags
 
 from commands.libs.context import get_awaiting_response
 
-from tools.libs import is_debug, send_message_debug_users, username_or_channel, make_attrs_from_telegram
+from tools.libs import is_debug, send_message_debug_users, username_or_channel, make_attrs_from_telegram, make_attrs
 
 from database import db_session
 from models.models import Learning_command
@@ -38,6 +38,32 @@ def find_closest(tags):
             match.append((ratio, lc.commande))
 
     return sorted(match)
+
+def analyze_text_slack(attrs):
+    text = demojize(attrs["text"])
+
+    # Analyse du texte en mode POS TAGGER
+    blob = tb(text)
+    text_keywords = [(x[0].lower(),x[1]) for x in blob.tags]
+
+    username = attrs["username"][0]
+    save_last_tags(username, text_keywords)
+    closest = find_closest(text_keywords)
+
+    awaiting_command = get_awaiting_response(username)
+
+    if awaiting_command:
+        # Il y avait une commande en attente alors on append celle-ci pour une l’executer
+        text = "/{0} {1}".format(awaiting_command["commande"], text)
+        context_data = awaiting_command["data"]
+    elif closest:
+        text = closest[0][1]
+
+    # Une fois les traitements sur le texte éffectué, on remet en place les infos pour la suite
+    args = text.split(' ')
+
+    return make_attrs(username, text, args[1:], attrs["channel"], None, {})
+
 
 def analyze_text(bot, update, do_google_search=False):
     text = demojize(update.message.text)
