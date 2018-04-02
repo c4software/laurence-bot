@@ -40,13 +40,13 @@ def find_closest(tags):
     return sorted(match)
 
 def analyze_text_slack(attrs):
-    text = demojize(attrs["text"])
+    text = demojize(attrs["text"][0])
 
     # Analyse du texte en mode POS TAGGER
     blob = tb(text)
     text_keywords = [(x[0].lower(),x[1]) for x in blob.tags]
 
-    username = attrs["username"][0]
+    username = attrs["user_name"][0]
     save_last_tags(username, text_keywords)
     closest = find_closest(text_keywords)
 

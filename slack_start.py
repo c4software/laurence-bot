@@ -6,7 +6,7 @@ from commands.libs.history import add_history
 from commands.general import cmd_start
 from settings import *
 
-from tools.text import analyze_text
+from tools.text import analyze_text_slack
 from tools.libs import *
 
 from shared import save_data, clean_data
@@ -42,9 +42,7 @@ def extract_command_query(commande):
 def handle_command(text, channel, event):
     commande = extract_command_query(text)
     pseudo = get_slack_username(event["user"])
-    attrs = make_attrs(pseudo, text, commande[1:], event["channel"], None, {})
-
-    add_history(pseudo=pseudo, command=text)
+    attrs = analyze_text_slack(make_attrs(pseudo, text, commande[1:], event["channel"], None, {}))
 
     if commande[0] in commands:
         retour = commands[commande[0]](attrs)
