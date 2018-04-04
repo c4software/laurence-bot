@@ -17,7 +17,7 @@ import random, logging, os, sys, atexit, threading, time, re
 # Set up basic logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
-MENTION_REGEX = "^<@(|[WU].+?)>(.*)"
+# MENTION_REGEX = "^<@(|[WU].+?)>(.*)"
 slack_token = os.environ.get("LAURENCE_TOKEN_SLACK")
 
 if not slack_token:
@@ -43,6 +43,12 @@ def handle_command(text, channel, event):
     commande = extract_command_query(text)
     pseudo = get_slack_username(event["user"])
     attrs = analyze_text_slack(make_attrs(pseudo, text, commande[1:], event["channel"], None, {}))
+
+    # Extract data depuis la données analysé.
+    commande = extract_command_query(text)
+
+    #print (commande)
+    #print (attrs)
 
     if commande[0] in commands:
         retour = commands[commande[0]](attrs)
