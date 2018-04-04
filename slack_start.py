@@ -36,6 +36,9 @@ def parse_bot_messages(slack_events):
 
 def extract_command_query(commande):
     commande = commande.lower().split(' ')
+    if commande[0].startswith("/"):
+        commande[0] = commande[0][1:]
+        
     return commande
 
 
@@ -45,10 +48,7 @@ def handle_command(text, channel, event):
     attrs = analyze_text_slack(make_attrs(pseudo, text, commande[1:], event["channel"], None, {}))
 
     # Extract data depuis la données analysé.
-    commande = extract_command_query(text)
-
-    #print (commande)
-    #print (attrs)
+    commande = extract_command_query(attrs["text"][0])
 
     if commande[0] in commands:
         retour = commands[commande[0]](attrs)
@@ -81,4 +81,4 @@ if __name__ == "__main__":
             message, channel, event = parse_bot_messages(sc.rtm_read())
             if message:
                 handle_command(message, channel, event)
-            time.sleep(1)
+            time.sleep(0.5)
