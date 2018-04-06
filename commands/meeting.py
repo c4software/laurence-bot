@@ -3,6 +3,9 @@ import os
 from commands.libs.context import mark_for_awaiting_response
 from commands.libs.decorators import register_as_command
 from tools.libs import get_username
+import threading
+import time
+import schedule
 
 SLACK_TOKEN = os.environ.get("LAURENCE_TOKEN_SLACK")
 SLACK_REPORT_CHANNEL = os.environ.get("SLACK_REPORT_CHANNEL", "")
@@ -29,8 +32,8 @@ def cmd_report(msg):
 
 def send_slack_message_channel(content):
     from slackclient import SlackClient
-    sc = SlackClient(SLACK_TOKEN)
-    sc.api_call("chat.postMessage", channel=SLACK_REPORT_CHANNEL, text=content)
+    client = SlackClient(SLACK_TOKEN)
+    client.api_call("chat.postMessage", channel=SLACK_REPORT_CHANNEL, text=content)
 
 @register_as_command("meeting", "Enregistre une nouvelle entrée", "Meeting")
 def cmd_metting(msg):
@@ -54,3 +57,13 @@ def cmd_metting(msg):
         return "Et aujourd'hui tu prévois quoi ?"
     else:
         return "Merci !"
+
+if SLACK_REPORT_CHANNEL:
+    print("Register report scheduling at « 10:00 » everyday")
+    def report_planed():
+        schedule.every().day.at("10:00").do(cmd_report)
+        while schedule.run_pending:
+            schedule.run_pending()
+            time.sleep(1)
+
+    threading.Thread(target=report_planed, args=()).start()
