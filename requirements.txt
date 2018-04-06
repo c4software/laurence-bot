@@ -9,3 +9,4 @@ textblob_fr
 wikipedia
 qhue
 slackclient
+schedule

@@ -46,7 +46,6 @@ def cmd_metting(msg):
         elif "today" not in TODAY_MEETING[username]:
             TODAY_MEETING[username]["today"] = task
 
-
     if "yesterday" not in TODAY_MEETING[username]:
         mark_for_awaiting_response(username, "meeting")
         return "Hey! T'as fait quoi hier ?"
