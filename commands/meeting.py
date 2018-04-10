@@ -12,14 +12,17 @@ SLACK_REPORT_CHANNEL = os.environ.get("SLACK_REPORT_CHANNEL", "")
 
 TODAY_MEETING = {}
 
+MAP_TRADUCTION = {"today": "Tu prévois quoi aujourd'hui ?", "yesterday": "T'as fait quoi hier ?"}
+
 @register_as_command("meeting_report", "Affiche le rapport global", "Meeting")
 def cmd_report(msg):
     message = ""
     report = TODAY_MEETING
     for username in report:
-        message = "@{0}: \r\n".format(username)
+        message = "{}: \r\n".format(username)
         for event in report[username]:
-            message += "\t\t{0} : \r\n\t\t {1}\r\n\r\n".format(event, report[username][event])
+            message += "*{0}:* \r\n".format(MAP_TRADUCTION[event])
+            message += "> {0}\r\n\r\n".format('>'.join(report[username][event].splitlines(True)))
 
     if message:
         if SLACK_REPORT_CHANNEL != "" and SLACK_TOKEN != "":
@@ -33,7 +36,7 @@ def cmd_report(msg):
 def send_slack_message_channel(content):
     from slackclient import SlackClient
     client = SlackClient(SLACK_TOKEN)
-    client.api_call("chat.postMessage", channel=SLACK_REPORT_CHANNEL, text=content)
+    client.api_call("chat.postMessage",link_names=1, channel=SLACK_REPORT_CHANNEL, text=content)
 
 @register_as_command("meeting", "Enregistre une nouvelle entrée", "Meeting")
 def cmd_metting(msg):

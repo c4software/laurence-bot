@@ -60,17 +60,17 @@ def handle_command(text, channel, event):
             post_message("Désolé, je ne comprend pas encore votre demande… La liste des commandes est disponible via /aide")
 
 def post_message(retour):
-    sc.api_call("chat.postMessage", channel=channel, text=retour)
+    sc.api_call("chat.postMessage", link_names=1, channel=channel, text=retour)
 
 def get_users_list():
     return {u["id"]:u["name"] for u in sc.api_call("users.list")["members"]}
 
 def get_slack_username(id):
     if id in userslist:
-        return userslist[id]
+        return "@{}".format(userslist[id])
     else:
         get_users_list()
-        return get_username(id)
+        return get_slack_username(id)
 
 if __name__ == "__main__":
     if sc.rtm_connect(with_team_state=False):
