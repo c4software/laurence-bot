@@ -5,6 +5,7 @@ from commands.libs.decorators import register_as_command
 from tools.libs import get_username
 import threading
 import time
+import copy
 import schedule
 
 SLACK_TOKEN = os.environ.get("LAURENCE_TOKEN_SLACK")
@@ -17,8 +18,9 @@ MAP_TRADUCTION = {"today": "Tu prévois quoi aujourd'hui ?", "yesterday": "T'as 
 @register_as_command("meeting_report", "Affiche le rapport global", "Meeting")
 def cmd_report(msg = {}):
     message = ""
-    report = TODAY_MEETING
+    report = copy.deepcopy(TODAY_MEETING)
     for username in report:
+        del TODAY_MEETING[username]
         message += "{}: \r\n".format(username)
         for event in report[username]:
             message += "*{0}:* \r\n".format(MAP_TRADUCTION[event])
