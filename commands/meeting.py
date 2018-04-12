@@ -15,11 +15,11 @@ TODAY_MEETING = {}
 MAP_TRADUCTION = {"today": "Tu prévois quoi aujourd'hui ?", "yesterday": "T'as fait quoi hier ?"}
 
 @register_as_command("meeting_report", "Affiche le rapport global", "Meeting")
-def cmd_report(msg):
+def cmd_report(msg = {}):
     message = ""
     report = TODAY_MEETING
     for username in report:
-        message = "{}: \r\n".format(username)
+        message += "{}: \r\n".format(username)
         for event in report[username]:
             message += "*{0}:* \r\n".format(MAP_TRADUCTION[event])
             message += "> {0}\r\n\r\n".format('>'.join(report[username][event].splitlines(True)))
@@ -64,7 +64,7 @@ def cmd_metting(msg):
 if SLACK_REPORT_CHANNEL:
     print("Register report scheduling at « 10:00 » everyday")
     def report_planed():
-        schedule.every().day.at("10:00").do(cmd_report, msg={})
+        schedule.every().day.at("10:00").do(cmd_report)
         while schedule.run_pending:
             schedule.run_pending()
             time.sleep(1)
