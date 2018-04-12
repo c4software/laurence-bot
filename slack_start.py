@@ -17,7 +17,7 @@ import random, logging, os, sys, atexit, threading, time, re
 # Set up basic logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
-# MENTION_REGEX = "^<@(|[WU].+?)>(.*)"
+MENTION_REGEX = "^<@(|[WU].+?)>(.*)"
 slack_token = os.environ.get("LAURENCE_TOKEN_SLACK")
 
 if not slack_token:
@@ -35,12 +35,16 @@ def parse_bot_messages(slack_events):
     return None, None, None
 
 def extract_command_query(commande):
+    commande = parse_direct_mention(commande)
     commande = commande.lower().split(' ')
     if commande[0].startswith("/"):
         commande[0] = commande[0][1:]
         
     return commande
 
+def parse_direct_mention(message_text):
+    matches = re.search(MENTION_REGEX, message_text)
+    return matches.group(2).strip() if matches else message_text
 
 def handle_command(text, channel, event):
     commande = extract_command_query(text)
