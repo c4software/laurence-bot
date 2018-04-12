@@ -21,10 +21,11 @@ def cmd_report(msg = {}):
     report = copy.deepcopy(TODAY_MEETING)
     for username in report:
         del TODAY_MEETING[username]
-        message += "{}: \r\n".format(username)
+        message += "\r\n{}: \r\n".format(username)
         for event in report[username]:
             message += "*{0}:* \r\n".format(MAP_TRADUCTION[event])
             message += "> {0}\r\n\r\n".format('>'.join(report[username][event].splitlines(True)))
+            message += "\r\n"
 
     if message:
         if SLACK_REPORT_CHANNEL != "" and SLACK_TOKEN != "":
