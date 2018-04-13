@@ -18,6 +18,9 @@ def is_private_channel(update):
 def get_username(msg):
     return msg["user_name"][0]
 
+def get_users_list_slack(sc):
+    return {u["id"]:u["name"] for u in sc.api_call("users.list")["members"]}
+
 def send_message_debug_users(bot, message=""):
     for user in DEBUG_USER:
         chat_id = get_userid_from_username(user)
