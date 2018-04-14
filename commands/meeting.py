@@ -3,6 +3,7 @@ import os
 from commands.libs.context import mark_for_awaiting_response
 from commands.libs.decorators import register_as_command
 from tools.libs import get_username
+import datetime
 import threading
 import time
 import copy
@@ -35,7 +36,7 @@ def cmd_report(msg = {}):
         else:
             return message
     else:
-        return "Personne n'a fait de report pour l'instant"
+        return ""
 
 def get_slack_client():
     from slackclient import SlackClient
@@ -46,9 +47,15 @@ def send_slack_message_channel(content):
     client.api_call("chat.postMessage", link_names=1, channel=SLACK_REPORT_CHANNEL, text=content)
 
 def send_direct_message(client, user_id, content):
-   client.api_call("chat.postMessage", link_names=1, channel=user_id, text=content, as_user=True)
+    client.api_call("chat.postMessage", link_names=1, channel=user_id, text=content, as_user=True)
+
+def is_weekend():
+    return datetime.datetime.today().weekday() >= 5
 
 def ask_for_report():
+    if is_weekend():
+        return
+
     client = get_slack_client()
     for user_id in SLACK_REPORT_MEMBERS:
         send_direct_message(client, user_id, "Hey, c'est l\'heure du Standup Meeting. Tape « meeting » pour commencer.")
