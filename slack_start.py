@@ -67,11 +67,15 @@ def post_message(retour, channel):
     SLACKCLIENT.api_call("chat.postMessage", link_names=1, channel=channel, text=retour)
 
 def get_users_list_slack():
-    return {u["id"]:u["name"] for u in SLACKCLIENT.api_call("users.list")["members"]}
+    client_list = SLACKCLIENT.api_call("users.list")
+    if "members" in client_list:
+        return {u["id"]:u["name"] for u in client_list["members"]}
+    else:
+        return {}
 
 def get_slack_username(user_id):
     global USERLIST
-    if id in USERLIST:
+    if user_id in USERLIST:
         return "@{}".format(USERLIST[user_id])
     else:
         USERLIST = get_users_list_slack()
