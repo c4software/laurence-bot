@@ -2,7 +2,7 @@
 import os
 from commands.libs.context import mark_for_awaiting_response
 from commands.libs.decorators import register_as_command
-from tools.libs import get_username, get_users_list_slack
+from tools.libs import get_username
 import threading
 import time
 import copy

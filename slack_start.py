@@ -66,18 +66,21 @@ def handle_command(text, channel, event):
 def post_message(retour):
     sc.api_call("chat.postMessage", link_names=1, channel=channel, text=retour)
 
-def get_slack_username(id):
-    if id in userslist:
-        return "@{}".format(userslist[id])
+def get_users_list_slack():
+    return {u["id"]:u["name"] for u in sc.api_call("users.list")["members"]}
+
+def get_slack_username(userId):
+    if userId in userslist:
+        return "@{}".format(userslist[userId])
     else:
-        get_users_list_slack(sc)
-        return get_slack_username(id)
+        ul = get_users_list_slack()
+        return ul[userId]
 
 if __name__ == "__main__":
     if sc.rtm_connect(with_team_state=False):
         print("Laurence is ready !")
         starterbot_id = sc.api_call("auth.test")["user_id"]
-        userslist = get_users_list_slack(sc)
+        userslist = get_users_list_slack()
         while True:
             message, channel, event = parse_bot_messages(sc.rtm_read())
             if message:
