@@ -85,8 +85,8 @@ def cmd_metting(msg):
 
 if SLACK_REPORT_CHANNEL:
     def report_planed():
-        print("Register report scheduling at « 10:00 » everyday")
-        print("Register report scheduling at « 09:30 » everyday")
+        print("Register report scheduling at « 10:00 » every week day")
+        print("Register ask_for_report scheduling at « 09:30 » every week day")
         schedule.every().day.at("10:00").do(cmd_report)
         schedule.every().day.at("09:30").do(ask_for_report)
         while schedule.run_pending:
