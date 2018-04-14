@@ -39,7 +39,7 @@ def extract_command_query(commande):
     commande = commande.lower().split(' ')
     if commande[0].startswith("/"):
         commande[0] = commande[0][1:]
-       
+     
     return commande
 
 def parse_direct_mention(message_text):
