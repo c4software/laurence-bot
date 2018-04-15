@@ -23,11 +23,13 @@ def cmd_report(msg = {}):
     report = copy.deepcopy(TODAY_MEETING)
     for username in report:
         del TODAY_MEETING[username]
-        message += "\r\n{}: \r\n".format(username)
-        for event in report[username]:
-            message += "*{0}:* \r\n".format(MAP_TRADUCTION[event])
-            message += "> {0}\r\n\r\n".format('>'.join(report[username][event].splitlines(True)))
-            message += "\r\n"
+        # Seulement si l'utilisateur à fait un report
+        if "today" in report[username]:
+            message += "\r\n{0}: \r\n".format(username)
+            for event in report[username]:
+                message += "*{0}:* \r\n".format(MAP_TRADUCTION[event])
+                message += "> {0}\r\n\r\n".format('>'.join(report[username][event].splitlines(True)))
+                message += "\r\n"
 
     if message:
         if SLACK_REPORT_CHANNEL != "" and SLACK_TOKEN != "":
@@ -49,24 +51,12 @@ def send_slack_message_channel(content):
 def send_direct_message(client, user_id, content):
     client.api_call("chat.postMessage", link_names=1, channel=user_id, text=content, as_user=True)
 
-def is_weekend():
-    return datetime.datetime.today().weekday() >= 5
-
-def ask_for_report():
-    if is_weekend():
-        return
-
-    client = get_slack_client()
-    for user_id in SLACK_REPORT_MEMBERS:
-        send_direct_message(client, user_id, "Hey, c'est l\'heure du Standup Meeting. Tape « meeting » pour commencer.")
-
 @register_as_command("meeting", "Enregistre une nouvelle entrée", "Meeting")
 def cmd_metting(msg):
     username = get_username(msg)
     task = msg["query"]
 
-    if username not in TODAY_MEETING:
-        TODAY_MEETING[username] = {}
+    init_report_for_username(username)
 
     if task:
         if "yesterday" not in TODAY_MEETING[username]:
@@ -74,6 +64,19 @@ def cmd_metting(msg):
         elif "today" not in TODAY_MEETING[username]:
             TODAY_MEETING[username]["today"] = task
 
+    return text_for_report(username)
+
+def init_report_for_username(username):
+    """
+        Initialise la structure pour le « rapport » de l'utilisateur.
+    """
+    if username not in TODAY_MEETING:
+        TODAY_MEETING[username] = {}
+
+def text_for_report(username):
+    """
+        Retourne le texet pour l'interaction en mode meeting
+    """
     if "yesterday" not in TODAY_MEETING[username]:
         mark_for_awaiting_response(username, "meeting")
         return "Hey! T'as fait quoi hier ?"
@@ -83,8 +86,35 @@ def cmd_metting(msg):
     else:
         return "Merci !"
 
+def is_weekend():
+    """
+        Détermine si le jour courant est un weekend.
+    """
+    return datetime.datetime.today().weekday() >= 5
+
+def ask_for_report():
+    """
+        Fonction lancée automatiquement lors des messages automatiques, permet de demander
+        aux différents utilisateurs leur rapport journalier.
+    """
+    if is_weekend():
+        return
+
+    client = get_slack_client()
+    for user_id in SLACK_REPORT_MEMBERS:
+        init_report_for_username(user_id)
+        # Envoi le message uniquement au gens n'ayant pas fait leur report
+        # (today et yesterday non présent dans TODAY_MEETING[username])
+        if MAP_TRADUCTION.keys() >= TODAY_MEETING[user_id].keys():
+            send_direct_message(client, user_id, text_for_report(user_id))
+            mark_for_awaiting_response(user_id, "meeting")
+
 if SLACK_REPORT_CHANNEL:
     def report_planed():
+        """
+            Méthode utilisé pour le thread des messages automatiques.
+            Déclenché uniquement en mode slack.
+        """
         print("Register report scheduling at « 10:00 » every week day")
         print("Register ask_for_report scheduling at « 09:30 » every week day")
         schedule.every().day.at("10:00").do(cmd_report)
