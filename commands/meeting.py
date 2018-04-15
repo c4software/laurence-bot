@@ -4,9 +4,9 @@ import datetime
 import threading
 import time
 import copy
-import schedule
 from commands.libs.context import mark_for_awaiting_response
 from commands.libs.decorators import register_as_command
+import schedule
 from tools.libs import get_username
 
 SLACK_TOKEN = os.environ.get("LAURENCE_TOKEN_SLACK")
@@ -31,8 +31,9 @@ def cmd_report(msg = {}):
         if "today" in report[username]:
             message += "\r\n{0}: \r\n".format(username)
             for event in report[username]:
+                formated_user_reports = '>'.join(report[username][event].splitlines(True))
                 message += "*{0}:* \r\n".format(MAP_TRADUCTION[event])
-                message += "> {0}\r\n\r\n".format('>'.join(report[username][event].splitlines(True)))
+                message += "> {0}\r\n\r\n".format(formated_user_reports)
                 message += "\r\n"
 
     if message:
