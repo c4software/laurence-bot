@@ -4,7 +4,7 @@ import signal
 import sys
 import atexit
 
-from tools.extended_BaseHTTPServer import serve,route, redirect, override
+from tools.extended_BaseHTTPServer import serve, route, redirect, override
 from tools.rest import callrest
 
 from commands import *
@@ -16,10 +16,11 @@ import logging
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
+
 def chat(kwargs):
     try:
         commande = kwargs['text'][0].split(' ')
-        if len (commande) > 1:
+        if len(commande) > 1:
             commande = commande[1]
         else:
             commande = commande[0]
@@ -38,7 +39,8 @@ def chat(kwargs):
                     return build_response(kwargs, retour)
                 else:
                     # Impossible de retourner un message enrichie alors, on passe par l'API
-                    callrest(domain=MATTERMOST_DOMAIN, type="POST", path=MATTERMOST_PATH, params={"payload": json.dumps(retour)})
+                    callrest(domain=MATTERMOST_DOMAIN, type="POST", path=MATTERMOST_PATH,
+                             params={"payload": json.dumps(retour)})
         else:
             pass
 
@@ -46,13 +48,15 @@ def chat(kwargs):
         logging.error(e)
         pass
 
+
 def build_response(kwargs, retour):
     ret = {"text": retour, "username": PSEUDO}
     if kwargs['slash_command']:
         ret["response_type"] = "in_channel"
     return json.dumps(ret)
 
-@route("/",["POST"])
+
+@route("/", ["POST"])
 def form(**kwargs):
     kwargs['preview'] = False
 
@@ -68,6 +72,7 @@ def form(**kwargs):
         pass
 
     return chat(kwargs)
+
 
 if __name__ == '__main__':
     logging.info("Serving Laurence on {0} port {1} ...".format(IP, PORT))

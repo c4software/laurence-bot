@@ -5,8 +5,10 @@ from tools.libs import *
 from commands import *
 from commands.libs.history import *
 
+
 class TestHistory(unittest.TestCase):
     pseudo = "valentin_test"
+
     def test_a(self):
         data = make_attrs(self.pseudo, "", args=[""])
         self.assertTrue(commands["historique"](data) is not None)

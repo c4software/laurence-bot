@@ -6,8 +6,10 @@ from commands import *
 from commands.quizz import *
 import itertools
 
+
 class TestQuizz(unittest.TestCase):
     pseudo = "valentin_test"
+
     def test_get_question(self):
         self.assertIsInstance(get_question(), str)
 

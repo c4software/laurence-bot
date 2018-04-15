@@ -7,6 +7,7 @@ import time
 from urllib.parse import urlparse
 import random
 
+
 def get_commitstrip(latest=False):
     """
     Récupération d’un CommitStrip.
@@ -28,8 +29,9 @@ def get_commitstrip(latest=False):
         # Get the image
         soup = BeautifulSoup(data, "html.parser")
         return soup.select("p > img")[0].attrs.get("src")
-    except Exception as e: # pragma: no cover
+    except Exception as e:  # pragma: no cover
         return "Impossible de récupérer les CommitStrip. {}".format(e)
+
 
 @register_as_command("commitstrip", "Affiche le dernier CommitStrip", "Commitstrip", keywords=["cs"])
 def cmd_commitstrip(msg):

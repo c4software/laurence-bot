@@ -8,6 +8,7 @@ from tools.libs import get_probable_command, get_username, is_private_channel
 # {"pseudo": {"commande": "commande", "data": {}}
 awaiting = {}
 
+
 # Gestion des commandes en cours de process
 def mark_for_awaiting_response(username, action, data={}):
     """
@@ -17,6 +18,7 @@ def mark_for_awaiting_response(username, action, data={}):
       :param action: Action en attente
     """
     awaiting[username] = {"commande": action, "data": data}
+
 
 def get_awaiting_response(username):
     """

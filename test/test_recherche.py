@@ -4,6 +4,7 @@ import unittest
 from tools.libs import *
 from commands import *
 
+
 class TestRecherche(unittest.TestCase):
     def test_google(self):
         data = make_attrs("valentin", "Test", args=["Test"])

@@ -19,17 +19,19 @@ def get_gyphy(keyword, md=True):
         params = {}
         params['api_key'] = GIPHY_API_KEY
         params['tag'] = keyword
-        data = callrest(domain=GIPHY_URL, ssl=True, path=GIPHY_PATH, params=params, user_headers={"X-Mashape-Key": MASHAPE_KEY})[2]
+        data = callrest(domain=GIPHY_URL, ssl=True, path=GIPHY_PATH, params=params,
+                        user_headers={"X-Mashape-Key": MASHAPE_KEY})[2]
         retour = json.loads(data)
-        if len(retour['data']) == 0: # pragma: no cover
+        if len(retour['data']) == 0:  # pragma: no cover
             return get_gyphy("")
         if md:
             return "![image]({0})".format(retour['data']['image_original_url'])
         else:
             return retour['data']['image_original_url']
-    except Exception as e: # pragma: no cover
-        print (e)
+    except Exception as e:  # pragma: no cover
+        print(e)
         return None
+
 
 def has_msg(msg):
     if not msg["query"]:
@@ -38,16 +40,19 @@ def has_msg(msg):
     else:
         return True, msg["query"]
 
+
 def do_gyphy(msg):
     cont, data = has_msg(msg)
     if cont:
         return get_gyphy(data, md="telegram" not in msg)
-    else: # pragma: no cover
+    else:  # pragma: no cover
         return data
+
 
 @register_as_command("gif", "Recherche une image sur giphy (prend un thème en paramètre)", "Gif", keywords=["giphy"])
 def cmd_gyphy(msg):
     return do_gyphy(msg)
+
 
 @register_as_command("fail", "LA catégorie !", "Gif")
 def cmd_gyphy_fail(msg):

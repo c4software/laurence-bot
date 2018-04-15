@@ -5,6 +5,7 @@ from tools.libs import *
 from commands import *
 from commands.giphy import get_gyphy, has_msg
 
+
 class TestGif(unittest.TestCase):
     def test_cmd_gif(self):
         data = make_attrs("valentin_test", "yolo", args=["yolo"])

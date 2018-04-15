@@ -11,6 +11,7 @@ from settings import DEBUG_USER
 
 class TestGeneral(unittest.TestCase):
     pseudo = "valentin_test"
+
     def test_start(self):
         data = make_attrs(self.pseudo, "", args=[""])
         self.assertIs(cmd_start(data), False)
@@ -40,7 +41,6 @@ class TestGeneral(unittest.TestCase):
         add_history(self.pseudo, "test")
         self.assertIsInstance(commands["plus"](data), str)
         self.assertTrue(get_awaiting_response(self.pseudo) is None)
-
 
     def test_learn(self):
         data = make_attrs(self.pseudo, "Bonjour", args=["Bonjour"])

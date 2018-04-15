@@ -23,9 +23,11 @@ import random, logging, os, sys, atexit, threading
 # Set up basic logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
+
 @atexit.register
 def final_handler():
-    print ("Stop")
+    print("Stop")
+
 
 # Gestion des taches planifié
 # bot = telegram.Bot(token=token)
@@ -47,9 +49,9 @@ def commands_handler(bot, update, args, no_fail_reply=False, attrs=None):
         if not attrs:
             attrs = make_attrs_from_telegram(update, bot, args, {})
         else:
-            bot     = attrs["telegram"]["bot"]
-            update  = attrs["telegram"]["update"]
-            args    = attrs["telegram"]["args"]
+            bot = attrs["telegram"]["bot"]
+            update = attrs["telegram"]["update"]
+            args = attrs["telegram"]["args"]
 
         commande = get_probable_command(update.message.text, bot.name)
 
@@ -74,15 +76,19 @@ def commands_handler(bot, update, args, no_fail_reply=False, attrs=None):
                     retour = " ".join(retour)
 
                 retour = emojize(retour)
-                bot.sendMessage(chat_id=update.message.chat_id, text=retour, reply_markup=ReplyKeyboardRemove(), parse_mode="Markdown")
+                bot.sendMessage(chat_id=update.message.chat_id, text=retour, reply_markup=ReplyKeyboardRemove(),
+                                parse_mode="Markdown")
                 # update.message.reply_text(retour, reply_markup=ReplyKeyboardRemove())
         elif no_fail_reply == False:
             # Cas d’erreur uniquement si on est dans le cas ou l’on doit pas répondre en cas d’erreur
-            update.message.reply_text("Désolé, je ne comprend pas encore votre demande… La liste des commandes est disponible via /aide", reply_markup=ReplyKeyboardRemove())
+            update.message.reply_text(
+                "Désolé, je ne comprend pas encore votre demande… La liste des commandes est disponible via /aide",
+                reply_markup=ReplyKeyboardRemove())
     except Exception as e:
-        print (e)
+        print(e)
         import traceback
         traceback.print_exc()
+
 
 @run_async
 def text_handler(bot, update):
@@ -90,25 +96,35 @@ def text_handler(bot, update):
     attrs = analyze_text(bot, update, do_google_search=is_private_channel(update))
     commands_handler(None, None, None, True, attrs=attrs)
 
+
 @run_async
 def location_handler(bot, update):
     args = update.message.text.split(' ')
     update.message.text = "/proche"
     commands_handler(bot, update, args[1:], no_fail_reply=True)
 
+
 @run_async
 def voice_handler(bot, update):
-    update.message.reply_text(emojize("Très jolie voix ! Mais je ne comprend pas encore la parole :cry:.", use_aliases=True), reply_markup=ReplyKeyboardRemove())
+    update.message.reply_text(
+        emojize("Très jolie voix ! Mais je ne comprend pas encore la parole :cry:.", use_aliases=True),
+        reply_markup=ReplyKeyboardRemove())
+
 
 def unknown_handler(bot, update):
-    update.message.reply_text("Désolé, je ne comprend pas encore votre demande… La liste des commandes est disponible via /aide", reply_markup=ReplyKeyboardRemove())
+    update.message.reply_text(
+        "Désolé, je ne comprend pas encore votre demande… La liste des commandes est disponible via /aide",
+        reply_markup=ReplyKeyboardRemove())
+
 
 def register_slash_commands():
     for command in commands:
         dispatcher.add_handler(CommandHandler(command, commands_handler, pass_args=True))
 
+
 def error(bot, update, error):
     logging.warn('Update "%s" caused error "%s"' % (update, error))
+
 
 if __name__ == '__main__':
     token = os.getenv('LAURENCE_TOKEN')
@@ -134,6 +150,6 @@ if __name__ == '__main__':
     # log all errors
     dispatcher.add_error_handler(error)
 
-    print ("Laurence is ready.")
+    print("Laurence is ready.")
 
     updater.start_polling()

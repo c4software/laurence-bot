@@ -4,6 +4,7 @@ import unittest
 from tools.libs import *
 from commands import *
 
+
 class TestBlog(unittest.TestCase):
     def test_cmd_commitstrip(self):
         data = make_attrs("valentin", "", args=[""])

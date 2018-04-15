@@ -8,6 +8,7 @@ from tools.text import add_alias
 from tools.libs import is_telegram, is_debug, get_username
 import json
 
+
 # Module d’ajout d’une correspondance entre un texte et une commande.
 
 @register_as_command("learn", "", "Interne")
@@ -37,7 +38,7 @@ def cmd_do_learn(msg):
         Bot Oui ?
 
     """
-    username    = get_username(msg)
+    username = get_username(msg)
     if not msg["query"]:
         command = get_history(username)[-3]
     else:

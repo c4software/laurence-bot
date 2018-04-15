@@ -4,6 +4,7 @@ import unittest
 from tools.libs import *
 from commands.libs.decorators import register_as_command, commands
 
+
 class testDecorator(unittest.TestCase):
     def test_decorator(self):
         @register_as_command("test_decorator")
@@ -16,7 +17,9 @@ class testDecorator(unittest.TestCase):
         @register_as_command("test_decorator", keywords=["test_decorator_alias"])
         def test():
             pass
+
         self.assertTrue("test_decorator_alias" in commands)
+
 
 if __name__ == '__main__':
     unittest.main()

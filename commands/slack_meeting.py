@@ -124,7 +124,6 @@ if SLACK_TOKEN:
 
         return text_for_report(username)
 
-
 if SLACK_TOKEN and SLACK_REPORT_CHANNEL:
     def report_planed():
         """

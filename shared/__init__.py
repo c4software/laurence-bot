@@ -1,5 +1,7 @@
 import threading
+
 shared = {}
+
 
 def get_data(key=None):
     ident = threading.get_ident()
@@ -9,12 +11,14 @@ def get_data(key=None):
         else:
             return shared[ident]
 
+
 def save_data(key, data):
     ident = threading.get_ident()
     if ident not in shared:
         shared[ident] = {}
 
     shared[ident][key] = data
+
 
 def clean_data():
     ident = threading.get_ident()

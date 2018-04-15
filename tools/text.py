@@ -21,10 +21,12 @@ from models.models import Learning_command
 
 tb = Blobber(pos_tagger=PatternTagger(), analyzer=PatternAnalyzer())
 
+
 def add_alias(command, tags):
     learning_command = Learning_command(tags, command)
     db_session.add(learning_command)
     db_session.commit()
+
 
 def find_closest(tags):
     tag_length = str(len(tags))
@@ -39,12 +41,13 @@ def find_closest(tags):
 
     return sorted(match)
 
+
 def analyze_text_slack(attrs):
     text = demojize(attrs["text"][0])
 
     # Analyse du texte en mode POS TAGGER
     blob = tb(text)
-    text_keywords = [(x[0].lower(),x[1]) for x in blob.tags]
+    text_keywords = [(x[0].lower(), x[1]) for x in blob.tags]
 
     username = attrs["user_name"][0]
     save_last_tags(username, text_keywords)
@@ -70,7 +73,7 @@ def analyze_text(bot, update, do_google_search=False):
 
     # Analyse du texte en mode POS TAGGER
     blob = tb(text)
-    text_keywords = [(x[0].lower(),x[1]) for x in blob.tags]
+    text_keywords = [(x[0].lower(), x[1]) for x in blob.tags]
 
     # Création de l’objet qui gère un peu tout
     attrs = make_attrs_from_telegram(update, bot, {})

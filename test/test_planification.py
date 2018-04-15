@@ -6,8 +6,10 @@ from commands import *
 from commands.planification import extract_hours_minutes
 from commands.libs.history import add_history
 
+
 class TestPlanification(unittest.TestCase):
     pseudo = "test_valentin"
+
     def test_extract_hours_minutes(self):
         hours, minutes = extract_hours_minutes("08:00")
         self.assertEqual(hours, "08")
@@ -20,6 +22,7 @@ class TestPlanification(unittest.TestCase):
     def test_planifier_no_heure_no_prev_messages(self):
         data = make_attrs(self.pseudo, "", args=[""])
         self.assertTrue("Désolé" in commands["planifier"](data))
+
 
 if __name__ == '__main__':
     unittest.main()

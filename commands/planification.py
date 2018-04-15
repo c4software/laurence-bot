@@ -8,6 +8,7 @@ from commands.libs.decorators import commands
 from database import db_session
 from models.models import Task
 
+
 def extract_hours_minutes(query):
     '''
     Éxtraction des heures du message saisie par l’utilisateur
@@ -18,6 +19,7 @@ def extract_hours_minutes(query):
         return query[0], query[1]
     else:
         return None, None
+
 
 @register_as_command("planning", "Affiche la liste des commandes planifier", keywords=[])
 def cmd_planning(msg):
@@ -30,6 +32,7 @@ def cmd_planning(msg):
         retour = "Aucune commande planifiés."
 
     return retour
+
 
 @register_as_command("planifier", "Planifier la réccurrence de la précédente commande", keywords=[])
 def cmd_planifier(msg):
@@ -54,7 +57,8 @@ def cmd_planifier(msg):
             task = Task(username_or_channel(msg), "{0}:{1}".format(heure, minute), previous_text)
             db_session.add(task)
             db_session.commit()
-            return "Parfait ! Vous allez recevoir automatiquement « {0} » tous les jours à {1}h{2}".format(previous_text, heure, minute)
+            return "Parfait ! Vous allez recevoir automatiquement « {0} » tous les jours à {1}h{2}".format(
+                previous_text, heure, minute)
         else:
             mark_for_awaiting_response(username_or_channel(msg), "planifier")
             return "À qu’elle heure voulez vous planifier l’envoi automatique de « {0} » ?".format(previous_text)

@@ -4,8 +4,10 @@ import unittest
 from tools.extended_BaseHTTPServer import *
 import tools
 
+
 class TestExtended_BaseHTTPServer(unittest.TestCase):
     pseudo = "test_valentin"
+
     def test_redirect(self):
         data = redirect("test_lien")
         self.assertTrue(data["Location"] == "test_lien")
@@ -26,8 +28,9 @@ class TestExtended_BaseHTTPServer(unittest.TestCase):
         @override("404")
         def stub():
             pass
-            
+
         self.assertTrue("404" in handler_method)
+
 
 if __name__ == '__main__':
     unittest.main()
