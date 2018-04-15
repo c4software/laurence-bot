@@ -39,7 +39,7 @@ def extract_command_query(commande):
     commande = commande.lower().split(' ')
     if commande[0].startswith("/"):
         commande[0] = commande[0][1:]
-     
+
     return commande
 
 def parse_direct_mention(message_text):
@@ -60,8 +60,6 @@ def handle_command(text, channel, event):
             if not isinstance(retour, str):
                 retour = " ".join(retour)
             post_message(retour, channel)
-        else:
-            post_message("Désolé, je ne comprend pas encore votre demande…", channel)
 
 def post_message(retour, channel):
     SLACKCLIENT.api_call("chat.postMessage", link_names=1, channel=channel, text=retour)
@@ -91,3 +89,4 @@ if __name__ == "__main__":
             if MESSAGE:
                 handle_command(MESSAGE, CHANNEL, EVENT)
             time.sleep(0.5)
+
