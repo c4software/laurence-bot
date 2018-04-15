@@ -19,6 +19,10 @@ MAP_TRADUCTION = {"today": "Tu prévois quoi aujourd'hui ?", "yesterday": "T'as 
 
 @register_as_command("meeting_report", "Affiche le rapport global", "Meeting")
 def cmd_report(msg = {}):
+    """
+        Genere le rapport pour la journée en cours,
+        et le supprime une fois envoyé dans le salon de reporting.
+    """
     message = ""
     report = copy.deepcopy(TODAY_MEETING)
     for username in report:
@@ -33,26 +37,18 @@ def cmd_report(msg = {}):
 
     if message:
         if SLACK_REPORT_CHANNEL != "" and SLACK_TOKEN != "":
-            send_slack_message_channel(message)
+            send_direct_message(SLACK_REPORT_CHANNEL, message, as_user=False)
             return "Message envoyé dans @{0}".format(SLACK_REPORT_CHANNEL)
         else:
             return message
     else:
-        return ""
-
-def get_slack_client():
-    from slackclient import SlackClient
-    return SlackClient(SLACK_TOKEN)
-
-def send_slack_message_channel(content):
-    client = get_slack_client()
-    client.api_call("chat.postMessage", link_names=1, channel=SLACK_REPORT_CHANNEL, text=content)
-
-def send_direct_message(client, user_id, content):
-    client.api_call("chat.postMessage", link_names=1, channel=user_id, text=content, as_user=True)
+        return "Aucun reporting pour l'instant"
 
 @register_as_command("meeting", "Enregistre une nouvelle entrée", "Meeting")
 def cmd_metting(msg):
+    """
+        Enregistrement d'un nouveau rapport
+    """
     username = get_username(msg)
     task = msg["query"]
 
@@ -65,6 +61,20 @@ def cmd_metting(msg):
             TODAY_MEETING[username]["today"] = task
 
     return text_for_report(username)
+
+def get_slack_client():
+    """
+        Retourne le client slack en fonction du token courant.
+    """
+    from slackclient import SlackClient
+    return SlackClient(SLACK_TOKEN)
+
+def send_direct_message(user_id, content, as_user=True):
+    """
+        Envoi d'un message direct dans un channel.
+    """
+    client = get_slack_client()
+    client.api_call("chat.postMessage", link_names=1, channel=user_id, text=content, as_user=as_user)
 
 def init_report_for_username(username):
     """
@@ -100,13 +110,12 @@ def ask_for_report():
     if is_weekend():
         return
 
-    client = get_slack_client()
     for user_id in SLACK_REPORT_MEMBERS:
         init_report_for_username(user_id)
         # Envoi le message uniquement au gens n'ayant pas fait leur report
         # (today et yesterday non présent dans TODAY_MEETING[username])
         if MAP_TRADUCTION.keys() >= TODAY_MEETING[user_id].keys():
-            send_direct_message(client, user_id, text_for_report(user_id))
+            send_direct_message(user_id, text_for_report(user_id))
             mark_for_awaiting_response(user_id, "meeting")
 
 if SLACK_REPORT_CHANNEL:
