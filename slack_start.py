@@ -12,7 +12,7 @@ from tools.libs import *
 from shared import save_data, clean_data
 from emoji import emojize, demojize
 
-import logging, os, sys, atexit, threading, time, re
+import logging, os, sys, time, re
 
 # Set up basic logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(message)s', level=logging.INFO)
@@ -28,11 +28,13 @@ SLACKCLIENT = SlackClient(SLACK_TOKEN)
 SLACKBOT_ID = None
 USERLIST = {}
 
+
 def parse_bot_messages(slack_events):
     for event in slack_events:
         if event["type"] == "message" and not "subtype" in event:
             return event["text"], event["channel"], event
     return None, None, None
+
 
 def extract_command_query(commande):
     commande = parse_direct_mention(commande)
@@ -42,9 +44,11 @@ def extract_command_query(commande):
 
     return commande
 
+
 def parse_direct_mention(message_text):
     matches = re.search(MENTION_REGEX, message_text)
     return matches.group(2).strip() if matches else message_text
+
 
 def handle_command(text, channel, event):
     commande = extract_command_query(text)
@@ -61,15 +65,18 @@ def handle_command(text, channel, event):
                 retour = " ".join(retour)
             post_message(retour, channel)
 
+
 def post_message(retour, channel):
     SLACKCLIENT.api_call("chat.postMessage", link_names=1, channel=channel, text=retour)
+
 
 def get_users_list_slack():
     client_list = SLACKCLIENT.api_call("users.list")
     if "members" in client_list:
-        return {u["id"]:u["name"] for u in client_list["members"]}
+        return {u["id"]: u["name"] for u in client_list["members"]}
     else:
         return {}
+
 
 def get_slack_username(user_id):
     global USERLIST
@@ -78,6 +85,7 @@ def get_slack_username(user_id):
     else:
         USERLIST = get_users_list_slack()
         return get_slack_username(user_id)
+
 
 if __name__ == "__main__":
     if SLACKCLIENT.rtm_connect(with_team_state=False):
@@ -89,4 +97,3 @@ if __name__ == "__main__":
             if MESSAGE:
                 handle_command(MESSAGE, CHANNEL, EVENT)
             time.sleep(0.5)
-

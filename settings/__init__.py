@@ -26,6 +26,10 @@ MASHAPE_KEY = "5HvqPQV9oimshSBiM0DVEMXL4158p1hUTxCjsn1ehRbrBuYNaQ"
 
 LEARN_PATH = "/tmp/learn.json"
 
-DEBUG_USER = ["C4software"]
+DEBUG_USER = ["C4software", "@valentin"]
 
 HUE_BRIDGE = "192.168.0.8"
+
+SLACK_REPORT_CHANNEL = "C51B0FF9T"
+SLACK_REPORT_MEMBERS = ["@valentin", "@steve", "@remi", "@fred", "@edouardouvrard", "@thibaud,@scot"]
+MAP_TRADUCTION = {"today": "Tu prévois quoi aujourd'hui ?", "yesterday": "T'as fait quoi hier ?"}
