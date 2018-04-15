@@ -18,7 +18,7 @@ TODAY_MEETING = {}
 MAP_TRADUCTION = {"today": "Tu prévois quoi aujourd'hui ?", "yesterday": "T'as fait quoi hier ?"}
 
 @register_as_command("meeting_report", "Affiche le rapport global", "Meeting")
-def cmd_report(msg = {}):
+def cmd_report(msg={}):
     """
         Genere le rapport pour la journée en cours,
         et le supprime une fois envoyé dans le salon de reporting.
