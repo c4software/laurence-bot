@@ -131,9 +131,12 @@ if SLACK_TOKEN and SLACK_REPORT_CHANNEL:
             Déclenché uniquement en mode slack.
         """
         print("Register report scheduling at « 10:00 » every week day")
-        print("Register ask_for_report scheduling at « 09:30 » every week day")
         schedule.every().day.at("10:00").do(cmd_report)
-        schedule.every().day.at("09:30").do(ask_for_report)
+
+        for time_schedule in ["09:30", "09:45", "09:50"]:
+            print("Register ask_for_report scheduling at « {0} » every week day".format(time_schedule))
+            schedule.every().day.at(time_schedule).do(ask_for_report)
+
         while schedule.run_pending:
             schedule.run_pending()
             time.sleep(1)
