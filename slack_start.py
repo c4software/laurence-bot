@@ -88,7 +88,7 @@ def get_slack_username(user_id):
 
 
 if __name__ == "__main__":
-    if SLACKCLIENT.rtm_connect(with_team_state=False):
+    if SLACKCLIENT.rtm_connect(with_team_state=False, auto_reconnect=True):
         print("Laurence is ready !")
         SLACKBOT_ID = SLACKCLIENT.api_call("auth.test")["user_id"]
         USERLIST = get_users_list_slack()
