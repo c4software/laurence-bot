@@ -49,7 +49,7 @@ def text_for_report(username):
         mark_for_awaiting_response(username, "meeting")
         return "Et aujourd'hui tu prévois quoi ?"
     else:
-        return "Merci !"
+        return None
 
 
 def is_weekend():
@@ -72,8 +72,12 @@ def ask_for_report():
         # Envoi le message uniquement au gens n'ayant pas fait leur report
         # (today et yesterday non présent dans TODAY_MEETING[username])
         if MAP_TRADUCTION.keys() >= TODAY_MEETING[user_id].keys():
-            send_direct_message(user_id, text_for_report(user_id))
-            mark_for_awaiting_response(user_id, "meeting")
+            text_to_send = text_for_report(user_id)
+            if text_to_send:
+                send_direct_message(user_id, text_to_send)
+                mark_for_awaiting_response(user_id, "meeting")
+            else:
+                pass
 
 
 if SLACK_TOKEN:
@@ -122,7 +126,12 @@ if SLACK_TOKEN:
             elif "today" not in TODAY_MEETING[username]:
                 TODAY_MEETING[username]["today"] = task
 
-        return text_for_report(username)
+        text_to_send = text_for_report(username)
+
+        if text_to_send:
+            return text_to_send
+        else:
+            return "Merci !"
 
 if SLACK_TOKEN and SLACK_REPORT_CHANNEL:
     def report_planed():
