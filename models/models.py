@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 
-from sqlalchemy import Column, Integer, String, Text, DateTime, TypeDecorator
+from sqlalchemy import Column, Integer, String, Text, DateTime
 from .custom_type import JsonEncodedDict
 
 from database import Base
 from datetime import datetime
+
+import datetime
 
 
 class User(Base):
@@ -53,6 +55,18 @@ class Task(Base):
         self.commande = commande
         self.last_execution = datetime.today()
 
+class MeetingReport(Base):
+    __tablename__ = "meeting_report"
+    id_report = Column(Integer, primary_key=True)
+    date_report = Column(DateTime, default=datetime.datetime.utcnow)
+    user = Column(Text)
+    team = Column(Text)
+    data = Column(Text)
+
+    def __init__(self, user, team, data):
+        self.user = user
+        self.team = team
+        self.data = data
 
 class Learning_command(Base):
     __tablename__ = "learning_command"
