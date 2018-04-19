@@ -142,7 +142,7 @@ if SLACK_TOKEN and SLACK_REPORT_CHANNEL:
         print("Register report scheduling at « 10:00 » every week day")
         schedule.every().day.at("10:00").do(cmd_report)
 
-        for time_schedule in ["09:30", "09:45", "09:50"]:
+        for time_schedule in ["09:00", "09:30", "09:45", "09:50"]:
             print("Register ask_for_report scheduling at « {0} » every week day".format(time_schedule))
             schedule.every().day.at(time_schedule).do(ask_for_report)
 
