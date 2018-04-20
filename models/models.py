@@ -61,7 +61,7 @@ class MeetingReport(Base):
     date_report = Column(DateTime, default=datetime.datetime.utcnow)
     user = Column(Text)
     team = Column(Text)
-    data = Column(Text)
+    data = Column(JsonEncodedDict)
 
     def __init__(self, user, team, data):
         self.user = user
