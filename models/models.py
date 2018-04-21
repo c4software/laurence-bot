@@ -4,8 +4,6 @@ from sqlalchemy import Column, Integer, String, Text, DateTime
 from .custom_type import JsonEncodedDict
 
 from database import Base
-from datetime import datetime
-
 import datetime
 
 
@@ -35,7 +33,7 @@ class Historique(Base):
 
         self.username = username
         self.text = text
-        self.datetime = datetime.today()
+        self.datetime = datetime.datetime.today()
 
 
 class Task(Base):
