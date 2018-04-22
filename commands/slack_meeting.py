@@ -44,10 +44,10 @@ def text_for_report(username):
     """
     if "yesterday" not in TODAY_MEETING[username]:
         mark_for_awaiting_response(username, "meeting")
-        return "Hey! T'as fait quoi hier ?"
+        return MAP_TRADUCTION["yesterday"]
     elif "today" not in TODAY_MEETING[username]:
         mark_for_awaiting_response(username, "meeting")
-        return "Et aujourd'hui tu prévois quoi ?"
+        return MAP_TRADUCTION["today"]
     else:
         return None
 
@@ -133,7 +133,7 @@ if SLACK_TOKEN:
         else:
             return "Merci !"
 
-if SLACK_TOKEN and SLACK_REPORT_CHANNEL:
+if SLACK_TOKEN and SLACK_TOKEN != "SAMPLE_TOKEN" and SLACK_REPORT_CHANNEL:
     def report_planed():
         """
             Méthode utilisé pour le thread des messages automatiques.

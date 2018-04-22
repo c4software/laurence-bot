@@ -1,3 +1,3 @@
 #!/bin/bash
 
-python -m unittest discover
+LAURENCE_TOKEN_SLACK="SAMPLE_TOKEN" python -m unittest discover
