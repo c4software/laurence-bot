@@ -9,9 +9,6 @@ from settings import *
 from tools.text import analyze_text_slack
 from tools.libs import *
 
-from shared import save_data, clean_data
-from emoji import emojize, demojize
-
 import logging, os, sys, time, re
 
 # Set up basic logging
