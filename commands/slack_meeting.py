@@ -12,6 +12,7 @@ from settings import SLACK_REPORT_CHANNEL, SLACK_REPORT_MEMBERS, MAP_TRADUCTION
 
 SLACK_TOKEN = os.environ.get("LAURENCE_TOKEN_SLACK", None)
 TODAY_MEETING = {}
+TEST_TOKEN = "SAMPLE_TOKEN"
 
 
 def get_slack_client():
@@ -101,7 +102,7 @@ if SLACK_TOKEN:
                     message += "\r\n"
 
         if message:
-            if SLACK_REPORT_CHANNEL != "" and SLACK_TOKEN != "":
+            if SLACK_REPORT_CHANNEL != "" and SLACK_TOKEN != "" and SLACK_TOKEN != TEST_TOKEN:
                 send_direct_message(SLACK_REPORT_CHANNEL, message, as_user=False)
                 return "Message envoyé dans @{0}".format(SLACK_REPORT_CHANNEL)
             else:
@@ -133,7 +134,7 @@ if SLACK_TOKEN:
         else:
             return "Merci !"
 
-if SLACK_TOKEN and SLACK_TOKEN != "SAMPLE_TOKEN" and SLACK_REPORT_CHANNEL:
+if SLACK_TOKEN and SLACK_TOKEN != TEST_TOKEN and SLACK_REPORT_CHANNEL:
     def report_planed():
         """
             Méthode utilisé pour le thread des messages automatiques.

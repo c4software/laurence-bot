@@ -10,13 +10,18 @@ from tools.libs import make_attrs
 class TestMeeting(unittest.TestCase):
     pseudo = "@valentin"
 
-    def test_cmd_meeting(self):
+    def test_meeting(self):
         data = make_attrs(self.pseudo, "meeting", args={})
         self.assertEqual(commands["meeting"](data), MAP_TRADUCTION["yesterday"])
         data = make_attrs(self.pseudo, "meeting", args="TEST 1")
         self.assertEqual(commands["meeting"](data), MAP_TRADUCTION["today"])
         data = make_attrs(self.pseudo, "meeting", args="TEST 2")
         self.assertEqual(commands["meeting"](data), "Merci !")
+
+        data = make_attrs(self.pseudo, "meeting_report", args="")
+        report_value = commands["meeting_report"](data)
+        self.assertIn("@valentin", report_value)
+        self.assertIn("T E S T   2", report_value)
 
 
 if __name__ == '__main__':
