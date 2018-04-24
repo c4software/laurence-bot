@@ -30,6 +30,9 @@ def parse_bot_messages(slack_events):
     for event in slack_events:
         if event["type"] == "message" and not "subtype" in event:
             return event["text"], event["channel"], event
+        elif event["type"] == "message_changed" and "previous_message" in event:
+            # FIXME Gestion de l'edition de message (Pour l'instant je retrigger l'event)
+            return event["text"], event["channel"], event
     return None, None, None
 
 
