@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from sqlalchemy import Column, Integer, String, Text, DateTime
+from sqlalchemy import Column, Integer, String, Text, Date
 from .custom_type import JsonEncodedDict
 
 from database import Base
@@ -56,7 +56,7 @@ class Task(Base):
 class MeetingReport(Base):
     __tablename__ = "meeting_report"
     id_report = Column(Integer, primary_key=True)
-    date_report = Column(DateTime, default=datetime.datetime.utcnow)
+    date_report = Column(Date, default=datetime.date.today())
     user = Column(Text)
     team = Column(Text)
     data = Column(JsonEncodedDict)
