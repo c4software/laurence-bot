@@ -9,11 +9,13 @@ from commands.libs.decorators import register_as_command
 import schedule
 from tools.libs import get_username
 from settings import SLACK_REPORT_CHANNEL, SLACK_REPORT_MEMBERS, MAP_TRADUCTION
+import holidays
+
 
 SLACK_TOKEN = os.environ.get("LAURENCE_TOKEN_SLACK", None)
 TODAY_MEETING = {}
 TEST_TOKEN = "SAMPLE_TOKEN"
-
+FRA = holy
 
 def get_slack_client():
     """
@@ -59,13 +61,19 @@ def is_weekend():
     """
     return datetime.datetime.today().weekday() >= 5
 
+def is_holidays():
+    """
+        Détermine si lejour courant est un jour ferié
+    :return:
+    """
+    return datetime.datetime.today() in holidays.FRA()
 
 def ask_for_report():
     """
         Fonction lancée automatiquement lors des messages automatiques, permet de demander
         aux différents utilisateurs leur rapport journalier.
     """
-    if is_weekend():
+    if is_weekend() or is_holidays():
         return
 
     for user_id in SLACK_REPORT_MEMBERS:
