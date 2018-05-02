@@ -10,3 +10,4 @@ wikipedia
 qhue
 slackclient
 schedule
+holidays
