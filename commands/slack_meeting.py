@@ -15,7 +15,6 @@ import holidays
 SLACK_TOKEN = os.environ.get("LAURENCE_TOKEN_SLACK", None)
 TODAY_MEETING = {}
 TEST_TOKEN = "SAMPLE_TOKEN"
-FRA = holy
 
 def get_slack_client():
     """
