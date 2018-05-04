@@ -30,8 +30,8 @@ USERLIST = {}
 
 def parse_bot_messages(slack_events):
     for event in slack_events:
-        message_type = ''
-        if "channel" in event:
+        message_type = 'C'
+        if "channel" in event and isinstance(event["channel"], str):
             if event["channel"].startswith("C"):
                 message_type = 'C'
             elif event["channel"].startswith("D"):
