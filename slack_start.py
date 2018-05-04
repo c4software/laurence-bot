@@ -28,22 +28,26 @@ USERLIST = {}
 
 def parse_bot_messages(slack_events):
     for event in slack_events:
-        message_type = 'dm'
-        if event["channel"].startswith("C"):
-            message_type = 'channel'
-        elif event["channel"].startswith("G")
-            message_type = "group"
+        message_type = ''
+        if "channel" in event:
+            if event["channel"].startswith("C"):
+                message_type = 'C'
+            elif event["channel"].startswith("D"):
+                message_type = "D"
+            elif event["channel"].startswith("G"):
+                message_type = "G"
 
         if event["type"] == "message" and not "subtype" in event:
             return event["text"], event["channel"], event, message_type
         elif event["type"] == "message_changed" and "previous_message" in event:
             # FIXME Gestion de l'edition de message (Pour l'instant je retrigger l'event)
             return event["text"], event["channel"], event, message_type
-    return None, None, None
+
+    return None, None, None, None
 
 
-def extract_command_query(commande):
-    commande = parse_direct_mention(commande)
+def extract_command_query(commande, message_type):
+    commande = parse_direct_mention(commande, message_type)
     commande = commande.lower().split(' ')
     if commande[0].startswith("/"):
         commande[0] = commande[0][1:]
@@ -51,18 +55,24 @@ def extract_command_query(commande):
     return commande
 
 
-def parse_direct_mention(message_text):
+def parse_direct_mention(message_text, message_type):
     matches = re.search(MENTION_REGEX, message_text)
+
+    # Si dans un salon et pas de pseudo alors on ne
+    if message_type == "C" and not matches:
+        return ""
+
+    # Sinon on parse et on retire le pseudo du bot.
     return matches.group(2).strip() if matches else message_text
 
 
 def handle_command(text, channel, event, message_type):
-    commande = extract_command_query(text)
+    commande = extract_command_query(text, message_type)
     pseudo = get_slack_username(event["user"])
     attrs = analyze_text_slack(make_attrs(pseudo, text, commande[1:], event["channel"], None, {}))
 
     # Extract data depuis la données analysée.
-    commande = extract_command_query(attrs["text"][0])
+    commande = extract_command_query(attrs["text"][0], message_type)
 
     if commande[0] in commands:
         retour = commands[commande[0]](attrs)
