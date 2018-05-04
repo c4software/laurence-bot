@@ -48,11 +48,14 @@ def parse_bot_messages(slack_events):
 
 def extract_command_query(commande, message_type):
     commande = parse_direct_mention(commande, message_type)
-    commande = commande.lower().split(' ')
-    if commande[0].startswith("/"):
-        commande[0] = commande[0][1:]
+    if commande:
+        commande = commande.lower().split(' ')
+        if commande[0].startswith("/"):
+            commande[0] = commande[0][1:]
 
-    return commande
+        return commande
+    else:
+        return None
 
 
 def parse_direct_mention(message_text, message_type):
@@ -68,18 +71,21 @@ def parse_direct_mention(message_text, message_type):
 
 def handle_command(text, channel, event, message_type):
     commande = extract_command_query(text, message_type)
-    pseudo = get_slack_username(event["user"])
-    attrs = analyze_text_slack(make_attrs(pseudo, text, commande[1:], event["channel"], None, {}))
 
-    # Extract data depuis la données analysée.
-    commande = extract_command_query(attrs["text"][0], message_type)
+    # On ignore si pas de commande dans le retour
+    if commande:
+        pseudo = get_slack_username(event["user"])
+        attrs = analyze_text_slack(make_attrs(pseudo, text, commande[1:], event["channel"], None, {}))
 
-    if commande[0] in commands:
-        retour = commands[commande[0]](attrs)
-        if retour != "" and retour is not None:
-            if not isinstance(retour, str):
-                retour = " ".join(retour)
-            post_message(retour, channel)
+        # Extract data depuis la données analysée.
+        commande = extract_command_query(attrs["text"][0], message_type)
+
+        if commande[0] in commands:
+            retour = commands[commande[0]](attrs)
+            if retour != "" and retour is not None:
+                if not isinstance(retour, str):
+                    retour = " ".join(retour)
+                post_message(retour, channel)
 
 
 def post_message(retour, channel):
