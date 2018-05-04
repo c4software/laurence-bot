@@ -79,7 +79,7 @@ class Learning_command(Base):
         self.tags_len = len(tags)
 
 
-class Links(Base):
+class Link(Base):
     __tablename__ = "links"
     id_links = Column(Integer, primary_key=True)
     date = Column(Date, default=datetime.date.today())

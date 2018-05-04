@@ -4,6 +4,7 @@ from commands import *
 from commands.libs.decorators import commands, descriptions
 from commands.libs.history import add_history
 from commands.general import cmd_start
+from models.models import Link
 from settings import *
 
 from tools.text import analyze_text_slack
@@ -15,6 +16,7 @@ import logging, os, sys, time, re
 logging.basicConfig(format='%(asctime)s - %(name)s - %(message)s', level=logging.INFO)
 
 MENTION_REGEX = "^<@(|[WU].+?)>(.*)"
+URL_REGEX = "https?://(?:[-\w.]|(?:%[\da-fA-F]{2}))+"
 SLACK_TOKEN = os.environ.get("LAURENCE_TOKEN_SLACK")
 
 if not SLACK_TOKEN:
@@ -86,7 +88,16 @@ def handle_command(text, channel, event, message_type):
                 if not isinstance(retour, str):
                     retour = " ".join(retour)
                 post_message(retour, channel)
+    else:
+        # C'est pas une commande, alors on cherche a extraire les liens du messages
+        links = re.findall(URL_REGEX, text)
+        for l in links:
+            link = Link(l, channel)
+            db_session.add(link)
 
+        if links:
+            print("Found {} link(s) => Saved in DB".format(len(links)))
+            db_session.commit()
 
 def post_message(retour, channel):
     SLACKCLIENT.api_call("chat.postMessage", link_names=1, channel=channel, text=retour)
