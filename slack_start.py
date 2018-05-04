@@ -61,8 +61,8 @@ def extract_command_query(commande, message_type):
 def parse_direct_mention(message_text, message_type):
     matches = re.search(MENTION_REGEX, message_text)
 
-    # Si dans un salon et pas de pseudo alors on ne
-    if message_type == "C" and not matches:
+    # Si dans un salon et les groupes et pas de pseudo alors on ignore
+    if message_type in ["C", "G"] and not matches:
         return ""
 
     # Sinon on parse et on retire le pseudo du bot.
