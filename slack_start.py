@@ -28,11 +28,17 @@ USERLIST = {}
 
 def parse_bot_messages(slack_events):
     for event in slack_events:
+        message_type = 'dm'
+        if event["channel"].startswith("C"):
+            message_type = 'channel'
+        elif event["channel"].startswith("G")
+            message_type = "group"
+
         if event["type"] == "message" and not "subtype" in event:
-            return event["text"], event["channel"], event
+            return event["text"], event["channel"], event, message_type
         elif event["type"] == "message_changed" and "previous_message" in event:
             # FIXME Gestion de l'edition de message (Pour l'instant je retrigger l'event)
-            return event["text"], event["channel"], event
+            return event["text"], event["channel"], event, message_type
     return None, None, None
 
 
@@ -50,7 +56,7 @@ def parse_direct_mention(message_text):
     return matches.group(2).strip() if matches else message_text
 
 
-def handle_command(text, channel, event):
+def handle_command(text, channel, event, message_type):
     commande = extract_command_query(text)
     pseudo = get_slack_username(event["user"])
     attrs = analyze_text_slack(make_attrs(pseudo, text, commande[1:], event["channel"], None, {}))
@@ -93,7 +99,7 @@ if __name__ == "__main__":
         SLACKBOT_ID = SLACKCLIENT.api_call("auth.test")["user_id"]
         USERLIST = get_users_list_slack()
         while True:
-            MESSAGE, CHANNEL, EVENT = parse_bot_messages(SLACKCLIENT.rtm_read())
+            MESSAGE, CHANNEL, EVENT, MESSAGE_TYPE = parse_bot_messages(SLACKCLIENT.rtm_read())
             if MESSAGE:
-                handle_command(MESSAGE, CHANNEL, EVENT)
+                handle_command(MESSAGE, CHANNEL, EVENT, MESSAGE_TYPE)
             time.sleep(0.5)
