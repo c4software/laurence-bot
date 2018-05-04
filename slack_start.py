@@ -91,8 +91,8 @@ def handle_command(text, channel, event, message_type):
     else:
         # C'est pas une commande, alors on cherche a extraire les liens du messages
         links = re.findall(URL_REGEX, text)
-        for l in links:
-            link = Link(l, channel)
+        for found_link in links:
+            link = Link(found_link, channel)
             db_session.add(link)
 
         if links:
