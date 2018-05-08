@@ -1,20 +1,22 @@
 # -*- coding: utf-8 -*-
-import os
+import copy
 import datetime
+import os
 import threading
 import time
-import copy
-from commands.libs.context import mark_for_awaiting_response
-from commands.libs.decorators import register_as_command
-import schedule
-from tools.libs import get_username
-from settings import SLACK_REPORT_CHANNEL, SLACK_REPORT_MEMBERS, MAP_TRADUCTION
-import holidays
 
+import holidays
+import schedule
+
+from commands.libs.context import mark_for_awaiting_response, get_awaiting_response
+from commands.libs.decorators import register_as_command
+from settings import SLACK_REPORT_CHANNEL, SLACK_REPORT_MEMBERS, MAP_TRADUCTION
+from tools.libs import get_username
 
 SLACK_TOKEN = os.environ.get("LAURENCE_TOKEN_SLACK", None)
 TODAY_MEETING = {}
 TEST_TOKEN = "SAMPLE_TOKEN"
+
 
 def get_slack_client():
     """
@@ -60,12 +62,14 @@ def is_weekend():
     """
     return datetime.datetime.today().weekday() >= 5
 
+
 def is_holidays():
     """
         Détermine si lejour courant est un jour ferié
     :return:
     """
     return datetime.datetime.today() in holidays.FRA()
+
 
 def ask_for_report():
     """
@@ -86,6 +90,15 @@ def ask_for_report():
                 mark_for_awaiting_response(user_id, "meeting")
             else:
                 pass
+
+
+def remove_awaitings():
+    """
+    Supprime le mode « attente » de réponse.
+    :return:
+    """
+    for user_id in SLACK_REPORT_MEMBERS:
+        get_awaiting_response(user_id)
 
 
 if SLACK_TOKEN:
@@ -109,6 +122,7 @@ if SLACK_TOKEN:
                     message += "\r\n"
 
         if message:
+            remove_awaitings()
             if SLACK_REPORT_CHANNEL != "" and SLACK_TOKEN != "" and SLACK_TOKEN != TEST_TOKEN:
                 send_direct_message(SLACK_REPORT_CHANNEL, message, as_user=False)
                 return "Message envoyé dans @{0}".format(SLACK_REPORT_CHANNEL)
