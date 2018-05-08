@@ -77,10 +77,14 @@ def handle_command(text, channel, event, message_type):
     # On ignore si pas de commande dans le retour
     if commande:
         pseudo = get_slack_username(event["user"])
-        attrs = analyze_text_slack(make_attrs(pseudo, text, commande[1:], event["channel"], None, {}))
 
-        # Extract data depuis la données analysée.
-        commande = extract_command_query(attrs["text"][0], message_type)
+        # Pour les DM on analyse le texte (et le contexte)
+        if message_type == "D":
+            # Extract data depuis la données analysée.
+            attrs = analyze_text_slack(make_attrs(pseudo, text, commande[1:], event["channel"], None, {}))
+            extracted_commande = extract_command_query(attrs["text"][0], message_type)
+            if extracted_commande:
+                commande = extracted_commande
 
         if commande[0] in commands:
             retour = commands[commande[0]](attrs)
