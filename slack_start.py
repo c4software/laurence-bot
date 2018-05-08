@@ -1,16 +1,13 @@
+import os
+import re
+import sys
+import time
+
 from slackclient import SlackClient
 
-from commands import *
-from commands.libs.decorators import commands, descriptions
-from commands.libs.history import add_history
-from commands.general import cmd_start
 from models.models import Link
-from settings import *
-
-from tools.text import analyze_text_slack
 from tools.libs import *
-
-import logging, os, sys, time, re
+from tools.text import analyze_text_slack
 
 # Set up basic logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(message)s', level=logging.INFO)
@@ -78,10 +75,11 @@ def handle_command(text, channel, event, message_type):
     if commande:
         pseudo = get_slack_username(event["user"])
 
-        # Pour les DM on analyse le texte (et le contexte)
+        # Extract data depuis la données analysée.
+        attrs = analyze_text_slack(make_attrs(pseudo, text, commande[1:], event["channel"], None, {}))
+
+        # Pour les DM on rescan les nouvelles data
         if message_type == "D":
-            # Extract data depuis la données analysée.
-            attrs = analyze_text_slack(make_attrs(pseudo, text, commande[1:], event["channel"], None, {}))
             extracted_commande = extract_command_query(attrs["text"][0], message_type)
             if extracted_commande:
                 commande = extracted_commande
@@ -102,6 +100,7 @@ def handle_command(text, channel, event, message_type):
         if links:
             print("Found {} link(s) => Saved in DB".format(len(links)))
             db_session.commit()
+
 
 def post_message(retour, channel):
     SLACKCLIENT.api_call("chat.postMessage", link_names=1, channel=channel, text=retour)
