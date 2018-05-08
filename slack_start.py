@@ -1,13 +1,16 @@
-import os
-import re
-import sys
-import time
-
 from slackclient import SlackClient
 
+from commands import *
+from commands.libs.decorators import commands, descriptions
+from commands.libs.history import add_history
+from commands.general import cmd_start
 from models.models import Link
-from tools.libs import *
+from settings import *
+
 from tools.text import analyze_text_slack
+from tools.libs import *
+
+import logging, os, sys, time, re
 
 # Set up basic logging
 logging.basicConfig(format='%(asctime)s - %(name)s - %(message)s', level=logging.INFO)
@@ -80,17 +83,17 @@ def handle_command(text, channel, event, message_type):
 
         # Extract data depuis la données analysée.
         attrs = analyze_text_slack(make_attrs(pseudo, text, commande[1:], event["channel"], None, {}), ignore_context)
-
-        extracted_commande = extract_command_query(attrs["text"][0], message_type)
-        if extracted_commande:
-            commande = extracted_commande
-
-        if commande[0] in commands:
-            retour = commands[commande[0]](attrs)
-            if retour != "" and retour is not None:
-                if not isinstance(retour, str):
-                    retour = " ".join(retour)
-                post_message(retour, channel)
+        commande = extract_command_query(attrs["text"][0], message_type)
+        try:
+            if commande[0] in commands:
+                retour = commands[commande[0]](attrs)
+                if retour != "" and retour is not None:
+                    if not isinstance(retour, str):
+                        retour = " ".join(retour)
+                    post_message(retour, channel)
+        except Exception as e:
+            print(e)
+            pass
     else:
         # C'est pas une commande, alors on cherche a extraire les liens du messages
         links = re.findall(URL_REGEX, text)
