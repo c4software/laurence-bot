@@ -1,23 +1,16 @@
 # -*- coding: utf-8 -*-
 
+import difflib
+
 from emoji import emojize, demojize
-from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove, KeyboardButton
-from commands.libs.decorators import commands
-
-from settings import DEBUG_USER
-
-import difflib, random
 from textblob import Blobber
 from textblob_fr import PatternTagger, PatternAnalyzer
 
-from commands.libs.history import save_last_tags
-
 from commands.libs.context import get_awaiting_response
-
-from tools.libs import is_debug, send_message_debug_users, username_or_channel, make_attrs_from_telegram, make_attrs
-
+from commands.libs.history import save_last_tags
 from database import db_session
 from models.models import Learning_command
+from tools.libs import send_message_debug_users, username_or_channel, make_attrs_from_telegram, make_attrs
 
 tb = Blobber(pos_tagger=PatternTagger(), analyzer=PatternAnalyzer())
 
@@ -42,7 +35,7 @@ def find_closest(tags):
     return sorted(match)
 
 
-def analyze_text_slack(attrs):
+def analyze_text_slack(attrs, ignore_context):
     text = demojize(attrs["text"][0])
 
     # Analyse du texte en mode POS TAGGER
@@ -53,7 +46,9 @@ def analyze_text_slack(attrs):
     save_last_tags(username, text_keywords)
     closest = find_closest(text_keywords)
 
-    awaiting_command = get_awaiting_response(username)
+    awaiting_command = None
+    if not ignore_context:
+        awaiting_command = get_awaiting_response(username)
 
     if awaiting_command:
         # Il y avait une commande en attente alors on append celle-ci pour une l’executer
