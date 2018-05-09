@@ -135,5 +135,8 @@ if __name__ == "__main__":
         while True:
             MESSAGE, CHANNEL, EVENT, MESSAGE_TYPE = parse_bot_messages(SLACKCLIENT.rtm_read())
             if MESSAGE:
-                handle_command(MESSAGE, CHANNEL, EVENT, MESSAGE_TYPE)
-            time.sleep(0.5)
+                try:
+                    handle_command(MESSAGE, CHANNEL, EVENT, MESSAGE_TYPE)
+                    time.sleep(0.5)
+                except Exception as e:
+                    pass
