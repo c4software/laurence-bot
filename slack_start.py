@@ -103,7 +103,7 @@ def handle_command(text, channel, event, message_type):
 
         if links:
             print("Found {} link(s) => Saved in DB".format(len(links)))
-            react_message(channel)
+            react_message(event["ts"], channel, "thumbsup")
             db_session.commit()
 
 
@@ -111,8 +111,8 @@ def post_message(retour, channel):
     SLACKCLIENT.api_call("chat.postMessage", link_names=1, channel=channel, text=retour)
 
 
-def react_message(channel):
-    SLACKCLIENT.api_call("reactions.add", channel=channel, name="thumbsup")
+def react_message(timestamp, channel, name):
+    SLACKCLIENT.api_call("reactions.add", channel=channel, name=name, timestamp=timestamp)
 
 
 def get_users_list_slack():
@@ -144,4 +144,5 @@ if __name__ == "__main__":
                     handle_command(MESSAGE, CHANNEL, EVENT, MESSAGE_TYPE)
                     time.sleep(0.5)
                 except Exception as e:
+                    print(e)
                     pass
