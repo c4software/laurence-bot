@@ -16,7 +16,7 @@ import logging, os, sys, time, re
 logging.basicConfig(format='%(asctime)s - %(name)s - %(message)s', level=logging.INFO)
 
 MENTION_REGEX = "^<@(|[WU].+?)>(.*)"
-URL_REGEX = "https?://(?:[-\w.]|(?:%[\da-fA-F]{2}))+"
+URL_REGEX = r"""(?i)\b((?:[a-z][\w-]+:(?:/{1,3}|[a-z0-9%])|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'".,<>?«»“”‘’]))"""
 SLACK_TOKEN = os.environ.get("LAURENCE_TOKEN_SLACK")
 
 if not SLACK_TOKEN:
