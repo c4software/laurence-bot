@@ -53,6 +53,7 @@ class Task(Base):
         self.commande = commande
         self.last_execution = datetime.today()
 
+
 class MeetingReport(Base):
     __tablename__ = "meeting_report"
     id_report = Column(Integer, primary_key=True)
@@ -65,6 +66,7 @@ class MeetingReport(Base):
         self.user = user
         self.team = team
         self.data = data
+
 
 class Learning_command(Base):
     __tablename__ = "learning_command"
@@ -82,10 +84,10 @@ class Learning_command(Base):
 class Link(Base):
     __tablename__ = "links"
     id_links = Column(Integer, primary_key=True)
-    date = Column(Date, default=datetime.date.today())
+    date = Column(DateTime, default=datetime.datetime.now())
     link = Column(Text)
     channel = Column(Text)
 
     def __init__(self, link, channel):
         self.link = link
-        self.channel  = channel
+        self.channel = channel
