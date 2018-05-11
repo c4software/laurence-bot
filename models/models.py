@@ -84,7 +84,7 @@ class Learning_command(Base):
 class Link(Base):
     __tablename__ = "links"
     id_links = Column(Integer, primary_key=True)
-    date = Column(DateTime, default=datetime.datetime.now())
+    date = Column(DateTime, default=datetime.datetime.utcnow())
     link = Column(Text)
     channel = Column(Text)
 
