@@ -20,3 +20,6 @@ if SLACK_TOKEN:
         current_time = datetime.datetime.utcnow()
         seven_days_ago = current_time - datetime.timedelta(days=7)
         link_shared = Link.query.filter_by(channel=attrs["channel"]).filter(Link.date > seven_days_ago).all()
+
+        if link_shared:
+            return "Weekly Report : \r\n- {0}".format("\r\n- ".join(link_shared))

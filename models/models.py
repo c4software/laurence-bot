@@ -91,3 +91,6 @@ class Link(Base):
     def __init__(self, link, channel):
         self.link = link
         self.channel = channel
+
+    def __repr__(self):
+        return self.link
