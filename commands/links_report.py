@@ -18,12 +18,12 @@ def get_slack_client():
     return SlackClient(SLACK_TOKEN)
 
 
-def send_direct_message(user_id, content, as_user=True):
+def send_direct_message(channel_id, content, as_user=True):
     """
         Envoi d'un message direct dans un channel.
     """
     client = get_slack_client()
-    client.api_call("chat.postMessage", link_names=1, channel=user_id, text=content, as_user=as_user)
+    client.api_call("chat.postMessage", link_names=1, channel=channel_id, text=content, as_user=as_user)
 
 
 def links_report_for_channel(channel):
@@ -64,3 +64,7 @@ if SLACK_TOKEN:
         current_time = datetime.datetime.utcnow()
         seven_days_ago = current_time - datetime.timedelta(days=7)
         channels = Link.query.filter(Link.date > seven_days_ago).group_by(Link.channel).all()
+        for channel in channels:
+            send_direct_message(channel, links_report_for_channel(channel))
+
+        return "OK"
