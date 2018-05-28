@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from commands.libs.decorators import register_as_command
 from tools.rest import callrest
 import logging, json
@@ -15,7 +14,8 @@ def search_arround_me(query):
     for rech in type_recherche:
         params = {"accept-language": "fr", "format": "json", "limit": 5, "addressdetails": 1,
                   "q": "[{1}] {0}".format(query, rech)}
-        data = callrest(domain="nominatim.openstreetmap.org", port="80", params=params, path="/search", type="GET")[2]
+        data = callrest(domain="nominatim.openstreetmap.org", ssl=True, params=params, path="/search",
+                        type="GET")[2]
         data = json.loads(data)
 
         retour = []
