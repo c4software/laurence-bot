@@ -4,6 +4,7 @@ import datetime
 import os
 import threading
 import time
+from collections import OrderedDict
 
 import holidays
 import schedule
@@ -39,7 +40,7 @@ def init_report_for_username(username):
         Initialise la structure pour le « rapport » de l'utilisateur.
     """
     if username not in TODAY_MEETING:
-        TODAY_MEETING[username] = {}
+        TODAY_MEETING[username] = OrderedDict()
 
 
 def text_for_report(username):
