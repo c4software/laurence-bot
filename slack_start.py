@@ -138,11 +138,12 @@ if __name__ == "__main__":
         SLACKBOT_ID = SLACKCLIENT.api_call("auth.test")["user_id"]
         USERLIST = get_users_list_slack()
         while True:
+            MESSAGE, CHANNEL, EVENT, MESSAGE_TYPE = None, None, None, None
             try:
                 MESSAGE, CHANNEL, EVENT, MESSAGE_TYPE = parse_bot_messages(SLACKCLIENT.rtm_read())
             except:
                 pass
-            
+
             if MESSAGE:
                 try:
                     handle_command(MESSAGE, CHANNEL, EVENT, MESSAGE_TYPE)
